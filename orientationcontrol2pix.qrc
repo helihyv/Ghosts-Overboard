@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/pix">
+        <file>meri.png</file>
+        <file>tursas.png</file>
+    </qresource>
+</RCC>
