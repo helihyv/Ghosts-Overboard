@@ -2,5 +2,7 @@
     <qresource prefix="/pix">
         <file>meri.png</file>
         <file>tursas.png</file>
+        <file>kari.png</file>
+        <file>aave.png</file>
     </qresource>
 </RCC>

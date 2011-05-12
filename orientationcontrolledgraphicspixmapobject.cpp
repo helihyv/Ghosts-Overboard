@@ -48,6 +48,9 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
 
  //   qDebug() << deltax << " " << deltay;
 
+    int oldx = x();
+    int oldy = y();
+
     int newx = x() + deltax/15;
     int newy = y() + deltay/15;
 
@@ -58,6 +61,17 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
     setX(qBound(sceneRectangle.left(),newx,sceneRectangle.right()-pixmap().width()));
     setY(qBound(sceneRectangle.top(),newy,sceneRectangle.bottom()-pixmap().height()));
 
+    QList<QGraphicsItem*>  collidesList = collidingItems();
+    if (!collidesList.isEmpty())
+    {
+        qDebug() << collidesList.at(0)->data(0);
+        if (collidesList.at(0)->data(0) == "rock")
+        {
+            setX(oldx);
+            setY(oldy);
+        }
+    }
+
 }
 
 
@@ -65,6 +79,12 @@ void OrientationControlledGraphicsPixmapObject::setBoundaries(QRectF boundaryrec
 {
     boundaryrect_ = boundaryrect;
 
+}
+
+void OrientationControlledGraphicsPixmapObject::setObstacles(int key, QList<QVariant> values)
+{
+    obstacleKey_ = key;
+    obstacleValues_ = values;
 }
 
 

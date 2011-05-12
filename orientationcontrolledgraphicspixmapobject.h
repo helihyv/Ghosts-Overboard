@@ -7,6 +7,7 @@
 QTM_USE_NAMESPACE
 
 
+
 class OrientationControlledGraphicsPixmapObject : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -22,12 +23,21 @@ public slots:
     void readRotationSensor();
     void setBoundaries(QRectF boundaryrect);
 
+    /*! sets what QGraphicsItems to treat as obstacles not to move on top of
+        @param key The key to be used with QGraphicsItem::data() to find the correct value to compare
+        @param values The values received from QGraphicsItem::data() to treat as obstacles
+    */
+    void setObstacles(int key, QList<QVariant> values);
+
 
 private:
 
     QRotationSensor rotationSensor_;
 
     QRectF boundaryrect_;
+
+    int obstacleKey_;
+    QList<QVariant> obstacleValues_;
 
 };
 
