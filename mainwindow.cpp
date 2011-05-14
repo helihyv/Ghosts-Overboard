@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "timercontrolledtursas.h"
 #include <QPixmap>
 #include <QTimer>
 #include <QDebug>
@@ -44,6 +45,13 @@ MainWindow::MainWindow(QWidget *parent)
     pRock->setData(0,"rock");
     pRock2->moveBy(80,80);
     pRock2->setData(0,"rock");
+
+    TimerControlledTursas * pMustekala = new TimerControlledTursas (QPixmap(":/pix/tursas.png"),100);
+    pScene_->addItem(pMustekala);
+
+    pMustekala->startMoving();
+
+
 
 
 }

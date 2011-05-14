@@ -12,10 +12,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    orientationcontrolledgraphicspixmapobject.cpp
+    orientationcontrolledgraphicspixmapobject.cpp \
+    timercontrolledtursas.cpp
 
 HEADERS  += mainwindow.h \
-    orientationcontrolledgraphicspixmapobject.h
+    orientationcontrolledgraphicspixmapobject.h \
+    timercontrolledtursas.h
 
 CONFIG += mobility
 MOBILITY = sensors
