@@ -29,14 +29,14 @@ void TimerControlledTursas::setSpeed(int speed)
 void TimerControlledTursas::move()
 {
 
-    if (!scene()) //no movement if this item does not belong to a scene
-        return;
-
     int oldx = x();
     int oldy = y();
 
     int newx = oldx;
     int newy = oldy;
+
+
+    //calculate the new position
 
     if (direction_ == E || direction_ == SE || direction_ == NE)
     {
@@ -59,14 +59,50 @@ void TimerControlledTursas::move()
     }
 
 
-    //These three lines are identical with the orientationcontrolled version - should there be a common base class with a function to handle this?
+
+    //Bound the item into the scene and change direction if hitting a boundary
+
+    if (!scene()) //no movement if this item does not belong to a scene
+        return;
 
     QRect sceneRectangle = scene()->sceneRect().toRect();
-    setX(qBound(sceneRectangle.left(),newx,sceneRectangle.right()-pixmap().width()));
-    setY(qBound(sceneRectangle.top(),newy,sceneRectangle.bottom()-pixmap().height()));
 
+    if (newx < sceneRectangle.left() || newx > sceneRectangle.right())
+    {
+        changeDirection();
+        return;
+    }
+
+
+    if (newy < sceneRectangle.top() || newy > sceneRectangle.bottom())
+    {
+        changeDirection();
+        return;     //the old x and y values remain intact
+    }
+
+
+    //Set the new position
+
+    setX(newx);
+    setY(newy);
+
+
+    //If the new position would collide with anything, go back to the old position and change direction
+
+    QList<QGraphicsItem*>  collidesList = collidingItems();
+    if (!collidesList.isEmpty())
+    {
+        setX(oldx);
+        setY(oldy);
+        changeDirection();
+    }
 
 
 }
 
+void TimerControlledTursas::changeDirection()
+{
+   // direction_ = rand()/8;
+
+}
 

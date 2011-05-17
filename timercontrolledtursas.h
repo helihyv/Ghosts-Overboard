@@ -29,7 +29,9 @@ public slots:
     void setSpeed(int speed);
 
 
- private:
+ protected:
+
+    void changeDirection();
 
     QTimer timer_;
 

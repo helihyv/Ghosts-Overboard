@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     TimerControlledTursas * pMustekala = new TimerControlledTursas (QPixmap(":/pix/tursas.png"),100);
     pScene_->addItem(pMustekala);
-
+    pMustekala->moveBy(100,100);
     pMustekala->startMoving();
 
 
