@@ -61,6 +61,7 @@ void TimerControlledTursas::move()
 
 
     //Bound the item into the scene and change direction if hitting a boundary
+    //Only works if the old position is inside the boundaries
 
     if (!scene()) //no movement if this item does not belong to a scene
         return;

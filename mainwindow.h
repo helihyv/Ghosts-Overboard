@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 #include <QGraphicsView>
 #include "orientationcontrolledgraphicspixmapobject.h"
+#include "seascene.h"
 
 class MainWindow : public QMainWindow
 {
@@ -19,7 +20,7 @@ public slots:
 
 private:
 
-QGraphicsScene * pScene_;
+SeaScene * pScene_;
 QGraphicsView * pView_;
 OrientationControlledGraphicsPixmapObject * pTursas_;
 bool paused_;

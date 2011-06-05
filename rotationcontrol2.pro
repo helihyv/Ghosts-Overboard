@@ -13,11 +13,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     orientationcontrolledgraphicspixmapobject.cpp \
-    timercontrolledtursas.cpp
+    timercontrolledtursas.cpp \
+    seascene.cpp \
+    seaview.cpp
 
 HEADERS  += mainwindow.h \
     orientationcontrolledgraphicspixmapobject.h \
-    timercontrolledtursas.h
+    timercontrolledtursas.h \
+    seascene.h \
+    seaview.h
 
 CONFIG += mobility
 MOBILITY = sensors
@@ -40,3 +44,9 @@ unix:!symbian {
 
 RESOURCES += \
     orientationcontrol2pix.qrc
+
+maemo5 {
+    desktopfile.files = $${TARGET}.desktop
+    desktopfile.path = /usr/share/applications/hildon
+    INSTALLS += desktopfile
+}

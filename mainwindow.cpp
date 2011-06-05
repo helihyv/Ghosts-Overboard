@@ -13,13 +13,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     paused_ = false;
 
-    pScene_ = new QGraphicsScene ();
+    pScene_ = new SeaScene ();
     pView_  = new QGraphicsView ();
 
     QPixmap waves (":/pix/meri.png");
     pScene_->setBackgroundBrush(QBrush(waves));
 
-    pTursas_ = new OrientationControlledGraphicsPixmapObject(QPixmap(":/pix/tursas.png"));
+    pTursas_ = new OrientationControlledGraphicsPixmapObject(QPixmap(":/pix/laiva.png"));
     pScene_->addItem(pTursas_);
 
     pView_->setScene(pScene_);
@@ -37,8 +37,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pPauseAction,SIGNAL(triggered(bool)),this,SLOT(pause(bool)));
     menuBar()->addAction(pPauseAction);
 
-    QGraphicsPixmapItem * pGhost = pScene_->addPixmap(QPixmap(":/pix/aave.png"));
-    pGhost->setData(0,"ghost");
+//    QGraphicsPixmapItem * pGhost = pScene_->addPixmap(QPixmap(":/pix/aave.png"));
+//    pGhost->setData(0,"ghost");
     QGraphicsPixmapItem * pRock =  pScene_->addPixmap(QPixmap(":/pix/kari.png"));
         QGraphicsPixmapItem * pRock2 =  pScene_->addPixmap(QPixmap(":/pix/kari.png"));
     pRock->moveBy(40,40);
@@ -77,6 +77,8 @@ void MainWindow::initializeBoundaries()
     pTursas_->startMoving();
 
     qDebug() << "Initialized boundaries" << rectangle.left() << rectangle.right() << pView_->width();
+
+    pScene_->setupMap(5,5,5);
 }
 
 void MainWindow::pause(bool paused)
