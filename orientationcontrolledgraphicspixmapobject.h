@@ -21,23 +21,20 @@ public slots:
     void startMoving();
     void stopMoving();
     void readRotationSensor();
-    void setBoundaries(QRectF boundaryrect);
 
-    /*! sets what QGraphicsItems to treat as obstacles not to move on top of
-        @param key The key to be used with QGraphicsItem::data() to find the correct value to compare
-        @param values The values received from QGraphicsItem::data() to treat as obstacles
-    */
-    void setObstacles(int key, QList<QVariant> values);
 
+protected:
+    /*! Returns true if the new position is to be maintained and false if a revert back to the old position is needed.
+        This stub always just returns true. Actual collision handling is left for subclasses to implement (by reimplementing this function).
+*/
+    virtual bool handleCollisions();
 
 private:
 
     QRotationSensor rotationSensor_;
 
-    QRectF boundaryrect_;
 
-    int obstacleKey_;
-    QList<QVariant> obstacleValues_;
+
 
 };
 

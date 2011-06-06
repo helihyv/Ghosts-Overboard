@@ -1,6 +1,6 @@
 #include "seascene.h"
 #include "timercontrolledtursas.h"
-#include "orientationcontrolledgraphicspixmapobject.h"
+#include "ship.h"
 #include <QGraphicsPixmapItem>
 #include <QDebug>
 #include <QMessageBox>
@@ -94,7 +94,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
         return;
     }
 
-    OrientationControlledGraphicsPixmapObject * pShip = new OrientationControlledGraphicsPixmapObject(QPixmap(":/pix/laiva.png"));
+    Ship * pShip = new Ship (QPixmap(":/pix/laiva.png"));
     pShip->setData(0,"ship");
     pShip->setPos(*pPosition);
     addItem(pShip);

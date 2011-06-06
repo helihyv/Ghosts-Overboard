@@ -61,31 +61,21 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
     setX(qBound(sceneRectangle.left(),newx,sceneRectangle.right()-pixmap().width()));
     setY(qBound(sceneRectangle.top(),newy,sceneRectangle.bottom()-pixmap().height()));
 
-    QList<QGraphicsItem*>  collidesList = collidingItems();
-    if (!collidesList.isEmpty())
+
+    //handle collisions and move back to the original position if false returned
+
+    if (handleCollisions() == false)
     {
-        qDebug() << collidesList.at(0)->data(0);
-        if (collidesList.at(0)->data(0) == "rock")
-        {
-            setX(oldx);
-            setY(oldy);
-        }
+        setX(oldx);
+        setY(oldy);
     }
 
 }
 
 
-void OrientationControlledGraphicsPixmapObject::setBoundaries(QRectF boundaryrect)
+bool OrientationControlledGraphicsPixmapObject::handleCollisions()
 {
-    boundaryrect_ = boundaryrect;
-
+    qDebug() << "I should not be here!";
+    return true;
 }
-
-void OrientationControlledGraphicsPixmapObject::setObstacles(int key, QList<QVariant> values)
-{
-    obstacleKey_ = key;
-    obstacleValues_ = values;
-}
-
-
 
