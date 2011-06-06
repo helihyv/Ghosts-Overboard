@@ -75,7 +75,6 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
 
 bool OrientationControlledGraphicsPixmapObject::handleCollisions()
 {
-    qDebug() << "I should not be here!";
     return true;
 }
 
