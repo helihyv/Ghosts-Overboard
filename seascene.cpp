@@ -58,6 +58,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
 
     //spread the ghosts
 
+    ghostsLeft_ = ghosts;
     spreadGhosts(ghosts);
 
 
@@ -99,6 +100,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     pShip->setPos(*pPosition);
     addItem(pShip);
     connect(pShip,SIGNAL(pickingGhost(QGraphicsItem*)),this, SLOT(removeGhost(QGraphicsItem*)) );
+    connect(pShip,SIGNAL(droppingGhosts(int)),this,SLOT(ghostsDropped(int)));
     pShip->startMoving();
     delete pPosition;
 }
@@ -138,4 +140,17 @@ void SeaScene::removeGhost(QGraphicsItem *pGhost)
     removeItem(pGhost);  //remove the item from scene
     freeTiles_.append(pGhost->scenePos()); //add the item's position to free slots
     delete pGhost;
+    ghostsLeft_--;
+    if (ghostsLeft_ == 0)
+    {
+        //here whatever happens when a level is complete / a signal
+        qDebug() << "All ghosts picked!";
+    }
+}
+
+void SeaScene::ghostsDropped(int ghosts)
+{
+    ghostsLeft_ += ghosts;
+
+    spreadGhosts(ghosts);
 }

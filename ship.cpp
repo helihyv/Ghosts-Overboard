@@ -24,7 +24,10 @@ bool Ship::handleCollisions()
 
         if (type == "rock" || type == "octopus")
         {
-//            dropGhosts();
+            // drop all ghosts when hitting an obstacle
+            emit droppingGhosts(ghostsAboard_);
+            ghostsAboard_ = 0;
+
             return false;
         }
 

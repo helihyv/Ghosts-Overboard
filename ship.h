@@ -14,6 +14,9 @@ signals:
     /*! Emitted when a ghost is hit */
     void  pickingGhost(QGraphicsItem* pGhost);
 
+    /*! Emitted when ghosts fall over board */
+    void droppingGhosts (int ghosts);
+
 public slots:
 
 protected:

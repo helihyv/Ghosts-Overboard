@@ -25,6 +25,8 @@ public slots:
 
     void removeGhost(QGraphicsItem * pGhost);
 
+    void ghostsDropped(int ghosts);
+
 protected:
 
     /*! Gives a pointer to a random position if a free one is found. Otherwise returns NULL.
@@ -39,6 +41,8 @@ protected:
     const QStringList shipImageFilenames_;
 
     QList<QPointF> freeTiles_;
+
+    int ghostsLeft_;
 
 
 
