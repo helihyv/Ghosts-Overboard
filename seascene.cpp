@@ -1,6 +1,9 @@
 #include "seascene.h"
+#include "timercontrolledtursas.h"
+#include "orientationcontrolledgraphicspixmapobject.h"
 #include <QGraphicsPixmapItem>
 #include <QDebug>
+#include <QMessageBox>
 
 const QString ghostImageFilename_ = ":/pix/aave.png";
 const QString rockImageFilename_ =":/pix/kari.png";
@@ -34,8 +37,71 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
             freeTiles_.append(QPointF(i*40,j*40));
         }
     }
+
+
+    //spread the rocks
+
+    for (int i = 0; i < rocks; i++)
+    {
+        QPointF * pPosition = findRandomFreeSlot();
+
+        //If there was no room no point to continue
+        if (pPosition == NULL)
+            break;
+
+        QGraphicsPixmapItem * pRock = addPixmap(QPixmap(":/pix/kari.png"));
+        pRock->setData(0,"rock");
+        pRock->setPos(*pPosition);
+        delete pPosition;
+
+    }
+
+    //spread the ghosts
+
     spreadGhosts(ghosts);
+
+
+
+    //spread the octopuses
+
+
+    for (int i=0; i < octopuses; i++)
+    {
+        QPointF * pPosition = findRandomFreeSlot();
+
+        //If there was no room no point to continue
+        if (pPosition == NULL)
+            break;
+
+    TimerControlledTursas * pOctopus = new TimerControlledTursas (QPixmap(":/pix/tursas.png"),100);
+    pOctopus->setData(0,"octopus");
+    pOctopus->setPos(*pPosition);
+    addItem(pOctopus);
+    pOctopus->startMoving();
+    delete pPosition;
+
+    }
+
+
+    //place the ship
+
+    QPointF * pPosition = findRandomFreeSlot();
+    if (pPosition == NULL)
+    {
+        // Game cannot begin without a free position for ship, so give an error message and return
+
+        QMessageBox::critical(NULL,"Error! Too many objects on screen","No free space to place the ship. The game cannot start. Please choose another level.");
+        return;
+    }
+
+    OrientationControlledGraphicsPixmapObject * pShip = new OrientationControlledGraphicsPixmapObject(QPixmap(":/pix/laiva.png"));
+    pShip->setData(0,"ship");
+    pShip->setPos(*pPosition);
+    addItem(pShip);
+    pShip->startMoving();
+    delete pPosition;
 }
+
 
 void SeaScene::spreadGhosts(int ghosts)
 {

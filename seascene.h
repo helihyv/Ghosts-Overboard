@@ -13,6 +13,12 @@ signals:
 
 public slots:
 
+    /*! Places all needed items for a level to (re)start.
+    Relies on the scene size to be explicitly set to a a value that will persist troughout play.
+    @param ghosts the number of ghosts to be placed on the map
+    @param rocks the number of rocks to be placed on the map
+    @param octopuses number of octopuses to be placed on the map
+    */
     void setupMap(int ghosts, int rocks, int octopuses);
 
     void spreadGhosts(int ghosts);

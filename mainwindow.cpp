@@ -19,9 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap waves (":/pix/meri.png");
     pScene_->setBackgroundBrush(QBrush(waves));
 
-    pTursas_ = new OrientationControlledGraphicsPixmapObject(QPixmap(":/pix/laiva.png"));
-    pScene_->addItem(pTursas_);
-
     pView_->setScene(pScene_);
     setCentralWidget(pView_);
 
@@ -29,29 +26,6 @@ MainWindow::MainWindow(QWidget *parent)
     //the boundaries of the scene are set to match the size of the view window, which is not
     //available in the constructor --> timer needed
     QTimer::singleShot(100,this,SLOT(initializeBoundaries()));
-
-
-    QAction * pPauseAction = new QAction(tr("Pause"),this);
-    pPauseAction->setCheckable(true);
-    addAction(pPauseAction);
-    connect(pPauseAction,SIGNAL(triggered(bool)),this,SLOT(pause(bool)));
-    menuBar()->addAction(pPauseAction);
-
-//    QGraphicsPixmapItem * pGhost = pScene_->addPixmap(QPixmap(":/pix/aave.png"));
-//    pGhost->setData(0,"ghost");
-    QGraphicsPixmapItem * pRock =  pScene_->addPixmap(QPixmap(":/pix/kari.png"));
-        QGraphicsPixmapItem * pRock2 =  pScene_->addPixmap(QPixmap(":/pix/kari.png"));
-    pRock->moveBy(40,40);
-    pRock->setData(0,"rock");
-    pRock2->moveBy(80,80);
-    pRock2->setData(0,"rock");
-
-    TimerControlledTursas * pMustekala = new TimerControlledTursas (QPixmap(":/pix/tursas.png"),100);
-    pScene_->addItem(pMustekala);
-    pMustekala->moveBy(100,100);
-    pMustekala->startMoving();
-
-
 
 
 }
@@ -73,8 +47,6 @@ void MainWindow::initializeBoundaries()
 
     pScene_->setSceneRect(rectangle);
     pView_->setSceneRect(rectangle);
-    pTursas_->setBoundaries(rectangle);
-    pTursas_->startMoving();
 
     qDebug() << "Initialized boundaries" << rectangle.left() << rectangle.right() << pView_->width();
 
