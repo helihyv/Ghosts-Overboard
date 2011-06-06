@@ -19,7 +19,11 @@ public slots:
 
 protected:
 
-    QPointF findRandomFreeSlot();
+    /*! Gives a pointer to a random position if a free one is found. Otherwise returns NULL.
+        The position is the upper left corner of a free 40x40 pixels slot.
+    */
+
+    QPointF* findRandomFreeSlot();
 
     const QString ghostImageFilename_;
     const QString rockImageFilename_;

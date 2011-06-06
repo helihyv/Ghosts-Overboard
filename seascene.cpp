@@ -41,19 +41,27 @@ void SeaScene::spreadGhosts(int ghosts)
 {
     for (int i=0; i < ghosts; i++)
     {
-        QPointF position = findRandomFreeSlot();
+        QPointF * pPosition = findRandomFreeSlot();
+
+        //If there was no room no point to continue
+        if (pPosition == NULL)
+            return;
 
         QGraphicsPixmapItem * pGhost = addPixmap(QPixmap(":/pix/aave.png"));
         pGhost->setData(0,"ghost");
-        pGhost->setPos(position);
+        pGhost->setPos(*pPosition);
+        delete pPosition;
     }
 }
 
-QPointF SeaScene::findRandomFreeSlot()
+QPointF* SeaScene::findRandomFreeSlot()
 {
+    if (freeTiles_.isEmpty())
+        return NULL;
+
     int index = qrand()%freeTiles_.size();
 
     qDebug()  << index << " index";
-    return freeTiles_.takeAt(index);
+    return new QPointF (freeTiles_.takeAt(index));
 
 }
