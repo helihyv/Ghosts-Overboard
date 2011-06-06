@@ -49,7 +49,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
         if (pPosition == NULL)
             break;
 
-        QGraphicsPixmapItem * pRock = addPixmap(QPixmap(":/pix/kari.png"));
+        QPixmap rockPixmap (":/pix/kari.png");
+        QGraphicsPixmapItem * pRock = addPixmap(rockPixmap);
         pRock->setData(0,"rock");
         pRock->setPos(*pPosition);
         delete pPosition;
@@ -74,7 +75,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
         if (pPosition == NULL)
             break;
 
-    TimerControlledTursas * pOctopus = new TimerControlledTursas (QPixmap(":/pix/tursas.png"),100);
+    QPixmap octopusPixmap (":/pix/tursas.png");
+    TimerControlledTursas * pOctopus = new TimerControlledTursas (octopusPixmap,100);
     pOctopus->setData(0,"octopus");
     pOctopus->setPos(*pPosition);
     addItem(pOctopus);
@@ -116,7 +118,8 @@ void SeaScene::spreadGhosts(int ghosts)
         if (pPosition == NULL)
             return;
 
-        QGraphicsPixmapItem * pGhost = addPixmap(QPixmap(":/pix/aave.png"));
+        QPixmap ghostPixmap(":/pix/aave.png");
+        QGraphicsPixmapItem * pGhost = addPixmap(ghostPixmap);
         pGhost->setData(0,"ghost");
         pGhost->setPos(*pPosition);
         delete pPosition;
