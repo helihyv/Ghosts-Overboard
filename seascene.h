@@ -23,6 +23,8 @@ public slots:
 
     void spreadGhosts(int ghosts);
 
+    void removeGhost(QGraphicsItem * pGhost);
+
 protected:
 
     /*! Gives a pointer to a random position if a free one is found. Otherwise returns NULL.

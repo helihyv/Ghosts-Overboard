@@ -11,12 +11,17 @@ public:
 
 signals:
 
+    /*! Emitted when a ghost is hit */
+    void  pickingGhost(QGraphicsItem* pGhost);
+
 public slots:
 
 protected:
 
 protected:
     bool handleCollisions();
+
+    int ghostsAboard_;
 
 
 };

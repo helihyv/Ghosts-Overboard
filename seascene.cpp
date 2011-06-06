@@ -98,6 +98,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     pShip->setData(0,"ship");
     pShip->setPos(*pPosition);
     addItem(pShip);
+    connect(pShip,SIGNAL(pickingGhost(QGraphicsItem*)),this, SLOT(removeGhost(QGraphicsItem*)) );
     pShip->startMoving();
     delete pPosition;
 }
@@ -130,4 +131,11 @@ QPointF* SeaScene::findRandomFreeSlot()
     qDebug()  << index << " index";
     return new QPointF (freeTiles_.takeAt(index));
 
+}
+
+void SeaScene::removeGhost(QGraphicsItem *pGhost)
+{
+    removeItem(pGhost);  //remove the item from scene
+    freeTiles_.append(pGhost->scenePos()); //add the item's position to free slots
+    delete pGhost;
 }

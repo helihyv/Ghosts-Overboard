@@ -4,6 +4,7 @@
 Ship::Ship(QPixmap pixmap, QGraphicsItem *parent) :
     OrientationControlledGraphicsPixmapObject(pixmap,parent)
 {
+    ghostsAboard_ = 0;
 
 }
 
@@ -16,8 +17,11 @@ bool Ship::handleCollisions()
 
     else
     {
+        //since the game logic does not leave items to collide with each other we can take just the topmost one
+        //and trust it is the only one
         QString type = collidesList.at(0)->data(0).toString();
         qDebug() << type;
+
         if (type == "rock" || type == "octopus")
         {
 //            dropGhosts();
@@ -26,6 +30,12 @@ bool Ship::handleCollisions()
 
         else if (type == "ghost")
         {
+            ghostsAboard_++;
+
+            qDebug() << ghostsAboard_ << " ghosts aboard";
+
+            emit pickingGhost(collidesList.at(0));
+
             return true;
         }
 
