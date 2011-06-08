@@ -5,5 +5,15 @@
         <file>kari.png</file>
         <file>aave.png</file>
         <file>laiva.png</file>
+        <file>laiva_1aave.png</file>
+        <file>laiva_2aave.png</file>
+        <file>laiva_3aave.png</file>
+        <file>laiva_4aave.png</file>
+        <file>laiva_5aave.png</file>
+        <file>laiva_6aave.png</file>
+        <file>laiva_7aave.png</file>
+        <file>laiva_8aave.png</file>
+        <file>laiva_9aave.png</file>
+        <file>laiva_10aave.png</file>
     </qresource>
 </RCC>

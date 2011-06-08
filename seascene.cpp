@@ -101,7 +101,20 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
         return;
     }
 
-    Ship * pShip = new Ship (QPixmap(":/pix/laiva.png"));
+    QList<QPixmap> shipImages;
+    shipImages.append(QPixmap(":/pix/laiva.png"));
+    shipImages.append(QPixmap(":/pix/laiva_1aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_2aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_3aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_4aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_5aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_6aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_7aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_8aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_9aave.png"));
+    shipImages.append(QPixmap(":/pix/laiva_10aave.png"));
+
+    Ship * pShip = new Ship (shipImages);
     pShip->setData(0,"ship");
     pShip->setPos(*pPosition);
     addItem(pShip);
