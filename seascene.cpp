@@ -19,6 +19,10 @@ SeaScene::SeaScene(QObject *parent) :
 
 void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
 {
+    //empty the map
+
+    clear();
+
     //empty the list of free slots
     freeTiles_.clear();
 
