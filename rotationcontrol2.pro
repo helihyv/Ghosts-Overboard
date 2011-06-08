@@ -15,13 +15,15 @@ SOURCES += main.cpp\
     orientationcontrolledgraphicspixmapobject.cpp \
     timercontrolledtursas.cpp \
     seascene.cpp \
-    seaview.cpp
+    seaview.cpp \
+    ship.cpp
 
 HEADERS  += mainwindow.h \
     orientationcontrolledgraphicspixmapobject.h \
     timercontrolledtursas.h \
     seascene.h \
-    seaview.h
+    seaview.h \
+    ship.h
 
 CONFIG += mobility
 MOBILITY = sensors
