@@ -22,10 +22,27 @@ MainWindow::MainWindow(QWidget *parent)
     pView_->setScene(pScene_);
     setCentralWidget(pView_);
 
+    QAction * pPauseAction = new QAction(tr("Pause"),this);
+    pPauseAction->setCheckable(true);
+    addAction(pPauseAction);
+    connect(pPauseAction,SIGNAL(triggered(bool)),this,SLOT(pause(bool)));
+    menuBar()->addAction(pPauseAction);
+
+    QAction * pRestartLevelAction = new QAction(tr("Restart level"),this);
+    pRestartLevelAction->setCheckable(true);
+    addAction(pRestartLevelAction);
+    connect(pRestartLevelAction,SIGNAL(triggered()),this,SLOT(restartLevel()));
+    menuBar()->addAction(pRestartLevelAction);
+
+
 
     //the boundaries of the scene are set to match the size of the view window, which is not
     //available in the constructor --> timer needed
     QTimer::singleShot(100,this,SLOT(initializeBoundaries()));
+
+
+
+
 
 
 }
@@ -72,4 +89,10 @@ void MainWindow::pause(bool paused)
         qDebug("about to stop movement");
         pTursas_->stopMoving();
     }
+
+}
+
+void MainWindow::restartLevel()
+{
+    pScene_->setupMap(5,5,5);
 }
