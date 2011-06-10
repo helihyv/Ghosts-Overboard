@@ -85,6 +85,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     pOctopus->setPos(*pPosition);
     addItem(pOctopus);
     pOctopus->startMoving();
+    movingItems_.append(pOctopus);
     delete pPosition;
 
     }
@@ -108,12 +109,58 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     connect(pShip,SIGNAL(pickingGhost(QGraphicsItem*)),this, SLOT(removeGhost(QGraphicsItem*)) );
     connect(pShip,SIGNAL(droppingGhosts(int)),this,SLOT(ghostsDropped(int)));
     pShip->startMoving();
+    movingItems_.append(pShip);
     delete pPosition;
 }
 
 
 void SeaScene::spreadGhosts(int ghosts)
 {
+
+    //the octopuses and the ship may have moved from their original positions,
+    //so the list of free slots must be adjusted to exclude their current positions
+
+    QList<QPointF> temporarilyReservedSlots;
+
+    foreach (QGraphicsItem* pItem, movingItems_)
+    {
+    //TODO
+        //round x and y down to fit the slot size
+        int x = pItem->x();
+        x = x/40;
+        x = x*40;
+        int y = pItem->y();
+        y = y/40;
+        y=y*40;
+
+
+        QPointF position (x,y);
+
+        //remove the tiles (potentially) occupied by the item from free slots and place in temp list if was in the list before
+
+        if (freeTiles_.removeOne(position))
+            temporarilyReservedSlots.append(position);
+
+
+        position.setX(x+40);
+
+        if (freeTiles_.removeOne(position))
+            temporarilyReservedSlots.append(position);
+
+        position.setY(y+40);
+
+        if (freeTiles_.removeOne(position))
+            temporarilyReservedSlots.append(position);
+
+        position.setX(x);
+
+        if (freeTiles_.removeOne(position))
+            temporarilyReservedSlots.append(position);
+
+    }
+
+    //spread ghosts in random free slots
+
     for (int i=0; i < ghosts; i++)
     {
         QPointF * pPosition = findRandomFreeSlot();
@@ -128,6 +175,12 @@ void SeaScene::spreadGhosts(int ghosts)
         pGhost->setPos(*pPosition);
         delete pPosition;
     }
+
+    //return the slots occupied by moving items to free slots
+    freeTiles_.append(temporarilyReservedSlots);
+
+    //clear temp for the next round
+    temporarilyReservedSlots.clear();
 }
 
 QPointF* SeaScene::findRandomFreeSlot()
