@@ -44,6 +44,8 @@ protected:
 
     int ghostsLeft_;
 
+    QList<QGraphicsItem*> movingItems_;
+
 
 
 

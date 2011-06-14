@@ -20,8 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     pScene_ = new SeaScene ();
     pView_  = new QGraphicsView ();
 
-    QPixmap waves (":/pix/meri.png");
-    pScene_->setBackgroundBrush(QBrush(waves));
+
 
     pView_->setScene(pScene_);
     setCentralWidget(pView_);
@@ -73,7 +72,7 @@ void MainWindow::initializeBoundaries()
     pScene_->setSceneRect(rectangle);
     pView_->setSceneRect(rectangle);
 
-    qDebug() << "Initialized boundaries" << rectangle.left() << rectangle.right() << pView_->width();
+    qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << pView_->width() << pView_->height();
 
     pScene_->setupMap(11,5,5);
 }
