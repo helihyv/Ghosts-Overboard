@@ -48,12 +48,6 @@ MainWindow::MainWindow(QWidget *parent)
     //the boundaries of the scene are set to match the size of the view window, which is not
     //available in the constructor --> timer needed
     QTimer::singleShot(100,this,SLOT(initializeBoundaries()));
-
-
-
-
-
-
 }
 
 MainWindow::~MainWindow()
@@ -91,6 +85,7 @@ void MainWindow::about()
                        tr("Version %1"
                           "<p>Copyright 2011 Heli Hyv&auml;ttinen"
                           "<p>License: General Public License v2"
+                          "<p>Bug Reports: https://bugs.maemo.org/enter_bug.cgi?product=Ghosts%20Overboard"
                           ).arg(QApplication::applicationVersion()));
 
 
