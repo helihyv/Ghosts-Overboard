@@ -124,15 +124,6 @@ void MainWindow::nextLevel()
 
     //for now, just the handling of last level is implemented, and there is just one level
 
-    qDebug() << "starting game over";
-       QPixmap victoryIcon (":/pix/aavesaari.png");
-//    QMessageBox victoryBox(QMessageBox::Information, tr("You won1"), tr("Congratulations! You have saved all the ghosts."));
-
-//    victoryBox.setIconPixmap(victoryIcon);
-//    victoryBox.addButton("Start a new game",QMessageBox::YesRole);
-//    victoryBox.addButton("Quit",QMessageBox::NoRole);
-
-//    victoryBox.exec();
 
 
        QDialog* pVictoryDialog = new QDialog(this);
@@ -140,9 +131,12 @@ void MainWindow::nextLevel()
 
 
        QPushButton* pPlayAgainButton = new QPushButton(tr("Play again"));
-       QPushButton* pQuitButton = new QPushButton(tr("Quit game"));
+//       QPushButton* pQuitButton = new QPushButton(tr("Quit game"));
+
+       QPixmap victoryIcon (":/pix/aavesaari.png");
        QLabel* pVictoryLabel = new QLabel();
        pVictoryLabel->setPixmap(victoryIcon);
+
        QLabel* pTextLabel = new QLabel(tr("Congratulations! <p>You have saved all the ghosts."));
 
 
@@ -159,7 +153,6 @@ void MainWindow::nextLevel()
        QHBoxLayout* pButtonLayout = new QHBoxLayout();
        pMainLayout->addLayout(pButtonLayout);
 
-
  //      pButtonLayout->addWidget(pQuitButton);
        pButtonLayout->addWidget(pPlayAgainButton);
 
@@ -171,8 +164,8 @@ void MainWindow::nextLevel()
 
        pVictoryDialog->exec();
 
+        //Never mind if the user cancels the dialog: restart the game anyway
+
        restartLevel();
-
-
 
 }
