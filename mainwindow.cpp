@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QAction>
 #include <QMenuBar>
+#include <QMessageBox>
+#include <QApplication>
 
 
 
@@ -12,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     paused_ = false;
+
+    setWindowIcon(QIcon(":/pix/laiva_10aave.png"));
 
     pScene_ = new SeaScene ();
     pView_  = new QGraphicsView ();
@@ -29,11 +33,15 @@ MainWindow::MainWindow(QWidget *parent)
     menuBar()->addAction(pPauseAction);
 
     QAction * pRestartLevelAction = new QAction(tr("Restart level"),this);
-    pRestartLevelAction->setCheckable(true);
     addAction(pRestartLevelAction);
     connect(pRestartLevelAction,SIGNAL(triggered()),this,SLOT(restartLevel()));
     menuBar()->addAction(pRestartLevelAction);
 
+
+    QAction * pAboutAction = new QAction(tr("About"),this);
+    addAction(pAboutAction);
+    connect(pAboutAction,SIGNAL(triggered()),this,SLOT(about()));
+    menuBar()->addAction(pAboutAction);
 
 
     //the boundaries of the scene are set to match the size of the view window, which is not
@@ -95,4 +103,16 @@ void MainWindow::pause(bool paused)
 void MainWindow::restartLevel()
 {
     pScene_->setupMap(5,5,5);
+}
+
+void MainWindow::about()
+{
+    QMessageBox::about(this, tr("About %1").arg(QApplication::applicationName()),
+                       tr("Version %1"
+                          "<p>Copyright 2011 Heli Hyvättinen"
+                          "<p>Licence: General Public Lisence v2"
+                          ).arg(QApplication::applicationVersion()));
+
+
+
 }

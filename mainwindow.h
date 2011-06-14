@@ -18,6 +18,7 @@ public slots:
     void initializeBoundaries();
     void pause(bool paused);
     void restartLevel();
+    void about();
 
 private:
 
