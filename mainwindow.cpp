@@ -16,8 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     pScene_ = new SeaScene ();
     pView_  = new QGraphicsView ();
 
-    QPixmap waves (":/pix/meri.png");
-    pScene_->setBackgroundBrush(QBrush(waves));
+
 
     pView_->setScene(pScene_);
     setCentralWidget(pView_);

@@ -4,6 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QDebug>
 #include <QMessageBox>
+#include <QTime>
 
 const QString ghostImageFilename_ = ":/pix/aave.png";
 const QString rockImageFilename_ =":/pix/kari.png";
@@ -13,7 +14,15 @@ const QString octopusImageFilename_= ":/pix/tursas.png";
 SeaScene::SeaScene(QObject *parent) :
     QGraphicsScene(parent)
 {
+    //set background
 
+    QPixmap waves (":/pix/meri.png");
+    waves.scaled(20,20);
+    setBackgroundBrush(QBrush(waves));
+
+    //set random seed
+
+    qsrand(QTime::currentTime().msec()+2);  //+2 to avoid setting it to 1
 
 }
 
