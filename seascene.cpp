@@ -132,7 +132,6 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
 void SeaScene::spreadGhosts(int ghosts)
 {
 
-    qDebug() << "Preparing to spread ghosts";
 
     //the octopuses and the ship may have moved from their original positions,
     //so the list of free slots must be adjusted to exclude their current positions
