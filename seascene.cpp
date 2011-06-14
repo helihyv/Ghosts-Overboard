@@ -23,6 +23,10 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
 
     clear();
 
+    //empty the list of moving items
+
+    movingItems_.clear();
+
     //empty the list of free slots
     freeTiles_.clear();
 
@@ -48,6 +52,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     for (int i = 0; i < rocks; i++)
     {
         QPointF * pPosition = findRandomFreeSlot();
+
+        qDebug() << "Found a place for a rock";
 
         //If there was no room no point to continue
         if (pPosition == NULL)
@@ -117,6 +123,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
 void SeaScene::spreadGhosts(int ghosts)
 {
 
+    qDebug() << "Preparing to spread ghosts";
+
     //the octopuses and the ship may have moved from their original positions,
     //so the list of free slots must be adjusted to exclude their current positions
 
@@ -124,11 +132,17 @@ void SeaScene::spreadGhosts(int ghosts)
 
     foreach (QGraphicsItem* pItem, movingItems_)
     {
-    //TODO
+        if (pItem == NULL)
+        {
+ //           qDebug() << "NULL item in movingItems_";
+            continue;
+        }
+
         //round x and y down to fit the slot size
         int x = pItem->x();
         x = x/40;
         x = x*40;
+
         int y = pItem->y();
         y = y/40;
         y=y*40;
@@ -158,6 +172,7 @@ void SeaScene::spreadGhosts(int ghosts)
             temporarilyReservedSlots.append(position);
 
     }
+
 
     //spread ghosts in random free slots
 
