@@ -75,7 +75,7 @@ void MainWindow::initializeBoundaries()
 
     qDebug() << "Initialized boundaries" << rectangle.left() << rectangle.right() << pView_->width();
 
-    pScene_->setupMap(5,5,5);
+    pScene_->setupMap(11,5,5);
 }
 
 void MainWindow::pause(bool paused)

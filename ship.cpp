@@ -1,9 +1,10 @@
 #include "ship.h"
 #include <QDebug>
 
-Ship::Ship(QPixmap pixmap, QGraphicsItem *parent) :
-    OrientationControlledGraphicsPixmapObject(pixmap,parent)
+Ship::Ship(QList<QPixmap> pixmapList, QGraphicsItem *parent) :
+    OrientationControlledGraphicsPixmapObject(pixmapList.at(0),parent)
 {
+    shipImages_ = pixmapList;
     ghostsAboard_ = 0;
 
 }
@@ -27,6 +28,7 @@ bool Ship::handleCollisions()
             // drop all ghosts when hitting an obstacle
             emit droppingGhosts(ghostsAboard_);
             ghostsAboard_ = 0;
+            updateShipImage();
 
             return false;
         }
@@ -34,6 +36,7 @@ bool Ship::handleCollisions()
         else if (type == "ghost")
         {
             ghostsAboard_++;
+            updateShipImage();
 
             qDebug() << ghostsAboard_ << " ghosts aboard";
 
@@ -43,4 +46,10 @@ bool Ship::handleCollisions()
         }
 
     }
+}
+
+void Ship::updateShipImage()
+{
+    int index = qBound(0,ghostsAboard_,shipImages_.length()-1);
+    setPixmap(shipImages_.at(index));
 }
