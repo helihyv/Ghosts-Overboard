@@ -9,16 +9,15 @@
 #include <QApplication>
 #include <QLabel>
 #include <QPushButton>
- #include <QVBoxLayout>
+#include <QVBoxLayout>
 
 
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    paused_ = false;
-
     setWindowIcon(QIcon(":/pix/laiva_10aave.png"));
+    setWindowTitle("Ghosts Overboard");
 
     pScene_ = new SeaScene ();
     connect(pScene_,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
@@ -31,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     QAction * pPauseAction = new QAction(tr("Pause"),this);
     pPauseAction->setCheckable(true);
     addAction(pPauseAction);
-    connect(pPauseAction,SIGNAL(triggered(bool)),this,SLOT(pause(bool)));
+    connect(pPauseAction,SIGNAL(triggered(bool)),pScene_,SLOT(pause(bool)));
     menuBar()->addAction(pPauseAction);
 
     QAction * pRestartLevelAction = new QAction(tr("Restart level"),this);
@@ -80,31 +79,10 @@ void MainWindow::initializeBoundaries()
     restartLevel();
 }
 
-void MainWindow::pause(bool paused)
-{
-//    qDebug() << "pause pressed " << paused;
-    if (paused_ == paused)
-            return;
-
-    paused_ = paused;
-
-    if (paused == false)
-    {
- //       qDebug() << "starting to move again";
-        pTursas_->startMoving();
-    }
-
-    else
-    {
-        qDebug("about to stop movement");
-        pTursas_->stopMoving();
-    }
-
-}
 
 void MainWindow::restartLevel()
 {
-    pScene_->setupMap(5,5,5);
+    pScene_->setupMap(5,10,0);
 }
 
 void MainWindow::about()

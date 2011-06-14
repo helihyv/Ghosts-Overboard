@@ -12,6 +12,8 @@ public:
 signals:
 
     void allGhostsPicked();
+    void pauseOn();
+    void pauseOff();
 
 public slots:
 
@@ -28,6 +30,8 @@ public slots:
     void removeGhost(QGraphicsItem * pGhost);
 
     void ghostsDropped(int ghosts);
+
+    void pause (bool paused);
 
 protected:
 
@@ -47,6 +51,8 @@ protected:
     int ghostsLeft_;
 
     QList<QGraphicsItem*> movingItems_;
+
+    bool paused_;
 
 
 

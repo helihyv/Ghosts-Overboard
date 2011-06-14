@@ -16,7 +16,6 @@ public:
 
 public slots:
     void initializeBoundaries();
-    void pause(bool paused);
     void restartLevel();
     void about();
     void nextLevel();
@@ -26,8 +25,7 @@ private:
 
 SeaScene * pScene_;
 QGraphicsView * pView_;
-OrientationControlledGraphicsPixmapObject * pTursas_;
-bool paused_;
+
 
 
 

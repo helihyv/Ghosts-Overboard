@@ -14,6 +14,8 @@ const QString octopusImageFilename_= ":/pix/tursas.png";
 SeaScene::SeaScene(QObject *parent) :
     QGraphicsScene(parent)
 {
+    paused_ = false;
+
     //set background
 
     QPixmap waves (":/pix/meri.png");
@@ -101,6 +103,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     addItem(pOctopus);
     pOctopus->startMoving();
     movingItems_.append(pOctopus);
+    connect(this,SIGNAL(pauseOn()),pOctopus,SLOT(stopMoving()));
+    connect(this,SIGNAL(pauseOff()),pOctopus,SLOT(startMoving()));
     delete pPosition;
 
     }
@@ -138,6 +142,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     connect(pShip,SIGNAL(droppingGhosts(int)),this,SLOT(ghostsDropped(int)));
     pShip->startMoving();
     movingItems_.append(pShip);
+    connect(this,SIGNAL(pauseOn()),pShip,SLOT(stopMoving()));
+    connect(this,SIGNAL(pauseOff()),pShip,SLOT(startMoving()));
     delete pPosition;
 }
 
@@ -249,4 +255,25 @@ void SeaScene::ghostsDropped(int ghosts)
     ghostsLeft_ += ghosts;
 
     spreadGhosts(ghosts);
+}
+
+void SeaScene::pause(bool paused)
+{
+    //    qDebug() << "pause pressed " << paused;
+        if (paused_ == paused)
+                return;
+
+        paused_ = paused;
+
+        if (paused == false)
+        {
+     //       qDebug() << "starting to move again";
+            emit pauseOff();
+        }
+
+        else
+        {
+     //       qDebug("about to stop movement");
+            emit pauseOn();
+        }
 }
