@@ -239,7 +239,7 @@ void SeaScene::removeGhost(QGraphicsItem *pGhost)
     ghostsLeft_--;
     if (ghostsLeft_ == 0)
     {
-        //here whatever happens when a level is complete / a signal
+        emit allGhostsPicked();
         qDebug() << "All ghosts picked!";
     }
 }

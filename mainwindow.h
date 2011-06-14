@@ -19,6 +19,8 @@ public slots:
     void pause(bool paused);
     void restartLevel();
     void about();
+    void nextLevel();
+
 
 private:
 

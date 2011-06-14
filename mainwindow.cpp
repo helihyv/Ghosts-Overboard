@@ -7,6 +7,9 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QApplication>
+#include <QLabel>
+#include <QPushButton>
+ #include <QVBoxLayout>
 
 
 
@@ -18,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowIcon(QIcon(":/pix/laiva_10aave.png"));
 
     pScene_ = new SeaScene ();
+    connect(pScene_,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
+
     pView_  = new QGraphicsView ();
-
-
 
     pView_->setScene(pScene_);
     setCentralWidget(pView_);
@@ -74,7 +77,7 @@ void MainWindow::initializeBoundaries()
 
     qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << pView_->width() << pView_->height();
 
-    pScene_->setupMap(11,5,5);
+    restartLevel();
 }
 
 void MainWindow::pause(bool paused)
@@ -111,6 +114,64 @@ void MainWindow::about()
                           "<p>Copyright 2011 Heli Hyv&auml;ttinen"
                           "<p>License: General Public License v2"
                           ).arg(QApplication::applicationVersion()));
+
+
+
+}
+
+void MainWindow::nextLevel()
+{
+
+    //for now, just the handling of last level is implemented, and there is just one level
+
+    qDebug() << "starting game over";
+       QPixmap victoryIcon (":/pix/aavesaari.png");
+//    QMessageBox victoryBox(QMessageBox::Information, tr("You won1"), tr("Congratulations! You have saved all the ghosts."));
+
+//    victoryBox.setIconPixmap(victoryIcon);
+//    victoryBox.addButton("Start a new game",QMessageBox::YesRole);
+//    victoryBox.addButton("Quit",QMessageBox::NoRole);
+
+//    victoryBox.exec();
+
+
+       QDialog* pVictoryDialog = new QDialog(this);
+       pVictoryDialog->setWindowTitle(tr("You won!"));
+
+
+       QPushButton* pPlayAgainButton = new QPushButton(tr("Play again"));
+       QPushButton* pQuitButton = new QPushButton(tr("Quit game"));
+       QLabel* pVictoryLabel = new QLabel();
+       pVictoryLabel->setPixmap(victoryIcon);
+       QLabel* pTextLabel = new QLabel(tr("Congratulations! <p>You have saved all the ghosts."));
+
+
+       QVBoxLayout* pMainLayout = new QVBoxLayout;
+
+       QHBoxLayout* pTopLayout = new QHBoxLayout;
+       pMainLayout->addLayout(pTopLayout);
+
+       pTopLayout->addWidget(pVictoryLabel);
+       pTopLayout->addWidget(pTextLabel);
+
+
+
+       QHBoxLayout* pButtonLayout = new QHBoxLayout();
+       pMainLayout->addLayout(pButtonLayout);
+
+
+ //      pButtonLayout->addWidget(pQuitButton);
+       pButtonLayout->addWidget(pPlayAgainButton);
+
+
+
+       pVictoryDialog->setLayout(pMainLayout);
+
+       connect(pPlayAgainButton, SIGNAL(clicked()),pVictoryDialog,SLOT(accept()));
+
+       pVictoryDialog->exec();
+
+       restartLevel();
 
 
 

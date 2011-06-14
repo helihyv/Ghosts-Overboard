@@ -11,6 +11,8 @@ public:
 
 signals:
 
+    void allGhostsPicked();
+
 public slots:
 
     /*! Places all needed items for a level to (re)start.
