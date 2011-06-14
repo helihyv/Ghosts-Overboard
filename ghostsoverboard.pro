@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-TARGET = rotationcontrol2
+TARGET = ghostsoverboard
 TEMPLATE = app
 
 
@@ -51,4 +51,12 @@ maemo5 {
     desktopfile.files = $${TARGET}.desktop
     desktopfile.path = /usr/share/applications/hildon
     INSTALLS += desktopfile
+
+
+}
+
+maemo5 {
+    icon.files = ghostsoverboard.png
+    icon.path = /usr/share/icons/hicolor/64x64/apps
+    INSTALLS += icon
 }
