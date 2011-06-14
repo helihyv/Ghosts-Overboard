@@ -109,8 +109,8 @@ void MainWindow::about()
 {
     QMessageBox::about(this, tr("About %1").arg(QApplication::applicationName()),
                        tr("Version %1"
-                          "<p>Copyright 2011 Heli Hyvättinen"
-                          "<p>Licence: General Public Lisence v2"
+                          "<p>Copyright 2011 Heli Hyv&auml;ttinen"
+                          "<p>License: General Public License v2"
                           ).arg(QApplication::applicationVersion()));
 
 
