@@ -85,7 +85,8 @@ void MainWindow::about()
                        tr("Version %1"
                           "<p>Copyright 2011 Heli Hyv&auml;ttinen"
                           "<p>License: General Public License v2"
-                          "<p>Bug Reports: https://bugs.maemo.org/enter_bug.cgi?product=Ghosts%20Overboard"
+                          "<p>Bug Reports: https://bugs.maemo.org/ "
+                          "enter_bug.cgi?product=Ghosts%20Overboard"
                           ).arg(QApplication::applicationVersion()));
 
 
