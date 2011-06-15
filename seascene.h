@@ -2,6 +2,7 @@
 #define SEASCENE_H
 
 #include <QGraphicsScene>
+#include "screenlitkeeper.h"
 
 class SeaScene : public QGraphicsScene
 {
@@ -53,6 +54,8 @@ protected:
     QList<QGraphicsItem*> movingItems_;
 
     bool paused_;
+
+    ScreenLitKeeper screenLitKeeper_;
 
 
 

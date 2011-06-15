@@ -16,17 +16,20 @@ SOURCES += main.cpp\
     timercontrolledtursas.cpp \
     seascene.cpp \
     seaview.cpp \
-    ship.cpp
+    ship.cpp \
+    screenlitkeeper.cpp
 
 HEADERS  += mainwindow.h \
     orientationcontrolledgraphicspixmapobject.h \
     timercontrolledtursas.h \
     seascene.h \
     seaview.h \
-    ship.h
+    ship.h \
+    screenlitkeeper.h
 
 CONFIG += mobility
 MOBILITY = sensors
+MOBILITY += systeminfo
 
 symbian {
     TARGET.UID3 = 0xe3f4bbc2

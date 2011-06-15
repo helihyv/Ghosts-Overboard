@@ -27,11 +27,11 @@ MainWindow::MainWindow(QWidget *parent)
     pView_->setScene(pScene_);
     setCentralWidget(pView_);
 
-    QAction * pPauseAction = new QAction(tr("Pause"),this);
-    pPauseAction->setCheckable(true);
-    addAction(pPauseAction);
-    connect(pPauseAction,SIGNAL(triggered(bool)),pScene_,SLOT(pause(bool)));
-    menuBar()->addAction(pPauseAction);
+    pPauseAction_ = new QAction(tr("Pause"),this);
+    pPauseAction_->setCheckable(true);
+    addAction(pPauseAction_);
+    connect(pPauseAction_,SIGNAL(triggered(bool)),pScene_,SLOT(pause(bool)));
+    menuBar()->addAction(pPauseAction_);
 
     QAction * pRestartLevelAction = new QAction(tr("Restart level"),this);
     addAction(pRestartLevelAction);
@@ -146,3 +146,39 @@ void MainWindow::nextLevel()
        restartLevel();
 
 }
+
+bool MainWindow::event(QEvent *event)
+{
+
+    switch (event->type())
+    {
+        //pause if app goes to background
+        case QEvent::WindowDeactivate:
+
+            if (pScene_)
+                pScene_->pause(true);
+            break;
+
+        //un-pause if app gomes back to foreground unless it was paused before going to background
+        case QEvent::WindowActivate:
+
+
+            if (pPauseAction_ && !pPauseAction_->isChecked())
+            {
+                if (pScene_)
+                    pScene_->pause(false);
+            }
+            break;
+
+        //Just to keep the compiler from complaining...
+        default:
+            break;
+
+     }
+
+
+
+    //pass the event to the ancestor for handling
+    return QMainWindow::event(event);
+
+ }

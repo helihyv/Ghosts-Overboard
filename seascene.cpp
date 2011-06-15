@@ -15,6 +15,7 @@ SeaScene::SeaScene(QObject *parent) :
     QGraphicsScene(parent)
 {
     paused_ = false;
+    screenLitKeeper_.keepScreenLit(true);
 
     //set background
 
@@ -25,6 +26,8 @@ SeaScene::SeaScene(QObject *parent) :
     //set random seed
 
     qsrand(QTime::currentTime().msec()+2);  //+2 to avoid setting it to 1
+
+
 
 }
 
@@ -269,11 +272,13 @@ void SeaScene::pause(bool paused)
         {
      //       qDebug() << "starting to move again";
             emit pauseOff();
+            screenLitKeeper_.keepScreenLit(true);
         }
 
         else
         {
      //       qDebug("about to stop movement");
             emit pauseOn();
+            screenLitKeeper_.keepScreenLit(false);
         }
 }

@@ -6,6 +6,7 @@
 #include "orientationcontrolledgraphicspixmapobject.h"
 #include "seascene.h"
 
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -13,6 +14,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    bool event(QEvent *event);
 
 public slots:
     void initializeBoundaries();
@@ -25,9 +28,7 @@ private:
 
 SeaScene * pScene_;
 QGraphicsView * pView_;
-
-
-
+QAction* pPauseAction_;
 
 
 };
