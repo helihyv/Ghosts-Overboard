@@ -16,7 +16,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    setWindowIcon(QIcon(":/pix/laiva_10aave.png"));
+    setWindowIcon(QIcon(":/pix/laiva_3aave.png"));
     setWindowTitle("Ghosts Overboard");
 
     pScene_ = new SeaScene ();

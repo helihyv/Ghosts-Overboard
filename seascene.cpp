@@ -49,8 +49,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     int numberOfXTiles  = width() / 40;
     int numberOfYTiles = height() /40;
 
-    qDebug() << numberOfXTiles << " slots in x direction";
-    qDebug() << numberOfYTiles << " slots in y rirection";
+//    qDebug() << numberOfXTiles << " slots in x direction";
+//    qDebug() << numberOfYTiles << " slots in y rirection";
 
     for (int i = 0; i < numberOfXTiles; i++ )
     {
@@ -66,8 +66,6 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     for (int i = 0; i < rocks; i++)
     {
         QPointF * pPosition = findRandomFreeSlot();
-
-        qDebug() << "Found a place for a rock";
 
         //If there was no room no point to continue
         if (pPosition == NULL)
@@ -235,7 +233,7 @@ QPointF* SeaScene::findRandomFreeSlot()
 
     int index = qrand()%freeTiles_.size();
 
-    qDebug()  << index << " index";
+//    qDebug()  << index << " index";
     return new QPointF (freeTiles_.takeAt(index));
 
 }
@@ -249,7 +247,7 @@ void SeaScene::removeGhost(QGraphicsItem *pGhost)
     if (ghostsLeft_ == 0)
     {
         emit allGhostsPicked();
-        qDebug() << "All ghosts picked!";
+ //       qDebug() << "All ghosts picked!";
     }
 }
 

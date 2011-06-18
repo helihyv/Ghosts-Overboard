@@ -21,15 +21,15 @@ OrientationControlledGraphicsPixmapObject::OrientationControlledGraphicsPixmapOb
 void OrientationControlledGraphicsPixmapObject::startMoving()
 {
     rotationSensor_.start();
-    qDebug() << "started the sensor";
-    qDebug() << rotationSensor_.isActive();
+//    qDebug() << "started the sensor";
+//    qDebug() << rotationSensor_.isActive();
 }
 
 
 void OrientationControlledGraphicsPixmapObject::stopMoving()
 {
     rotationSensor_.stop();
-    qDebug () << "trying to stop the sensor";
+//    qDebug () << "trying to stop the sensor";
 }
 
 void OrientationControlledGraphicsPixmapObject::readRotationSensor()
