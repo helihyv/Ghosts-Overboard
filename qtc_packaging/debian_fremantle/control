@@ -2,7 +2,7 @@ Source: ghostsoverboard
 Section: user/games
 Priority: optional
 Maintainer: Heli Hyvättinen <heli.hyvattinen@kymp.net>
-Build-Depends: debhelper (>= 5), libqt4-dev
+Build-Depends: debhelper (>= 5), libqt4-dev, libqtm-dev, libqtm-sensors
 Standards-Version: 3.7.3
 
 
