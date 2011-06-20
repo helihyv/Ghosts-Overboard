@@ -103,7 +103,47 @@ void TimerControlledTursas::move()
 
 void TimerControlledTursas::changeDirection()
 {
-   // direction_ = rand()/8;
+    qDebug () << "Supposed to change direction";
+
+    int direction = (qrand()%8);
+    qDebug()  << direction;
+
+    switch (direction)
+    {
+        case 0:
+            direction_ = S;
+            break;
+
+        case 1:
+            direction_ = SW;
+            break;
+
+       case 2:
+            direction_ = W;
+            break;
+
+       case 3:
+            direction_ = NW;
+            break;
+
+       case 4:
+            direction_ = N;
+            break;
+
+       case 5:
+            direction_ = NE;
+            break;
+
+       case 6:
+            direction_ = E;
+            break;
+
+      case 7:
+            direction_ = SE;
+            break;
+
+
+    }
 
 }
 

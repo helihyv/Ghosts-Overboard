@@ -79,7 +79,7 @@ void MainWindow::initializeBoundaries()
 
 void MainWindow::restartLevel()
 {
-    pScene_->setupMap(5,10,0);
+    pScene_->setupMap(5,10,5);
 }
 
 void MainWindow::about()
