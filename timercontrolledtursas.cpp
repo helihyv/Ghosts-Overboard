@@ -68,14 +68,14 @@ void TimerControlledTursas::move()
 
     QRect sceneRectangle = scene()->sceneRect().toRect();
 
-    if (newx < sceneRectangle.left() || newx > sceneRectangle.right())
+    if (newx < sceneRectangle.left() || newx > sceneRectangle.right()-40)
     {
         changeDirection();
         return;
     }
 
 
-    if (newy < sceneRectangle.top() || newy > sceneRectangle.bottom())
+    if (newy < sceneRectangle.top() || newy > sceneRectangle.bottom()-40)
     {
         changeDirection();
         return;     //the old x and y values remain intact
