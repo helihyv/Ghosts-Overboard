@@ -53,3 +53,9 @@ void Ship::updateShipImage()
     int index = qBound(0,ghostsAboard_,shipImages_.length()-1);
     setPixmap(shipImages_.at(index));
 }
+
+void Ship::dropAllGhosts()
+{
+//TODO
+}
+

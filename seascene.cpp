@@ -1,5 +1,5 @@
 #include "seascene.h"
-#include "timercontrolledtursas.h"
+#include "octopus.h"
 #include "ship.h"
 #include <QGraphicsPixmapItem>
 #include <QDebug>
@@ -88,6 +88,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
 
     //spread the octopuses
 
+    QList<Octopus*> octopuses;
 
     for (int i=0; i < octopuses; i++)
     {
@@ -98,7 +99,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
             break;
 
     QPixmap octopusPixmap (":/pix/tursas.png");
-    TimerControlledTursas * pOctopus = new TimerControlledTursas (octopusPixmap,100);
+    Octopus * pOctopus = new Octopus(octopusPixmap,100);
     pOctopus->setData(0,"octopus");
     pOctopus->setPos(*pPosition);
     addItem(pOctopus);
@@ -106,6 +107,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     movingItems_.append(pOctopus);
     connect(this,SIGNAL(pauseOn()),pOctopus,SLOT(stopMoving()));
     connect(this,SIGNAL(pauseOff()),pOctopus,SLOT(startMoving()));
+    octopuses.append(pOctopus);
     delete pPosition;
 
     }
@@ -145,6 +147,10 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     movingItems_.append(pShip);
     connect(this,SIGNAL(pauseOn()),pShip,SLOT(stopMoving()));
     connect(this,SIGNAL(pauseOff()),pShip,SLOT(startMoving()));
+    foreach (Octopus* pOctopus, octopuses)
+    {
+        connect(pOctopus,SIGNAL(droppingGhosts()),pShip,SLOT(dropAllGhosts()));
+    }
     delete pPosition;
 }
 

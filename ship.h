@@ -22,6 +22,8 @@ signals:
 
 public slots:
 
+    void dropAllGhosts();
+
 protected:
 
 protected:
