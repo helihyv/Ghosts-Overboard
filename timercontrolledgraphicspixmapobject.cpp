@@ -68,14 +68,14 @@ void TimerControlledGraphicsPixmapObject::move()
 
     QRect sceneRectangle = scene()->sceneRect().toRect();
 
-    if (newx < sceneRectangle.left() || newx > sceneRectangle.right()-40)
+    if (newx < sceneRectangle.left() || newx > sceneRectangle.right()-pixmap().width())
     {
         changeDirection();
         return;
     }
 
 
-    if (newy < sceneRectangle.top() || newy > sceneRectangle.bottom()-40)
+    if (newy < sceneRectangle.top() || newy > sceneRectangle.bottom()-pixmap().height())
     {
         changeDirection();
         return;     //the old x and y values remain intact
@@ -102,10 +102,10 @@ void TimerControlledGraphicsPixmapObject::move()
 
 void TimerControlledGraphicsPixmapObject::changeDirection()
 {
-    qDebug () << "Supposed to change direction";
+ //   qDebug () << "Supposed to change direction";
 
     int direction = (qrand()%8);
-    qDebug()  << direction;
+ //   qDebug()  << direction;
 
     switch (direction)
     {

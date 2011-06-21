@@ -13,7 +13,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     orientationcontrolledgraphicspixmapobject.cpp \
-    timercontrolledtursas.cpp \
     seascene.cpp \
     seaview.cpp \
     ship.cpp \
@@ -23,7 +22,6 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     orientationcontrolledgraphicspixmapobject.h \
-    timercontrolledtursas.h \
     seascene.h \
     seaview.h \
     ship.h \
