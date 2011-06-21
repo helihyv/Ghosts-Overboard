@@ -5,7 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QTimer>
 
-class TimerControlledGraphisPixmapObject : public QObject, public QGraphicsPixmapItem
+class TimerControlledGraphicsPixmapObject : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:

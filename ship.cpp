@@ -26,9 +26,10 @@ bool Ship::handleCollisions()
         if (type == "rock" || type == "octopus")
         {
             // drop all ghosts when hitting an obstacle
-            emit droppingGhosts(ghostsAboard_);
-            ghostsAboard_ = 0;
-            updateShipImage();
+
+            dropAllGhosts();
+
+            //go back to old position
 
             return false;
         }
@@ -46,6 +47,9 @@ bool Ship::handleCollisions()
         }
 
     }
+
+
+    return true; //execution can never reach here, this is just to stop the compiler from complaining
 }
 
 void Ship::updateShipImage()
@@ -56,6 +60,9 @@ void Ship::updateShipImage()
 
 void Ship::dropAllGhosts()
 {
-//TODO
+
+    emit droppingGhosts(ghostsAboard_);
+    ghostsAboard_ = 0;
+    updateShipImage();
 }
 
