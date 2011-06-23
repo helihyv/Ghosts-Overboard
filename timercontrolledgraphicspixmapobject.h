@@ -63,6 +63,8 @@ public slots:
 
     direction direction_;
 
+    bool stoppedBecauseInvalidTime_;
+
 
 };
 

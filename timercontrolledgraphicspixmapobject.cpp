@@ -35,7 +35,8 @@ TimerControlledGraphicsPixmapObject::TimerControlledGraphicsPixmapObject(QPixmap
 
 void TimerControlledGraphicsPixmapObject::startMoving()
 {
-    timer_.start();
+    if (!stoppedBecauseInvalidTime_)
+        timer_.start();
 }
 
 void TimerControlledGraphicsPixmapObject::stopMoving()
@@ -45,8 +46,15 @@ void TimerControlledGraphicsPixmapObject::stopMoving()
 
 void TimerControlledGraphicsPixmapObject::setSpeed(int speed)
 {
-    timer_.setInterval(1000/speed); //converts from pixels in second to milliseconds per pixel
+    if (speed >0)
+    {
+        timer_.setInterval(1000/speed); //converts from pixels in second to milliseconds per pixel
+        stoppedBecauseInvalidTime_ = false;
+     }
+    else
+        stoppedBecauseInvalidTime_ = true;
 }
+
 
 void TimerControlledGraphicsPixmapObject::move()
 {
