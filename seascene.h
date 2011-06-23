@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include "screenlitkeeper.h"
+#include "level.h"
 
 class SeaScene : public QGraphicsScene
 {
@@ -24,7 +25,9 @@ public slots:
     @param rocks the number of rocks to be placed on the map
     @param octopuses number of octopuses to be placed on the map
     */
-    void setupMap(int ghosts, int rocks, int octopuses);
+    void setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed);
+
+    void setupMap(Level level);
 
     void spreadGhosts(int ghosts);
 

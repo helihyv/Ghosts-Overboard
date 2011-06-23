@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     ship.cpp \
     screenlitkeeper.cpp \
     timercontrolledgraphicspixmapobject.cpp \
-    octopus.cpp
+    octopus.cpp \
+    level.cpp
 
 HEADERS  += mainwindow.h \
     orientationcontrolledgraphicspixmapobject.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     ship.h \
     screenlitkeeper.h \
     timercontrolledgraphicspixmapobject.h \
-    octopus.h
+    octopus.h \
+    level.h
 
 CONFIG += mobility
 MOBILITY = sensors

@@ -21,7 +21,6 @@
 **************************************************************************/
 
 #include "mainwindow.h"
-#include "timercontrolledtursas.h"
 #include <QPixmap>
 #include <QTimer>
 #include <QDebug>
@@ -66,6 +65,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pAboutAction,SIGNAL(triggered()),this,SLOT(about()));
     menuBar()->addAction(pAboutAction);
 
+    QAction * pRestartGameAction = new QAction(tr("Restart game"),this);
+    addAction(pRestartGameAction);
+    connect(pRestartGameAction,SIGNAL(triggered()),this,SLOT(restartGame()));
+    menuBar()->addAction(pRestartGameAction);
+
 
     //the boundaries of the scene are set to match the size of the view window, which is not
     //available in the constructor --> timer needed
@@ -101,7 +105,7 @@ void MainWindow::initializeBoundaries()
 
 void MainWindow::restartLevel()
 {
-    pScene_->setupMap(5,10,5);
+    pScene_->setupMap(5,10,5,100);
 }
 
 void MainWindow::about()
@@ -204,3 +208,8 @@ bool MainWindow::event(QEvent *event)
     return QMainWindow::event(event);
 
  }
+
+void MainWindow::restartGame()
+{
+
+}

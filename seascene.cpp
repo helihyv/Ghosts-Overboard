@@ -53,7 +53,7 @@ SeaScene::SeaScene(QObject *parent) :
 
 }
 
-void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
+void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
 {
     //empty the map
 
@@ -121,7 +121,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
             break;
 
     QPixmap octopusPixmap (":/pix/tursas.png");
-    Octopus * pOctopus = new Octopus(octopusPixmap,100);
+    Octopus * pOctopus = new Octopus(octopusPixmap,octopusSpeed);
     pOctopus->setData(0,"octopus");
     pOctopus->setPos(*pPosition);
     addItem(pOctopus);
@@ -176,6 +176,10 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     delete pPosition;
 }
 
+void SeaScene::setupMap(Level level)
+{
+    setupMap(level.getNumberOfGhosts(),level.getNumberOfRocks(),level.getNumberOfOctopuses(),level.getOctopusSpeed());
+}
 
 void SeaScene::spreadGhosts(int ghosts)
 {
