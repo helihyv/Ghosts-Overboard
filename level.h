@@ -5,7 +5,7 @@ class Level
 {
 public:
     Level();
-    Level(int ghosts = 5, int rocks = 0, int octopuses = 0, int octopusSpeed = 100);
+    Level(int ghosts, int rocks = 0, int octopuses = 0, int octopusSpeed = 100);
     void setNumberOfGhosts(int ghosts);
     int getNumberOfGhosts() const;
     void setNumberOfRocks(int rocks);

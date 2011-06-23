@@ -52,8 +52,8 @@ private:
 SeaScene * pScene_;
 QGraphicsView * pView_;
 QAction* pPauseAction_;
-QList<Level> levelList;
-
+QList<Level> levelList_;
+int currentLevel_;
 
 };
 
