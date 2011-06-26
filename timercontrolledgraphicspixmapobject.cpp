@@ -53,6 +53,7 @@ void TimerControlledGraphicsPixmapObject::setSpeed(int speed)
      }
     else
         stoppedBecauseInvalidTime_ = true;
+        timer_.stop();
 }
 
 
