@@ -21,7 +21,6 @@
 **************************************************************************/
 
 #include "mainwindow.h"
-#include "timercontrolledtursas.h"
 #include <QPixmap>
 #include <QTimer>
 #include <QDebug>
