@@ -23,6 +23,9 @@
 
 #include "ship.h"
 #include <QDebug>
+#include <QDBusMessage>
+#include <QDBusConnection>
+
 
 Ship::Ship(QList<QPixmap> pixmapList, QGraphicsItem *parent) :
     OrientationControlledGraphicsPixmapObject(pixmapList.at(0),parent)
@@ -87,5 +90,21 @@ void Ship::dropAllGhosts()
     emit droppingGhosts(ghostsAboard_);
     ghostsAboard_ = 0;
     updateShipImage();
+
+    //vibrate
+
+
+    QDBusMessage message = QDBusMessage::createMethodCall("com.nokia.mce","/com/nokia/mce/request","com.nokia.mce.request","req_vibrator_pattern_activate");
+
+    QList<QVariant> arguments;
+
+    arguments.append("PatternChatAndEmail");
+
+    message.setArguments(arguments);
+
+    message = QDBusConnection::systemBus().call(message);
+
+    qDebug() << message;
+
 }
 
