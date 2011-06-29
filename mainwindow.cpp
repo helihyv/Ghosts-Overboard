@@ -66,6 +66,13 @@ MainWindow::MainWindow(QWidget *parent)
     menuBar()->addAction(pAboutAction);
 
 
+    QAction * pVibrateAction = new QAction(tr("Vibration effects"),this);
+    pVibrateAction->setCheckable(true);
+    addAction(pVibrateAction);
+    connect(pVibrateAction,SIGNAL(triggered(bool)),this,SLOT(setVibrationEffects(bool)));
+    menuBar()->addAction(pVibrateAction);
+
+
     //the boundaries of the scene are set to match the size of the view window, which is not
     //available in the constructor --> timer needed
     QTimer::singleShot(100,this,SLOT(initializeBoundaries()));
@@ -203,3 +210,4 @@ bool MainWindow::event(QEvent *event)
     return QMainWindow::event(event);
 
  }
+

@@ -15,6 +15,7 @@ signals:
     void allGhostsPicked();
     void pauseOn();
     void pauseOff();
+    void vibrationActivated(bool on);
 
 public slots:
 
@@ -33,6 +34,8 @@ public slots:
     void ghostsDropped(int ghosts);
 
     void pause (bool paused);
+
+    void vibrationActivate(bool);
 
 protected:
 

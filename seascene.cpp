@@ -165,6 +165,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses)
     addItem(pShip);
     connect(pShip,SIGNAL(pickingGhost(QGraphicsItem*)),this, SLOT(removeGhost(QGraphicsItem*)) );
     connect(pShip,SIGNAL(droppingGhosts(int)),this,SLOT(ghostsDropped(int)));
+    connect(this,SIGNAL(vibrationActivated(bool)),pShip,SLOT(setVibrationActivate(bool)));
     pShip->startMoving();
     movingItems_.append(pShip);
     connect(this,SIGNAL(pauseOn()),pShip,SLOT(stopMoving()));
@@ -307,4 +308,9 @@ void SeaScene::pause(bool paused)
             emit pauseOn();
             screenLitKeeper_.keepScreenLit(false);
         }
+}
+
+void SeaScene::vibrationActivate(bool on)
+{
+    emit vibrationActivated(on);
 }

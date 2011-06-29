@@ -46,6 +46,8 @@ public slots:
 
     void dropAllGhosts();
 
+    void setVibrationActivate(bool on);
+
 protected:
 
 protected:
@@ -56,6 +58,8 @@ protected:
     int ghostsAboard_;
 
     QList<QPixmap> shipImages_;
+
+    bool vibrationActive_;
 
 
 };

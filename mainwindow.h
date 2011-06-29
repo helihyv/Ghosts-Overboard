@@ -46,11 +46,13 @@ public slots:
     void nextLevel();
 
 
+
 private:
 
 SeaScene * pScene_;
 QGraphicsView * pView_;
 QAction* pPauseAction_;
+
 
 
 };

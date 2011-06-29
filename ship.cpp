@@ -32,7 +32,7 @@ Ship::Ship(QList<QPixmap> pixmapList, QGraphicsItem *parent) :
 {
     shipImages_ = pixmapList;
     ghostsAboard_ = 0;
-
+    vibrationActive_ = false;
 }
 
 bool Ship::handleCollisions()
@@ -93,18 +93,23 @@ void Ship::dropAllGhosts()
 
     //vibrate
 
+    if (vibrationActive_)
+    {
+        QDBusMessage message = QDBusMessage::createMethodCall("com.nokia.mce","/com/nokia/mce/request","com.nokia.mce.request","req_vibrator_pattern_activate");
 
-    QDBusMessage message = QDBusMessage::createMethodCall("com.nokia.mce","/com/nokia/mce/request","com.nokia.mce.request","req_vibrator_pattern_activate");
+        QList<QVariant> arguments;
 
-    QList<QVariant> arguments;
+        arguments.append("PatternChatAndEmail");
 
-    arguments.append("PatternChatAndEmail");
+        message.setArguments(arguments);
 
-    message.setArguments(arguments);
+        message = QDBusConnection::systemBus().call(message);
 
-    message = QDBusConnection::systemBus().call(message);
-
-    qDebug() << message;
-
+    //qDebug() << message;
+    }
 }
 
+void Ship::setVibrationActivate(bool on)
+{
+    vibrationActive_ = on;
+}
