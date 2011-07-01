@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     QAction * pVibrateAction = new QAction(tr("Vibration effects"),this);
     pVibrateAction->setCheckable(true);
     addAction(pVibrateAction);
-    connect(pVibrateAction,SIGNAL(triggered(bool)),this,SLOT(setVibrationEffects(bool)));
+    connect(pVibrateAction,SIGNAL(triggered(bool)),pScene_,SLOT(vibrationActivate(bool)));
     menuBar()->addAction(pVibrateAction);
 
 
