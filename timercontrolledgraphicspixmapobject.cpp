@@ -29,7 +29,7 @@ TimerControlledGraphicsPixmapObject::TimerControlledGraphicsPixmapObject(QPixmap
     QObject(), QGraphicsPixmapItem(pixmap, parent)
 {
     setSpeed(speed);
-    direction_ = S;
+    changeDirection();
     connect(&timer_,SIGNAL(timeout()),this,SLOT(move()));
 }
 
