@@ -59,18 +59,18 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pRestartLevelAction,SIGNAL(triggered()),this,SLOT(restartLevel()));
     menuBar()->addAction(pRestartLevelAction);
 
+    QAction * pVibrateAction = new QAction(tr("Vibration effects"),this);
+    pVibrateAction->setCheckable(true);
+    addAction(pVibrateAction);
+    connect(pVibrateAction,SIGNAL(triggered(bool)),pScene_,SLOT(vibrationActivate(bool)));
+    menuBar()->addAction(pVibrateAction);
+
 
     QAction * pAboutAction = new QAction(tr("About"),this);
     addAction(pAboutAction);
     connect(pAboutAction,SIGNAL(triggered()),this,SLOT(about()));
     menuBar()->addAction(pAboutAction);
 
-
-    QAction * pVibrateAction = new QAction(tr("Vibration effects"),this);
-    pVibrateAction->setCheckable(true);
-    addAction(pVibrateAction);
-    connect(pVibrateAction,SIGNAL(triggered(bool)),pScene_,SLOT(vibrationActivate(bool)));
-    menuBar()->addAction(pVibrateAction);
 
 
     //the boundaries of the scene are set to match the size of the view window, which is not
