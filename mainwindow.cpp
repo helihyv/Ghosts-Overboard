@@ -59,6 +59,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pRestartLevelAction,SIGNAL(triggered()),this,SLOT(restartLevel()));
     menuBar()->addAction(pRestartLevelAction);
 
+    QAction * pRestartGameAction = new QAction(tr("Restart game"),this);
+    addAction(pRestartGameAction);
+    connect(pRestartGameAction,SIGNAL(triggered()),this,SLOT(restartGame()));
+    menuBar()->addAction(pRestartGameAction);
+
     QAction * pVibrateAction = new QAction(tr("Vibration effects"),this);
     pVibrateAction->setCheckable(true);
     addAction(pVibrateAction);
@@ -71,10 +76,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pAboutAction,SIGNAL(triggered()),this,SLOT(about()));
     menuBar()->addAction(pAboutAction);
 
-    QAction * pRestartGameAction = new QAction(tr("Restart game"),this);
-    addAction(pRestartGameAction);
-    connect(pRestartGameAction,SIGNAL(triggered()),this,SLOT(restartGame()));
-    menuBar()->addAction(pRestartGameAction);
+
 
     Level level1(5,10);
     levelList_.append(level1);
