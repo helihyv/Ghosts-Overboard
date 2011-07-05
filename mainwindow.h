@@ -27,7 +27,7 @@
 #include <QGraphicsView>
 #include "orientationcontrolledgraphicspixmapobject.h"
 #include "seascene.h"
-
+#include "level.h"
 
 class MainWindow : public QMainWindow
 {
@@ -44,6 +44,7 @@ public slots:
     void restartLevel();
     void about();
     void nextLevel();
+    void restartGame();
 
 
 
@@ -52,7 +53,8 @@ private:
 SeaScene * pScene_;
 QGraphicsView * pView_;
 QAction* pPauseAction_;
-
+QList<Level> levelList_;
+int currentLevel_;
 
 
 };

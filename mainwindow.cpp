@@ -71,6 +71,23 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pAboutAction,SIGNAL(triggered()),this,SLOT(about()));
     menuBar()->addAction(pAboutAction);
 
+    QAction * pRestartGameAction = new QAction(tr("Restart game"),this);
+    addAction(pRestartGameAction);
+    connect(pRestartGameAction,SIGNAL(triggered()),this,SLOT(restartGame()));
+    menuBar()->addAction(pRestartGameAction);
+
+    Level level1(5,10);
+    levelList_.append(level1);
+    Level level2(5,10,2,50);
+    levelList_.append(level2);
+    Level level3(5,15,3,50);
+    levelList_.append(level3);
+    Level level4(5,15,5,50);
+    levelList_.append(level4);
+    Level level5(5,15,5,100);
+    levelList_.append(level5);
+
+    currentLevel_ = 0;
 
 
     //the boundaries of the scene are set to match the size of the view window, which is not
@@ -107,7 +124,7 @@ void MainWindow::initializeBoundaries()
 
 void MainWindow::restartLevel()
 {
-    pScene_->setupMap(5,10,5);
+    pScene_->setupMap(levelList_.at(currentLevel_));
 }
 
 void MainWindow::about()
@@ -127,9 +144,19 @@ void MainWindow::about()
 void MainWindow::nextLevel()
 {
 
-    //for now, just the handling of last level is implemented, and there is just one level
+    currentLevel_++;
+
+    if (levelList_.empty())
+        pScene_->setupMap(Level());
 
 
+    if ( currentLevel_ < levelList_.size() )
+    {
+        pScene_->setupMap(levelList_.at(currentLevel_));
+    }
+
+    else //Victory!
+    {
 
        QDialog* pVictoryDialog = new QDialog(this);
        pVictoryDialog->setWindowTitle(tr("You won!"));
@@ -171,8 +198,8 @@ void MainWindow::nextLevel()
 
         //Never mind if the user cancels the dialog: restart the game anyway
 
-       restartLevel();
-
+       restartGame();
+    }
 }
 
 bool MainWindow::event(QEvent *event)
@@ -211,3 +238,9 @@ bool MainWindow::event(QEvent *event)
 
  }
 
+void MainWindow::restartGame()
+{
+    currentLevel_ = 0;
+    pScene_->setupMap(levelList_.value(currentLevel_)); //value() returns default constructor Level, so no need to check if list empty
+
+}
