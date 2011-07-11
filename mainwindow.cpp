@@ -82,9 +82,9 @@ MainWindow::MainWindow(QWidget *parent)
     levelList_.append(level1);
     Level level2(5,10,2,50);
     levelList_.append(level2);
-    Level level3(5,15,3,50);
+    Level level3(5,15,2,50);
     levelList_.append(level3);
-    Level level4(5,15,5,50);
+    Level level4(5,15,4,50);
     levelList_.append(level4);
     Level level5(5,15,5,100);
     levelList_.append(level5);
