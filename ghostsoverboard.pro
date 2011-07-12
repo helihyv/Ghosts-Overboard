@@ -15,7 +15,6 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     orientationcontrolledgraphicspixmapobject.cpp \
     seascene.cpp \
-    seaview.cpp \
     ship.cpp \
     screenlitkeeper.cpp \
     timercontrolledgraphicspixmapobject.cpp \
@@ -25,7 +24,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     orientationcontrolledgraphicspixmapobject.h \
     seascene.h \
-    seaview.h \
     ship.h \
     screenlitkeeper.h \
     timercontrolledgraphicspixmapobject.h \
