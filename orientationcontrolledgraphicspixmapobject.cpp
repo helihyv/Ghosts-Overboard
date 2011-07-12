@@ -77,8 +77,13 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
     int oldx = x();
     int oldy = y();
 
-    int newx = x() + deltax/15;
-    int newy = y() + deltay/15;
+    //this is how it works on maemo
+//    int newx = x() + deltax/15;
+//    int newy = y() + deltay/15;
+
+    //this is for Harmattan
+    int newx = x() + deltax/5;
+    int newy = y() + deltay/5;
 
 
 //    qDebug() << sceneRectangle.left() << sceneRectangle.right();
