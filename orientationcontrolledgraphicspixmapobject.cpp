@@ -65,9 +65,12 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
 
     QRotationReading* pSensorData = rotationSensor_.reading();
 
-    int deltay = pSensorData->x(); //yes, you need the "x" value from the sensor for "y" direction in the scene...
-    int deltax = pSensorData->y(); //...and vice versa
+    //    int deltay = pSensorData->x(); //yes, in Maemo 5 you need the "x" value from the sensor for "y" direction in the scene...
+    //    int deltax = pSensorData->y(); //...and vice versa
 
+        int deltay = -pSensorData->y(); //But in Harmattan, you need the "y" value from the sensor for "y" direction in the scene...
+        int deltax = pSensorData->x(); //...and x for x (when in landscape)
+                                      //and you need to reverse the y value
 
  //   qDebug() << deltax << " " << deltay;
 
