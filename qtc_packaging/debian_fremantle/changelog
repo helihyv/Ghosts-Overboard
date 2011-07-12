@@ -1,3 +1,12 @@
+ghostsoverboard (0.2.0) unstable; urgency=low
+
+  * Octopuses (moving obstacles) added
+  * supports multiple levels
+  * 4 new levels
+  * vibration effects (off by default)
+
+ -- Heli Hyvättinen <helihyvattinen@kymp.net>  Tue, 12 July 2011 03:17:00 +0300
+
 ghostsoverboard (0.1.0) unstable; urgency=low
 
   * Initial Release.
