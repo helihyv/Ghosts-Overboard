@@ -64,11 +64,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pRestartGameAction,SIGNAL(triggered()),this,SLOT(restartGame()));
     menuBar()->addAction(pRestartGameAction);
 
-    QAction * pVibrateAction = new QAction(tr("Vibration effects"),this);
-    pVibrateAction->setCheckable(true);
-    addAction(pVibrateAction);
-    connect(pVibrateAction,SIGNAL(triggered(bool)),pScene_,SLOT(vibrationActivate(bool)));
-    menuBar()->addAction(pVibrateAction);
+    pVibrateAction_ = new QAction(tr("Vibration effects"),this);
+    pVibrateAction_->setCheckable(true);
+    addAction(pVibrateAction_);
+    connect(pVibrateAction_,SIGNAL(triggered(bool)),pScene_,SLOT(vibrationActivate(bool)));
+    menuBar()->addAction(pVibrateAction_);
 
 
     QAction * pAboutAction = new QAction(tr("About"),this);
@@ -126,7 +126,9 @@ void MainWindow::initializeBoundaries()
 
 void MainWindow::restartLevel()
 {
-    pScene_->setupMap(levelList_.at(currentLevel_));
+    pScene_->setupMap(levelList_.value(currentLevel_));  //value() returns default constructor Level if index is invalid, so no risk of crash
+    pScene_->vibrationActivate(pVibrateAction_->isChecked());  //Vibration effects are lost without this
+   // qDebug() << pVibrateAction_->isChecked();
 }
 
 void MainWindow::about()
@@ -154,7 +156,7 @@ void MainWindow::nextLevel()
 
     if ( currentLevel_ < levelList_.size() )
     {
-        pScene_->setupMap(levelList_.at(currentLevel_));
+       restartLevel();
     }
 
     else //Victory!
@@ -243,6 +245,5 @@ bool MainWindow::event(QEvent *event)
 void MainWindow::restartGame()
 {
     currentLevel_ = 0;
-    pScene_->setupMap(levelList_.value(currentLevel_)); //value() returns default constructor Level, so no need to check if list empty
-
+    restartLevel();
 }

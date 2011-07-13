@@ -55,6 +55,7 @@ QGraphicsView * pView_;
 QAction* pPauseAction_;
 QList<Level> levelList_;
 int currentLevel_;
+QAction* pVibrateAction_;
 
 
 };
