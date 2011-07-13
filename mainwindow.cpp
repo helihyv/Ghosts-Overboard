@@ -40,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowIcon(QIcon(":/pix/laiva_3aave.png"));
     setWindowTitle("Ghosts Overboard");
 
+    showFullScreen();
+
     pScene_ = new SeaScene ();
     connect(pScene_,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
 
