@@ -78,6 +78,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pAboutAction,SIGNAL(triggered()),this,SLOT(about()));
     menuBar()->addAction(pAboutAction);
 
+    menuBar()->hide();
+
 
 
     Level level1(5,10);
