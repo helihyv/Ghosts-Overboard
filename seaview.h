@@ -31,7 +31,7 @@ class SeaView : public QGraphicsView
 public:
     explicit SeaView(QWidget *parent = 0);
 
-    virtual void mousePressEvent(QMouseEvent *event);
+   virtual void mousePressEvent(QMouseEvent *event);
 
 signals:
 

@@ -78,6 +78,8 @@ protected:
 
     QPointF* findRandomFreeSlot();
 
+    void createMenuItems();
+
     const QString ghostImageFilename_;
     const QString rockImageFilename_;
     const QString octopusImageFilename_;
@@ -93,9 +95,15 @@ protected:
 
     ScreenLitKeeper screenLitKeeper_;
 
-private:
 
     QGraphicsItemGroup menuItems_;
+
+    QGraphicsSimpleTextItem * pPausetextItem_;
+
+    QGraphicsSimpleTextItem * pRestartLevelItem_;
+    QGraphicsSimpleTextItem * pRestartGameItem_;
+    QGraphicsSimpleTextItem * pVibrateItem_;
+    QGraphicsSimpleTextItem * pAboutItem_;
 
 
 };

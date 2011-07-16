@@ -55,6 +55,12 @@ SeaScene::SeaScene(QObject *parent) :
 
 
 
+
+
+
+
+
+
 }
 
 void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
@@ -62,6 +68,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
     //empty the map
 
     clear();
+
+    createMenuItems();
 
     //empty the list of moving items
 
@@ -308,13 +316,22 @@ void SeaScene::pause(bool paused)
      //       qDebug() << "starting to move again";
             emit pauseOff();
             screenLitKeeper_.keepScreenLit(true);
+            if (pPausetextItem_)
+                pPausetextItem_->hide();
         }
 
         else
         {
-     //       qDebug("about to stop movement");
+         qDebug("about to stop movement");
             emit pauseOn();
             screenLitKeeper_.keepScreenLit(false);
+            if (pPausetextItem_ != NULL)
+            {
+                qDebug() << "about to show the pause text";
+                pPausetextItem_->show();
+                qDebug() << "showing pause text";
+            }
+                else qDebug() << "No pause text available";
         }
 }
 
@@ -332,26 +349,32 @@ void SeaScene::menuClicked()
     if (items.isEmpty())
         return;
 
+    //Tapping the screen unpaused the game, pause it again!
+
+
+
     //Menu functions
 
-    QString menuitem = items.at(0)->data(0).toString();
+    QGraphicsItem* pItem = items.at(0);
 
-    if (menuitem == "restart game")
+
+    if (pItem == pRestartGameItem_)
+    {
+        qDebug() << "game restart requested";
+    }
+
+    else if (pItem == pRestartLevelItem_)
+    {
+        qDebug() << "Level restart requested";
+
+    }
+
+    else if (pItem == pVibrateItem_)
     {
 
     }
 
-    else if (menuitem == "restart level")
-    {
-
-    }
-
-    else if (menuitem == "vibration effects")
-    {
-
-    }
-
-    else if (menuitem == "about")
+    else if (pItem == pAboutItem_)
     {
 
     }
@@ -371,4 +394,36 @@ void SeaScene::showMenu()
 void::SeaScene::hideMenu()
 {
     menuItems_.hide();
+}
+
+void SeaScene::createMenuItems()
+{
+
+    pPausetextItem_ =  addSimpleText("Game paused. Tap to continue.");
+    pPausetextItem_->setZValue(1000);
+
+    //Menu items have pause text item as their parent and are thus added to scene automatically
+    //They are also shown and hidden with it, resulting in the menu being visble when the game is paused
+
+    pRestartGameItem_ = new QGraphicsSimpleTextItem("Restart game",pPausetextItem_);
+    pRestartGameItem_->setPos(0,200);
+    pRestartGameItem_->setZValue(1000);
+    pRestartGameItem_->setFlag(QGraphicsItem::ItemIsSelectable);
+
+    pRestartLevelItem_ = new QGraphicsSimpleTextItem("Restart level",pPausetextItem_);
+    pRestartLevelItem_->setPos(150,200);
+    pRestartLevelItem_->setZValue(1000);
+    pRestartLevelItem_->setFlag(QGraphicsItem::ItemIsSelectable);
+
+    QGraphicsRectItem * item = new QGraphicsRectItem(100,100,50,50,pPausetextItem_);
+    item->setFlag(QGraphicsItem::ItemIsSelectable);
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    item->setBrush(brush);
+
+
+
+
+
+
 }
