@@ -66,9 +66,6 @@ public slots:
 
     void menuClicked();
 
-    void showMenu();
-
-    void hideMenu();
 
 protected:
 
@@ -79,6 +76,7 @@ protected:
     QPointF* findRandomFreeSlot();
 
     void createMenuItems();
+    void prepareForMenu(QGraphicsItem * pItem);
 
     const QString ghostImageFilename_;
     const QString rockImageFilename_;
@@ -96,13 +94,13 @@ protected:
     ScreenLitKeeper screenLitKeeper_;
 
 
-    QGraphicsItemGroup menuItems_;
+    int menuItemCount_;
 
     QGraphicsSimpleTextItem * pPausetextItem_;
 
     QGraphicsSimpleTextItem * pRestartLevelItem_;
     QGraphicsSimpleTextItem * pRestartGameItem_;
-    QGraphicsSimpleTextItem * pVibrateItem_;
+    QGraphicsSimpleTextItem * pSettingsItem_;
     QGraphicsSimpleTextItem * pAboutItem_;
 
 

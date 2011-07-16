@@ -369,7 +369,7 @@ void SeaScene::menuClicked()
 
     }
 
-    else if (pItem == pVibrateItem_)
+    else if (pItem == pSettingsItem_)
     {
 
     }
@@ -386,44 +386,43 @@ void SeaScene::menuClicked()
 
 }
 
-void SeaScene::showMenu()
-{
-    menuItems_.show();
-}
 
-void::SeaScene::hideMenu()
-{
-    menuItems_.hide();
-}
 
 void SeaScene::createMenuItems()
 {
 
     pPausetextItem_ =  addSimpleText("Game paused. Tap to continue.");
     pPausetextItem_->setZValue(1000);
+    pPausetextItem_->setPos(250,50);
+    pPausetextItem_->hide();
+
+    menuItemCount_ = 0;
+
+    pRestartGameItem_ = new QGraphicsSimpleTextItem("Restart game");
+    prepareForMenu(pRestartGameItem_);
+
+    pRestartLevelItem_ = new QGraphicsSimpleTextItem("Restart level");
+    prepareForMenu(pRestartLevelItem_);
+
+    pSettingsItem_ = new QGraphicsSimpleTextItem("Settings");
+    prepareForMenu(pSettingsItem_);
+
+    pAboutItem_ = new QGraphicsSimpleTextItem("About");
+    prepareForMenu(pAboutItem_);
+
+}
+
+void SeaScene::prepareForMenu(QGraphicsItem * pItem)
+{
 
     //Menu items have pause text item as their parent and are thus added to scene automatically
     //They are also shown and hidden with it, resulting in the menu being visble when the game is paused
+    //Their coordinates are given relative to the parent.
 
-    pRestartGameItem_ = new QGraphicsSimpleTextItem("Restart game",pPausetextItem_);
-    pRestartGameItem_->setPos(0,200);
-    pRestartGameItem_->setZValue(1000);
-    pRestartGameItem_->setFlag(QGraphicsItem::ItemIsSelectable);
+    pItem->setParentItem(pPausetextItem_);
+    pItem->setZValue(1000);
+    pItem->setFlag(QGraphicsItem::ItemIsSelectable);
+    pItem->setY(150);
+    pItem->setX(menuItemCount_++*150-250);
+ }
 
-    pRestartLevelItem_ = new QGraphicsSimpleTextItem("Restart level",pPausetextItem_);
-    pRestartLevelItem_->setPos(150,200);
-    pRestartLevelItem_->setZValue(1000);
-    pRestartLevelItem_->setFlag(QGraphicsItem::ItemIsSelectable);
-
-    QGraphicsRectItem * item = new QGraphicsRectItem(100,100,50,50,pPausetextItem_);
-    item->setFlag(QGraphicsItem::ItemIsSelectable);
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    item->setBrush(brush);
-
-
-
-
-
-
-}
