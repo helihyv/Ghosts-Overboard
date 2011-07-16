@@ -27,6 +27,7 @@
 #include <QGraphicsView>
 #include "orientationcontrolledgraphicspixmapobject.h"
 #include "seascene.h"
+#include "seaview.h"
 #include "level.h"
 
 class MainWindow : public QMainWindow
@@ -51,7 +52,7 @@ public slots:
 private:
 
 SeaScene * pScene_;
-QGraphicsView * pView_;
+SeaView * pView_;
 QAction* pPauseAction_;
 QList<Level> levelList_;
 int currentLevel_;

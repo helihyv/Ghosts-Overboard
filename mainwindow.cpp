@@ -43,7 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
     pScene_ = new SeaScene ();
     connect(pScene_,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
 
-    pView_  = new QGraphicsView ();
+    pView_  = new SeaView ();
+
 
     pView_->setScene(pScene_);
     setCentralWidget(pView_);
@@ -53,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
     addAction(pPauseAction_);
     connect(pPauseAction_,SIGNAL(triggered(bool)),pScene_,SLOT(pause(bool)));
     menuBar()->addAction(pPauseAction_);
+    connect(pView_,SIGNAL(pauseChanged()),pPauseAction_,SLOT(toggle()));
 
     QAction * pRestartLevelAction = new QAction(tr("Restart level"),this);
     addAction(pRestartLevelAction);

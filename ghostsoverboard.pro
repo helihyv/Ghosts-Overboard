@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     screenlitkeeper.cpp \
     timercontrolledgraphicspixmapobject.cpp \
     octopus.cpp \
-    level.cpp
+    level.cpp \
+    seaview.cpp
 
 HEADERS  += mainwindow.h \
     orientationcontrolledgraphicspixmapobject.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     screenlitkeeper.h \
     timercontrolledgraphicspixmapobject.h \
     octopus.h \
-    level.h
+    level.h \
+    seaview.h
 
 CONFIG += mobility
 MOBILITY = sensors
@@ -73,4 +75,10 @@ OTHER_FILES += \
     qtc_packaging/debian_fremantle/copyright \
     qtc_packaging/debian_fremantle/control \
     qtc_packaging/debian_fremantle/compat \
-    qtc_packaging/debian_fremantle/changelog
+    qtc_packaging/debian_fremantle/changelog \
+    qtc_packaging/debian_harmattan/rules \
+    qtc_packaging/debian_harmattan/README \
+    qtc_packaging/debian_harmattan/copyright \
+    qtc_packaging/debian_harmattan/control \
+    qtc_packaging/debian_harmattan/compat \
+    qtc_packaging/debian_harmattan/changelog

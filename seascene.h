@@ -25,6 +25,7 @@
 #define SEASCENE_H
 
 #include <QGraphicsScene>
+#include<QGraphicsItemGroup>
 #include "screenlitkeeper.h"
 #include "level.h"
 
@@ -63,6 +64,12 @@ public slots:
 
     void vibrationActivate(bool);
 
+    void menuClicked();
+
+    void showMenu();
+
+    void hideMenu();
+
 protected:
 
     /*! Gives a pointer to a random position if a free one is found. Otherwise returns NULL.
@@ -86,7 +93,9 @@ protected:
 
     ScreenLitKeeper screenLitKeeper_;
 
+private:
 
+    QGraphicsItemGroup menuItems_;
 
 
 };

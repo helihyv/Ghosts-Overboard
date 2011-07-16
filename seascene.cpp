@@ -49,6 +49,10 @@ SeaScene::SeaScene(QObject *parent) :
 
     qsrand(QTime::currentTime().msec()+2);  //+2 to avoid setting it to 1
 
+    //connect selecting to menu handling (only menu items selectable)
+
+    connect(this,SIGNAL(selectionChanged()),this,SLOT(menuClicked()));
+
 
 
 }
@@ -317,4 +321,54 @@ void SeaScene::pause(bool paused)
 void SeaScene::vibrationActivate(bool on)
 {
     emit vibrationActivated(on);
+}
+
+void SeaScene::menuClicked()
+{
+    QList<QGraphicsItem *> items = selectedItems();
+
+    //if nothing selected (selection was removed) do nothing
+
+    if (items.isEmpty())
+        return;
+
+    //Menu functions
+
+    QString menuitem = items.at(0)->data(0).toString();
+
+    if (menuitem == "restart game")
+    {
+
+    }
+
+    else if (menuitem == "restart level")
+    {
+
+    }
+
+    else if (menuitem == "vibration effects")
+    {
+
+    }
+
+    else if (menuitem == "about")
+    {
+
+    }
+
+
+    //Selection is just used to get notice of being clicked, removed after use
+
+    clearSelection();
+
+}
+
+void SeaScene::showMenu()
+{
+    menuItems_.show();
+}
+
+void::SeaScene::hideMenu()
+{
+    menuItems_.hide();
 }
