@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     pPauseAction_ = new QAction(tr("Pause"),this);
     pPauseAction_->setCheckable(true);
     addAction(pPauseAction_);
-    connect(pPauseAction_,SIGNAL(triggered(bool)),pScene_,SLOT(pause(bool)));
+    connect(pPauseAction_,SIGNAL(toggled(bool)),pScene_,SLOT(pause(bool)));
     menuBar()->addAction(pPauseAction_);
     connect(pView_,SIGNAL(pauseChanged()),pPauseAction_,SLOT(toggle()));
 
@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     pVibrateAction_ = new QAction(tr("Vibration effects"),this);
     pVibrateAction_->setCheckable(true);
     addAction(pVibrateAction_);
-    connect(pVibrateAction_,SIGNAL(triggered(bool)),pScene_,SLOT(vibrationActivate(bool)));
+    connect(pVibrateAction_,SIGNAL(toggled(bool)),pScene_,SLOT(vibrationActivate(bool)));
     menuBar()->addAction(pVibrateAction_);
 
 

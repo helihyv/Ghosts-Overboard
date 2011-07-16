@@ -27,7 +27,7 @@ SeaView::SeaView(QWidget *parent) :
 {
 }
 
-int  SeaView::mousePressEvent(QMouseEvent *event)
+void  SeaView::mousePressEvent(QMouseEvent *event)
 {
     emit pauseChanged();
 }
