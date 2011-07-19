@@ -444,26 +444,40 @@ void SeaScene::handleScreenTapped()
 void SeaScene::createMenuItems()
 {
 
-    pPausetextItem_ =  addSimpleText("Game paused. Tap to continue.");
+    QFont font;
+    font.setPixelSize(35);
+
+
+
+    pPausetextItem_ = new QGraphicsTextItem;
+    pPausetextItem_->setHtml("<font size = \"5\" color = darkorange> Game paused. Tap to continue.");
     pPausetextItem_->setZValue(1000);
-    pPausetextItem_->setPos(250,50);
+    pPausetextItem_->setPos(200,50);
+    addItem(pPausetextItem_);
     pPausetextItem_->hide();
 
     menuItemCount_ = 0;
 
-    pRestartGameItem_ = new QGraphicsSimpleTextItem("Restart game");
+    QString menufonthtml = "<font size = \"4\" color = darkorange>";
+
+    pRestartGameItem_ = new QGraphicsTextItem;
+    pRestartGameItem_->setHtml(tr("Restart <br> game").prepend(menufonthtml));
     prepareForMenu(pRestartGameItem_);
 
-    pRestartLevelItem_ = new QGraphicsSimpleTextItem("Restart level");
+    pRestartLevelItem_ = new QGraphicsTextItem;
+    pRestartLevelItem_->setHtml(tr("Restart <br> level").prepend(menufonthtml));
     prepareForMenu(pRestartLevelItem_);
 
-    pSettingsItem_ = new QGraphicsSimpleTextItem("Settings");
+    pSettingsItem_ = new QGraphicsTextItem;
+    pSettingsItem_->setHtml(tr("Settings").prepend(menufonthtml));
     prepareForMenu(pSettingsItem_);
 
-    pAboutItem_ = new QGraphicsSimpleTextItem("About");
+    pAboutItem_ = new QGraphicsTextItem;
+    pAboutItem_->setHtml(tr("About").prepend(menufonthtml));
     prepareForMenu(pAboutItem_);
 
-    pQuitItem_ = new QGraphicsSimpleTextItem("Quit");
+    pQuitItem_ = new QGraphicsTextItem;
+    pQuitItem_->setHtml(tr("Quit").prepend(menufonthtml));
     prepareForMenu(pQuitItem_);
 
 }
@@ -475,11 +489,12 @@ void SeaScene::prepareForMenu(QGraphicsItem * pItem)
     //They are also shown and hidden with it, resulting in the menu being visble when the game is paused
     //Their coordinates are given relative to the parent.
 
+
     pItem->setParentItem(pPausetextItem_);
     pItem->setZValue(1000);
     pItem->setFlag(QGraphicsItem::ItemIsSelectable);
     pItem->setY(150);
-    pItem->setX(menuItemCount_++*150-250);
+    pItem->setX(menuItemCount_++*160-150);
  }
 
 

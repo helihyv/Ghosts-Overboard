@@ -110,13 +110,13 @@ protected:
 
     int menuItemCount_;
 
-    QGraphicsSimpleTextItem * pPausetextItem_;
+    QGraphicsTextItem * pPausetextItem_;
 
-    QGraphicsSimpleTextItem * pRestartLevelItem_;
-    QGraphicsSimpleTextItem * pRestartGameItem_;
-    QGraphicsSimpleTextItem * pSettingsItem_;
-    QGraphicsSimpleTextItem * pAboutItem_;
-    QGraphicsSimpleTextItem * pQuitItem_;
+    QGraphicsTextItem * pRestartLevelItem_;
+    QGraphicsTextItem * pRestartGameItem_;
+    QGraphicsTextItem * pSettingsItem_;
+    QGraphicsTextItem * pAboutItem_;
+    QGraphicsTextItem * pQuitItem_;
 
     QList<Level> levelList_;
 
