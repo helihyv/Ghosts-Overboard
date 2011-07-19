@@ -38,14 +38,11 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    bool event(QEvent *event);
+
 
 public slots:
     void initializeBoundaries();
-    void restartLevel();
-    void about();
-    void nextLevel();
-    void restartGame();
+
 
 
 
@@ -53,10 +50,9 @@ private:
 
 SeaScene * pScene_;
 SeaView * pView_;
-QAction* pPauseAction_;
-QList<Level> levelList_;
-int currentLevel_;
-QAction* pVibrateAction_;
+
+
+
 
 
 };

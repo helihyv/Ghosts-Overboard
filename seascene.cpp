@@ -27,6 +27,11 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QTime>
+#include <QApplication>
+#include <QAction>
+#include <QPushButton>
+#include <QLabel>
+#include <QVBoxLayout>
 
 const QString ghostImageFilename_ = ":/pix/aave.png";
 const QString rockImageFilename_ =":/pix/kari.png";
@@ -49,16 +54,30 @@ SeaScene::SeaScene(QObject *parent) :
 
     qsrand(QTime::currentTime().msec()+2);  //+2 to avoid setting it to 1
 
-    //connect selecting to menu handling (only menu items selectable)
+//Setup the level list
 
-    connect(this,SIGNAL(selectionChanged()),this,SLOT(menuClicked()));
+    Level level1(5,10);
+    levelList_.append(level1);
+    Level level2(5,10,2,50);
+    levelList_.append(level2);
+    Level level3(5,15,2,50);
+    levelList_.append(level3);
+    Level level4(5,15,4,50);
+    levelList_.append(level4);
+    Level level5(5,15,5,100);
+    levelList_.append(level5);
+
+    currentLevel_ = 0;
 
 
+    pVibrateAction_ = new QAction(tr("Vibration effects"),this);
+    pVibrateAction_->setCheckable(true);
+    connect(pVibrateAction_,SIGNAL(toggled(bool)),this,SLOT(vibrationActivate(bool)));
 
 
-
-
-
+    pPauseAction_ = new QAction(tr("Pause"),this);
+    pPauseAction_->setCheckable(true);
+    connect(pPauseAction_,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
 
 }
@@ -340,22 +359,36 @@ void SeaScene::vibrationActivate(bool on)
     emit vibrationActivated(on);
 }
 
-void SeaScene::menuClicked()
+void SeaScene::handleScreenTapped()
 {
+
+    //If the game is going just pause it
+    if (!paused_)
+    {
+        pPauseAction_->setChecked(true);
+        return;
+    }
+
+    //If the game is paused, chacl if menu item was selected
+
     QList<QGraphicsItem *> items = selectedItems();
 
-    //if nothing selected (selection was removed) do nothing
+    //if nothing selected resume play
 
     if (items.isEmpty())
+    {
+        pPauseAction_->setChecked(false);
         return;
 
-    //Tapping the screen unpaused the game, pause it again!
+    }
 
-
+    //If something was selected check if it was one of the menu items and act on it
+    //(Nothing else should be made selectable anyway)
 
     //Menu functions
 
-    QGraphicsItem* pItem = items.at(0);
+    QGraphicsItem* pItem = items.at(0); //Selecting an item brings here, thus only selecting one item should be possible
+                                       //... so we can just take the first one
 
 
     if (pItem == pRestartGameItem_)
@@ -376,11 +409,11 @@ void SeaScene::menuClicked()
 
     else if (pItem == pAboutItem_)
     {
-
+        about();
     }
 
 
-    //Selection is just used to get notice of being clicked, removed after use
+    //Selection is just used to get notice of a menu item being clicked, removed after use
 
     clearSelection();
 
@@ -426,3 +459,110 @@ void SeaScene::prepareForMenu(QGraphicsItem * pItem)
     pItem->setX(menuItemCount_++*150-250);
  }
 
+
+void SeaScene::about()
+{
+    QMessageBox::about(NULL, tr("About %1").arg(QApplication::applicationName()),
+                       tr("Version %1"
+                          "<p>Copyright 2011 Heli Hyv&auml;ttinen"
+                          "<p>License: General Public License v2"
+                          "<p>Bug Reports: https://bugs.maemo.org/ "
+                          "enter_bug.cgi?product=Ghosts%20Overboard"
+                          ).arg(QApplication::applicationVersion()));
+
+
+
+}
+
+
+void SeaScene::restartLevel()
+{
+    setupMap(levelList_.value(currentLevel_));  //value() returns default constructor Level if index is invalid, so no risk of crash
+    vibrationActivate(pVibrateAction_->isChecked());  //Vibration effects are lost without this
+   // qDebug() << pVibrateAction_->isChecked();
+}
+
+
+
+void SeaScene::nextLevel()
+{
+
+    currentLevel_++;
+
+    if (levelList_.empty())
+        setupMap(Level());
+
+
+    if ( currentLevel_ < levelList_.size() )
+    {
+       restartLevel();
+    }
+
+    else //Victory!
+    {
+
+       QDialog* pVictoryDialog = new QDialog();
+       pVictoryDialog->setWindowTitle(tr("You won!"));
+
+
+       QPushButton* pPlayAgainButton = new QPushButton(tr("Play again"));
+//       QPushButton* pQuitButton = new QPushButton(tr("Quit game"));
+
+       QPixmap victoryIcon (":/pix/aavesaari.png");
+       QLabel* pVictoryLabel = new QLabel();
+       pVictoryLabel->setPixmap(victoryIcon);
+
+       QLabel* pTextLabel = new QLabel(tr("Congratulations! <p>You have saved all the ghosts."));
+
+
+       QVBoxLayout* pMainLayout = new QVBoxLayout;
+
+       QHBoxLayout* pTopLayout = new QHBoxLayout;
+       pMainLayout->addLayout(pTopLayout);
+
+       pTopLayout->addWidget(pVictoryLabel);
+       pTopLayout->addWidget(pTextLabel);
+
+
+
+       QHBoxLayout* pButtonLayout = new QHBoxLayout();
+       pMainLayout->addLayout(pButtonLayout);
+
+ //      pButtonLayout->addWidget(pQuitButton);
+       pButtonLayout->addWidget(pPlayAgainButton);
+
+
+
+       pVictoryDialog->setLayout(pMainLayout);
+
+       connect(pPlayAgainButton, SIGNAL(clicked()),pVictoryDialog,SLOT(accept()));
+
+       pVictoryDialog->exec();
+
+        //Never mind if the user cancels the dialog: restart the game anyway
+
+       restartGame();
+    }
+}
+
+
+void SeaScene::restartGame()
+{
+    currentLevel_ = 0;
+    restartLevel();
+}
+
+
+void SeaScene::forcePause()
+{
+    //Pause without setting the pause action state
+    pause(true);
+}
+
+void::SeaScene::softContinue()
+{
+    //Continue if not being paused by the user
+    // Reverts forcePause()
+
+    pause(pPauseAction_->isChecked());
+}

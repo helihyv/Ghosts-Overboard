@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Ghosts Overboard");
 
     pScene_ = new SeaScene ();
-    connect(pScene_,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
+    connect(pScene_,SIGNAL(allGhostsPicked()),pScene_,SLOT(nextLevel()));
 
     pView_  = new SeaView ();
 
@@ -49,54 +49,17 @@ MainWindow::MainWindow(QWidget *parent)
     pView_->setScene(pScene_);
     setCentralWidget(pView_);
 
-    pPauseAction_ = new QAction(tr("Pause"),this);
-    pPauseAction_->setCheckable(true);
-    addAction(pPauseAction_);
-    connect(pPauseAction_,SIGNAL(toggled(bool)),pScene_,SLOT(pause(bool)));
-    menuBar()->addAction(pPauseAction_);
-    connect(pView_,SIGNAL(pauseChanged()),pPauseAction_,SLOT(toggle()));
+    connect(pView_,SIGNAL(screenTapped()),pScene_,SLOT(handleScreenTapped()));
+    connect(pView_,SIGNAL(goingBackgroung()),pScene_,SLOT(forcePause()));
+    connect(pView_,SIGNAL(goingForeground()),pScene_,SLOT(softContinue()));
 
-    QAction * pRestartLevelAction = new QAction(tr("Restart level"),this);
-    addAction(pRestartLevelAction);
-    connect(pRestartLevelAction,SIGNAL(triggered()),this,SLOT(restartLevel()));
-    menuBar()->addAction(pRestartLevelAction);
-
-    QAction * pRestartGameAction = new QAction(tr("Restart game"),this);
-    addAction(pRestartGameAction);
-    connect(pRestartGameAction,SIGNAL(triggered()),this,SLOT(restartGame()));
-    menuBar()->addAction(pRestartGameAction);
-
-    pVibrateAction_ = new QAction(tr("Vibration effects"),this);
-    pVibrateAction_->setCheckable(true);
-    addAction(pVibrateAction_);
-    connect(pVibrateAction_,SIGNAL(toggled(bool)),pScene_,SLOT(vibrationActivate(bool)));
-    menuBar()->addAction(pVibrateAction_);
-
-
-    QAction * pAboutAction = new QAction(tr("About"),this);
-    addAction(pAboutAction);
-    connect(pAboutAction,SIGNAL(triggered()),this,SLOT(about()));
-    menuBar()->addAction(pAboutAction);
-
-
-
-    Level level1(5,10);
-    levelList_.append(level1);
-    Level level2(5,10,2,50);
-    levelList_.append(level2);
-    Level level3(5,15,2,50);
-    levelList_.append(level3);
-    Level level4(5,15,4,50);
-    levelList_.append(level4);
-    Level level5(5,15,5,100);
-    levelList_.append(level5);
-
-    currentLevel_ = 0;
 
 
     //the boundaries of the scene are set to match the size of the view window, which is not
     //available in the constructor --> timer needed
     QTimer::singleShot(100,this,SLOT(initializeBoundaries()));
+
+
 }
 
 MainWindow::~MainWindow()
@@ -122,130 +85,6 @@ void MainWindow::initializeBoundaries()
 
     // qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << pView_->width() << pView_->height();
 
-    restartLevel();
+    pScene_->restartLevel();
 }
 
-
-void MainWindow::restartLevel()
-{
-    pScene_->setupMap(levelList_.value(currentLevel_));  //value() returns default constructor Level if index is invalid, so no risk of crash
-    pScene_->vibrationActivate(pVibrateAction_->isChecked());  //Vibration effects are lost without this
-   // qDebug() << pVibrateAction_->isChecked();
-}
-
-void MainWindow::about()
-{
-    QMessageBox::about(this, tr("About %1").arg(QApplication::applicationName()),
-                       tr("Version %1"
-                          "<p>Copyright 2011 Heli Hyv&auml;ttinen"
-                          "<p>License: General Public License v2"
-                          "<p>Bug Reports: https://bugs.maemo.org/ "
-                          "enter_bug.cgi?product=Ghosts%20Overboard"
-                          ).arg(QApplication::applicationVersion()));
-
-
-
-}
-
-void MainWindow::nextLevel()
-{
-
-    currentLevel_++;
-
-    if (levelList_.empty())
-        pScene_->setupMap(Level());
-
-
-    if ( currentLevel_ < levelList_.size() )
-    {
-       restartLevel();
-    }
-
-    else //Victory!
-    {
-
-       QDialog* pVictoryDialog = new QDialog(this);
-       pVictoryDialog->setWindowTitle(tr("You won!"));
-
-
-       QPushButton* pPlayAgainButton = new QPushButton(tr("Play again"));
-//       QPushButton* pQuitButton = new QPushButton(tr("Quit game"));
-
-       QPixmap victoryIcon (":/pix/aavesaari.png");
-       QLabel* pVictoryLabel = new QLabel();
-       pVictoryLabel->setPixmap(victoryIcon);
-
-       QLabel* pTextLabel = new QLabel(tr("Congratulations! <p>You have saved all the ghosts."));
-
-
-       QVBoxLayout* pMainLayout = new QVBoxLayout;
-
-       QHBoxLayout* pTopLayout = new QHBoxLayout;
-       pMainLayout->addLayout(pTopLayout);
-
-       pTopLayout->addWidget(pVictoryLabel);
-       pTopLayout->addWidget(pTextLabel);
-
-
-
-       QHBoxLayout* pButtonLayout = new QHBoxLayout();
-       pMainLayout->addLayout(pButtonLayout);
-
- //      pButtonLayout->addWidget(pQuitButton);
-       pButtonLayout->addWidget(pPlayAgainButton);
-
-
-
-       pVictoryDialog->setLayout(pMainLayout);
-
-       connect(pPlayAgainButton, SIGNAL(clicked()),pVictoryDialog,SLOT(accept()));
-
-       pVictoryDialog->exec();
-
-        //Never mind if the user cancels the dialog: restart the game anyway
-
-       restartGame();
-    }
-}
-
-bool MainWindow::event(QEvent *event)
-{
-
-    switch (event->type())
-    {
-        //pause if app goes to background
-        case QEvent::WindowDeactivate:
-
-            if (pScene_)
-                pScene_->pause(true);
-            break;
-
-        //un-pause if app gomes back to foreground unless it was paused before going to background
-        case QEvent::WindowActivate:
-
-
-            if (pPauseAction_ && !pPauseAction_->isChecked())
-            {
-                if (pScene_)
-                    pScene_->pause(false);
-            }
-            break;
-
-        //Just to keep the compiler from complaining...
-        default:
-            break;
-
-     }
-
-
-
-    //pass the event to the ancestor for handling
-    return QMainWindow::event(event);
-
- }
-
-void MainWindow::restartGame()
-{
-    currentLevel_ = 0;
-    restartLevel();
-}

@@ -31,11 +31,17 @@ class SeaView : public QGraphicsView
 public:
     explicit SeaView(QWidget *parent = 0);
 
-   virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
+
+    bool event(QEvent *event);
 
 signals:
 
-    void pauseChanged();
+    void screenTapped();
+
+    void goingBackgroung();
+
+    void goingForeground();
 
 public slots:
 

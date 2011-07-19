@@ -28,6 +28,7 @@
 #include<QGraphicsItemGroup>
 #include "screenlitkeeper.h"
 #include "level.h"
+#include <QAction>
 
 class SeaScene : public QGraphicsScene
 {
@@ -64,7 +65,20 @@ public slots:
 
     void vibrationActivate(bool);
 
-    void menuClicked();
+    void handleScreenTapped();
+
+    void about();
+
+    void restartLevel();
+
+    void nextLevel();
+
+    void restartGame();
+
+    void forcePause();
+
+    void softContinue();
+
 
 
 protected:
@@ -102,6 +116,17 @@ protected:
     QGraphicsSimpleTextItem * pRestartGameItem_;
     QGraphicsSimpleTextItem * pSettingsItem_;
     QGraphicsSimpleTextItem * pAboutItem_;
+
+    QList<Level> levelList_;
+
+    int currentLevel_;
+
+
+    QAction* pVibrateAction_;
+
+    QAction* pPauseAction_;
+
+    bool pauseForced_;
 
 
 };

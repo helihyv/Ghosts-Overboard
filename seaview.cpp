@@ -22,16 +22,51 @@
 
 #include "seaview.h"
 
+#include <QEvent>
+
 SeaView::SeaView(QWidget *parent) :
     QGraphicsView(parent)
 {
+
 }
 
 void  SeaView::mousePressEvent(QMouseEvent *event)
 {
 
     QGraphicsView::mousePressEvent(event);
-    emit pauseChanged();
+    emit screenTapped();
 
 
 }
+
+bool SeaView::event(QEvent *event)
+{
+    if (!event)
+        return false;
+
+    switch (event->type())
+    {
+        //pause if app goes to background
+        case QEvent::WindowDeactivate:
+
+            emit goingBackgroung();
+            break;
+
+        //un-pause if app gomes back to foreground unless it was paused before going to background
+        case QEvent::WindowActivate:
+
+            emit goingForeground();
+            break;
+
+        //Just to keep the compiler from complaining...
+        default:
+            break;
+
+     }
+
+
+
+    //pass the event to the ancestor for handling
+    return QGraphicsView::event(event);
+
+ }
