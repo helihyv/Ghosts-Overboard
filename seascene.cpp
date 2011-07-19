@@ -394,17 +394,26 @@ void SeaScene::handleScreenTapped()
     if (pItem == pRestartGameItem_)
     {
         qDebug() << "game restart requested";
+        restartGame();
     }
 
     else if (pItem == pRestartLevelItem_)
     {
         qDebug() << "Level restart requested";
+        restartLevel();
 
     }
 
     else if (pItem == pSettingsItem_)
     {
+    //Temporary code for settings, likely to be turned into a QML dialog
 
+          QMessageBox::StandardButton buttonpressed = QMessageBox::question(NULL,"Settings","Do you wish to have vibration effects enabled?", QMessageBox::Yes | QMessageBox::No);
+
+          if (buttonpressed == QMessageBox::Yes)
+              pVibrateAction_->setChecked(true);
+          if (buttonpressed == QMessageBox::No)
+              pVibrateAction_->setChecked(false);
     }
 
     else if (pItem == pAboutItem_)
