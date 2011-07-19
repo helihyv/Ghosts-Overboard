@@ -428,6 +428,10 @@ void SeaScene::handleScreenTapped()
 
     clearSelection();
 
+    //The user propably went to paused state just to access menu, so unpause
+
+    pPauseAction_->setChecked(false);
+
 }
 
 
