@@ -24,6 +24,7 @@
 #define SEAVIEW_H
 
 #include <QGraphicsView>
+#include "seascene.h"
 
 class SeaView : public QGraphicsView
 {
@@ -44,6 +45,12 @@ signals:
     void goingForeground();
 
 public slots:
+
+    void initializeBoundaries();
+
+protected:
+
+    SeaScene * pScene_;
 
 };
 

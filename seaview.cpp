@@ -23,10 +23,32 @@
 #include "seaview.h"
 
 #include <QEvent>
+#include <QTimer>
 
 SeaView::SeaView(QWidget *parent) :
     QGraphicsView(parent)
 {
+
+    setWindowIcon(QIcon(":/pix/laiva_3aave.png"));
+    setWindowTitle("Ghosts Overboard");
+
+    pScene_ = new SeaScene ();
+
+
+    setScene(pScene_);
+
+
+    connect(this,SIGNAL(screenTapped()),pScene_,SLOT(handleScreenTapped()));
+    connect(this,SIGNAL(goingBackgroung()),pScene_,SLOT(forcePause()));
+    connect(this,SIGNAL(goingForeground()),pScene_,SLOT(softContinue()));
+
+    showFullScreen();
+
+
+
+    //the boundaries of the scene are set to match the size of the view window, which is not
+    //available in the constructor --> timer needed
+    QTimer::singleShot(100,this,SLOT(initializeBoundaries()));
 
 }
 
@@ -70,3 +92,25 @@ bool SeaView::event(QEvent *event)
     return QGraphicsView::event(event);
 
  }
+
+
+void SeaView::initializeBoundaries()
+{
+        //the boundaries of the scene are set to match the size of the view window, and
+        //the view is set to show exactly the whole scene area
+
+    //this occasionally gives a tiny scene, so using a fixed size fit for N900/Maemo5 until a fix is found
+
+//    QPoint topleft (0,0);
+//    QSize windowsize = pView_->size();
+//    QRectF rectangle (topleft,windowsize);
+
+    QRectF rectangle(0,0,800,480);
+
+    pScene_->setSceneRect(rectangle);
+    setSceneRect(rectangle);
+
+//     qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << pView_->width() << pView_->height();
+
+    pScene_->restartLevel();
+}

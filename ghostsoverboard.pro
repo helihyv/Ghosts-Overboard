@@ -12,7 +12,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     orientationcontrolledgraphicspixmapobject.cpp \
     seascene.cpp \
     ship.cpp \
@@ -22,7 +21,7 @@ SOURCES += main.cpp\
     level.cpp \
     seaview.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     orientationcontrolledgraphicspixmapobject.h \
     seascene.h \
     ship.h \

@@ -69,6 +69,8 @@ SeaScene::SeaScene(QObject *parent) :
 
     currentLevel_ = 0;
 
+    connect(this,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
+
 
     pVibrateAction_ = new QAction(tr("Vibration effects"),this);
     pVibrateAction_->setCheckable(true);
