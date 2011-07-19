@@ -423,6 +423,11 @@ void SeaScene::handleScreenTapped()
         about();
     }
 
+    else if (pItem == pQuitItem_)
+    {
+        qApp->quit();
+    }
+
 
     //Selection is just used to get notice of a menu item being clicked, removed after use
 
@@ -457,6 +462,9 @@ void SeaScene::createMenuItems()
 
     pAboutItem_ = new QGraphicsSimpleTextItem("About");
     prepareForMenu(pAboutItem_);
+
+    pQuitItem_ = new QGraphicsSimpleTextItem("Quit");
+    prepareForMenu(pQuitItem_);
 
 }
 

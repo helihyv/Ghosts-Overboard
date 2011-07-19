@@ -116,6 +116,7 @@ protected:
     QGraphicsSimpleTextItem * pRestartGameItem_;
     QGraphicsSimpleTextItem * pSettingsItem_;
     QGraphicsSimpleTextItem * pAboutItem_;
+    QGraphicsSimpleTextItem * pQuitItem_;
 
     QList<Level> levelList_;
 
