@@ -53,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pView_,SIGNAL(goingBackgroung()),pScene_,SLOT(forcePause()));
     connect(pView_,SIGNAL(goingForeground()),pScene_,SLOT(softContinue()));
 
+    showFullScreen();
+
 
 
     //the boundaries of the scene are set to match the size of the view window, which is not
@@ -78,12 +80,12 @@ void MainWindow::initializeBoundaries()
 //    QSize windowsize = pView_->size();
 //    QRectF rectangle (topleft,windowsize);
 
-    QRectF rectangle(0,0,800,424);
+    QRectF rectangle(0,0,800,480);
 
     pScene_->setSceneRect(rectangle);
     pView_->setSceneRect(rectangle);
 
-    // qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << pView_->width() << pView_->height();
+//     qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << pView_->width() << pView_->height();
 
     pScene_->restartLevel();
 }
