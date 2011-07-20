@@ -452,7 +452,14 @@ void SeaScene::createMenuItems()
 
 
     pPausetextItem_ = new QGraphicsTextItem;
-    pPausetextItem_->setHtml("<font size = \"5\" color = darkorange> Game paused. Tap to continue.");
+
+ // This is for fremantle
+//    pPausetextItem_->setHtml("<font size = \"5\" color = darkorange> Game paused. Tap to continue.");
+
+//Harmattan needs bigger font
+    pPausetextItem_->setHtml("<font size = \"7\" color = darkorange> Game paused. Tap to continue.");
+
+
     pPausetextItem_->setZValue(1000);
     pPausetextItem_->setPos(200,50);
     addItem(pPausetextItem_);
@@ -460,7 +467,13 @@ void SeaScene::createMenuItems()
 
     menuItemCount_ = 0;
 
-    QString menufonthtml = "<font size = \"4\" color = darkorange>";
+  // This is for fremantle
+ //   QString menufonthtml = "<font size = \"4\" color = darkorange>";
+
+
+ //Harmattan needs bigger font
+        QString menufonthtml = "<font size = \"6\" color = darkorange>";
+
 
     pRestartGameItem_ = new QGraphicsTextItem;
     pRestartGameItem_->setHtml(tr("Restart <br> game").prepend(menufonthtml));
