@@ -423,10 +423,16 @@ void SeaScene::handleScreenTapped()
         about();
     }
 
+    else if(pItem == pMinimizeItem_)
+    {
+        emit minimizeRequested();
+    }
+
     else if (pItem == pQuitItem_)
     {
         qApp->quit();
     }
+
 
 
     //Selection is just used to get notice of a menu item being clicked, removed after use
@@ -475,6 +481,10 @@ void SeaScene::createMenuItems()
     pAboutItem_ = new QGraphicsTextItem;
     pAboutItem_->setHtml(tr("About <br> game").prepend(menufonthtml));
     prepareForMenu(pAboutItem_);
+
+    pMinimizeItem_ = new QGraphicsTextItem;
+    pMinimizeItem_->setHtml(tr("Go to <br> background").prepend(menufonthtml));
+    prepareForMenu(pMinimizeItem_);
 
     pQuitItem_ = new QGraphicsTextItem;
     pQuitItem_->setHtml(tr("Quit <br> game").prepend(menufonthtml));
