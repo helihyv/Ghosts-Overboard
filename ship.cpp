@@ -25,6 +25,11 @@
 #include <QDebug>
 #include <QDBusMessage>
 #include <QDBusConnection>
+#include <QFeedbackHapticsEffect>
+
+
+
+QTM_USE_NAMESPACE
 
 
 Ship::Ship(QList<QPixmap> pixmapList, QGraphicsItem *parent) :
@@ -95,17 +100,28 @@ void Ship::dropAllGhosts()
 
     if (vibrationActive_)
     {
-        QDBusMessage message = QDBusMessage::createMethodCall("com.nokia.mce","/com/nokia/mce/request","com.nokia.mce.request","req_vibrator_pattern_activate");
 
-        QList<QVariant> arguments;
+ //       This is for fremantle
+//        QDBusMessage message = QDBusMessage::createMethodCall("com.nokia.mce","/com/nokia/mce/request","com.nokia.mce.request","req_vibrator_pattern_activate");
 
-        arguments.append("PatternChatAndEmail");
+//        QList<QVariant> arguments;
 
-        message.setArguments(arguments);
+//        arguments.append("PatternChatAndEmail");
 
-        message = QDBusConnection::systemBus().call(message);
+//        message.setArguments(arguments);
+
+//        message = QDBusConnection::systemBus().call(message);
 
     //qDebug() << message;
+
+
+        //This is for Harmattan
+
+        QFeedbackHapticsEffect vibrationEffect;
+        vibrationEffect.setDuration(1000);
+        vibrationEffect.setIntensity(1.0);
+        vibrationEffect.start();
+
     }
 }
 
