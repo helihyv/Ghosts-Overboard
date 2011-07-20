@@ -1,3 +1,9 @@
+ghostsoverboard (0.2.1) unstable; urgency=low
+
+  * vibration effects no longer disappear when level changes or is restarted
+
+ -- Heli Hyvättinen <helihyvattinen@kymp.net>  Wed, 13 July 2011 15:58:00 +0300
+
 ghostsoverboard (0.2.0) unstable; urgency=low
 
   * Octopuses (moving obstacles) added

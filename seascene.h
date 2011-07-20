@@ -25,8 +25,10 @@
 #define SEASCENE_H
 
 #include <QGraphicsScene>
+#include<QGraphicsItemGroup>
 #include "screenlitkeeper.h"
 #include "level.h"
+#include <QAction>
 
 class SeaScene : public QGraphicsScene
 {
@@ -63,6 +65,22 @@ public slots:
 
     void vibrationActivate(bool);
 
+    void handleScreenTapped();
+
+    void about();
+
+    void restartLevel();
+
+    void nextLevel();
+
+    void restartGame();
+
+    void forcePause();
+
+    void softContinue();
+
+
+
 protected:
 
     /*! Gives a pointer to a random position if a free one is found. Otherwise returns NULL.
@@ -70,6 +88,9 @@ protected:
     */
 
     QPointF* findRandomFreeSlot();
+
+    void createMenuItems();
+    void prepareForMenu(QGraphicsItem * pItem);
 
     const QString ghostImageFilename_;
     const QString rockImageFilename_;
@@ -87,6 +108,26 @@ protected:
     ScreenLitKeeper screenLitKeeper_;
 
 
+    int menuItemCount_;
+
+    QGraphicsTextItem * pPausetextItem_;
+
+    QGraphicsTextItem * pRestartLevelItem_;
+    QGraphicsTextItem * pRestartGameItem_;
+    QGraphicsTextItem * pSettingsItem_;
+    QGraphicsTextItem * pAboutItem_;
+    QGraphicsTextItem * pQuitItem_;
+
+    QList<Level> levelList_;
+
+    int currentLevel_;
+
+
+    QAction* pVibrateAction_;
+
+    QAction* pPauseAction_;
+
+    bool pauseForced_;
 
 
 };

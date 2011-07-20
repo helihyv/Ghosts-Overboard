@@ -24,6 +24,7 @@
 #define SEAVIEW_H
 
 #include <QGraphicsView>
+#include "seascene.h"
 
 class SeaView : public QGraphicsView
 {
@@ -31,9 +32,25 @@ class SeaView : public QGraphicsView
 public:
     explicit SeaView(QWidget *parent = 0);
 
+    virtual void mousePressEvent(QMouseEvent *event);
+
+    bool event(QEvent *event);
+
 signals:
 
+    void screenTapped();
+
+    void goingBackgroung();
+
+    void goingForeground();
+
 public slots:
+
+    void initializeBoundaries();
+
+protected:
+
+    SeaScene * pScene_;
 
 };
 
