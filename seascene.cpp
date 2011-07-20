@@ -469,7 +469,7 @@ void SeaScene::createMenuItems()
     prepareForMenu(pRestartLevelItem_);
 
     pSettingsItem_ = new QGraphicsTextItem;
-    pSettingsItem_->setHtml(tr("Settings").prepend(menufonthtml));
+    pSettingsItem_->setHtml(tr("Vibration <br> effects").prepend(menufonthtml));
     prepareForMenu(pSettingsItem_);
 
     pAboutItem_ = new QGraphicsTextItem;
