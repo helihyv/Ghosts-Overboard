@@ -82,6 +82,10 @@ SeaScene::SeaScene(QObject *parent) :
     connect(pPauseAction_,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
 
+    autopauseTimer.setInterval(15*60*1000);
+    connect(&autopauseTimer,SIGNAL(timeout()),this,SLOT(forcePause()));
+
+
 }
 
 void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
@@ -208,6 +212,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
         connect(pOctopus,SIGNAL(droppingGhosts()),pShip,SLOT(dropAllGhosts()));
     }
     delete pPosition;
+
+
 }
 
 void SeaScene::setupMap(Level level)
@@ -339,6 +345,8 @@ void SeaScene::pause(bool paused)
             screenLitKeeper_.keepScreenLit(true);
             if (pPausetextItem_)
                 pPausetextItem_->hide();
+
+            autopauseTimer.start(); //Start counting towards autopause
         }
 
         else
@@ -353,6 +361,8 @@ void SeaScene::pause(bool paused)
                 qDebug() << "showing pause text";
             }
                 else qDebug() << "No pause text available";
+
+            autopauseTimer.stop(); //No need to count toward autopause when already paused
         }
 }
 
@@ -518,6 +528,7 @@ void SeaScene::restartLevel()
     setupMap(levelList_.value(currentLevel_));  //value() returns default constructor Level if index is invalid, so no risk of crash
     vibrationActivate(pVibrateAction_->isChecked());  //Vibration effects are lost without this
    // qDebug() << pVibrateAction_->isChecked();
+    autopauseTimer.start();  //reset counting towards autopause
 }
 
 
