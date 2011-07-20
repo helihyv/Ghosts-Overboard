@@ -34,6 +34,7 @@ HEADERS  += \
 CONFIG += mobility
 MOBILITY = sensors
 MOBILITY += systeminfo
+MOBILITY += feedback
 
 symbian {
     TARGET.UID3 = 0xe3f4bbc2
