@@ -473,11 +473,11 @@ void SeaScene::createMenuItems()
     prepareForMenu(pSettingsItem_);
 
     pAboutItem_ = new QGraphicsTextItem;
-    pAboutItem_->setHtml(tr("About").prepend(menufonthtml));
+    pAboutItem_->setHtml(tr("About <br> game").prepend(menufonthtml));
     prepareForMenu(pAboutItem_);
 
     pQuitItem_ = new QGraphicsTextItem;
-    pQuitItem_->setHtml(tr("Quit").prepend(menufonthtml));
+    pQuitItem_->setHtml(tr("Quit <br> game").prepend(menufonthtml));
     prepareForMenu(pQuitItem_);
 
 }

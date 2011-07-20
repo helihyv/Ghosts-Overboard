@@ -29,7 +29,7 @@ SeaView::SeaView(QWidget *parent) :
     QGraphicsView(parent)
 {
 
-    setWindowIcon(QIcon(":/pix/laiva_3aave.png"));
+
     setWindowTitle("Ghosts Overboard");
 
     pScene_ = new SeaScene ();
