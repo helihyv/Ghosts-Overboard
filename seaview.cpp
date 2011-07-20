@@ -24,6 +24,7 @@
 
 #include <QEvent>
 #include <QTimer>
+#include <QDebug>
 
 SeaView::SeaView(QWidget *parent) :
     QGraphicsView(parent)
@@ -99,18 +100,25 @@ void SeaView::initializeBoundaries()
         //the boundaries of the scene are set to match the size of the view window, and
         //the view is set to show exactly the whole scene area
 
-    //this occasionally gives a tiny scene, so using a fixed size fit for N900/Maemo5 until a fix is found
+    //this occasionally gives a tiny scene, so using a fixed size fit until a fix is found
 
 //    QPoint topleft (0,0);
-//    QSize windowsize = pView_->size();
+//    QSize windowsize = size();
 //    QRectF rectangle (topleft,windowsize);
 
-    QRectF rectangle(0,0,800,480);
+  //    This is for fremantle
+//    QRectF rectangle(0,0,800,480);
+
+    //This is for Harmattan
+    //The automatic code above gives 854 width and 480 height, but that gives both scrollbars
+    //Found by forking: 843 width and 476 height are the largest that don't bring up the scrollbars
+
+    QRectF rectangle(0,0,843,476);
 
     pScene_->setSceneRect(rectangle);
     setSceneRect(rectangle);
 
-//     qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << pView_->width() << pView_->height();
+    qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << width() << height();
 
     pScene_->restartLevel();
 }
