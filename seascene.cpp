@@ -69,7 +69,9 @@ SeaScene::SeaScene(QObject *parent) :
 
     currentLevel_ = 0;
 
-    connect(this,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
+    //This ensures that nextlevel will not be called until its safe to delete the Ship object.
+    //Leaving out Qt::QueuedConnection or calling nextlevel directly instead of emitting the signal will CRASH
+    connect(this,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()),Qt::QueuedConnection);
 
 
     pVibrateAction_ = new QAction(tr("Vibration effects"),this);
