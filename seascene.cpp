@@ -82,6 +82,7 @@ SeaScene::SeaScene(QObject *parent) :
     connect(pPauseAction_,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
 
+    autopauseTimer.setSingleShot(true);
     autopauseTimer.setInterval(15*60*1000);
     connect(&autopauseTimer,SIGNAL(timeout()),this,SLOT(forcePause()));
 
