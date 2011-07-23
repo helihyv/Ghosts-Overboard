@@ -29,6 +29,7 @@
 #include "screenlitkeeper.h"
 #include "level.h"
 #include <QAction>
+#include <QTimer>
 
 class SeaScene : public QGraphicsScene
 {
@@ -129,6 +130,7 @@ protected:
 
     bool pauseForced_;
 
+    QTimer autopauseTimer;
 
 };
 
