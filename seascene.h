@@ -43,6 +43,8 @@ signals:
     void pauseOn();
     void pauseOff();
     void vibrationActivated(bool on);
+    void minimizeRequested();
+    void fullscreenRequested();
 
 public slots:
 
@@ -118,6 +120,7 @@ protected:
     QGraphicsTextItem * pSettingsItem_;
     QGraphicsTextItem * pAboutItem_;
     QGraphicsTextItem * pQuitItem_;
+    QGraphicsTextItem * pMinimizeItem_;
 
     QList<Level> levelList_;
 
