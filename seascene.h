@@ -43,6 +43,7 @@ signals:
     void pauseOff();
     void vibrationActivated(bool on);
     void minimizeRequested();
+    void fullscreenRequested();
 
 public slots:
 

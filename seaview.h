@@ -48,6 +48,7 @@ public slots:
 
     void initializeBoundaries();
 
+
 protected:
 
     SeaScene * pScene_;
