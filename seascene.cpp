@@ -32,6 +32,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QSettings>
 
 const QString ghostImageFilename_ = ":/pix/aave.png";
 const QString rockImageFilename_ =":/pix/kari.png";
@@ -77,6 +78,8 @@ SeaScene::SeaScene(QObject *parent) :
     pVibrateAction_ = new QAction(tr("Vibration effects"),this);
     pVibrateAction_->setCheckable(true);
     connect(pVibrateAction_,SIGNAL(toggled(bool)),this,SLOT(vibrationActivate(bool)));
+    QSettings settings;
+    pVibrateAction_->setChecked(settings.value("vibration",false).toBool());
 
 
     pPauseAction_ = new QAction(tr("Pause"),this);
@@ -411,13 +414,20 @@ void SeaScene::handleScreenTapped()
     else if (pItem == pSettingsItem_)
     {
     //Temporary code for settings, likely to be turned into a QML dialog
+          QSettings settings;
 
           QMessageBox::StandardButton buttonpressed = QMessageBox::question(NULL,"Settings","Do you wish to have vibration effects enabled?", QMessageBox::Yes | QMessageBox::No);
 
           if (buttonpressed == QMessageBox::Yes)
+          {
               pVibrateAction_->setChecked(true);
+              settings.setValue("vibration",true);
+          }
           if (buttonpressed == QMessageBox::No)
+          {
               pVibrateAction_->setChecked(false);
+              settings.setValue("vibration",false);
+          }
     }
 
     else if (pItem == pAboutItem_)
