@@ -82,6 +82,10 @@ public slots:
 
     void softContinue();
 
+    void createAboutBoxItems();
+
+    void setItemPointersNull();
+
 
 
 protected:
@@ -121,6 +125,8 @@ protected:
     QGraphicsTextItem * pAboutItem_;
     QGraphicsTextItem * pQuitItem_;
     QGraphicsTextItem * pMinimizeItem_;
+
+    QGraphicsTextItem * pAboutBoxItem_;
 
     QList<Level> levelList_;
 

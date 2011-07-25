@@ -42,6 +42,9 @@ const QString octopusImageFilename_= ":/pix/tursas.png";
 SeaScene::SeaScene(QObject *parent) :
     QGraphicsScene(parent)
 {
+
+    setItemPointersNull();
+
     paused_ = false;
     screenLitKeeper_.keepScreenLit(true);
 
@@ -98,7 +101,11 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
 
     clear();
 
+    setItemPointersNull();
+
     createMenuItems();
+
+    createAboutBoxItems();
 
     //empty the list of moving items
 
@@ -386,7 +393,18 @@ void SeaScene::handleScreenTapped()
         return;
     }
 
-    //If the game is paused, chacl if menu item was selected
+    //If the game is paused and about box is shown, close it and show the pause text and menu again
+
+    if(pAboutBoxItem_)
+    {
+        if(pAboutBoxItem_->isVisible())
+        {
+            pAboutBoxItem_->hide();
+            pPausetextItem_->show();
+        }
+    }
+
+    //If the game is paused, check if menu item was selected
 
     QList<QGraphicsItem *> items = selectedItems();
 
@@ -546,16 +564,8 @@ void SeaScene::prepareForMenu(QGraphicsItem * pItem)
 
 void SeaScene::about()
 {
-    QMessageBox::about(NULL, tr("About %1").arg(QApplication::applicationName()),
-                       tr("Version %1"
-                          "<p>Copyright 2011 Heli Hyv&auml;ttinen"
-                          "<p>License: General Public License v2"
-                          "<p>Bug Reports: https://bugs.maemo.org/ "
-                          "enter_bug.cgi?product=Ghosts%20Overboard"
-                          ).arg(QApplication::applicationVersion()));
-
-
-
+    pPausetextItem_->hide();
+    pAboutBoxItem_->show();
 }
 
 
@@ -650,4 +660,35 @@ void::SeaScene::softContinue()
     // Reverts forcePause()
 
     pause(pPauseAction_->isChecked());
+}
+
+void SeaScene::createAboutBoxItems()
+{
+    pAboutBoxItem_ = new QGraphicsTextItem;
+    addItem(pAboutBoxItem_);
+    pAboutBoxItem_->setPos(25,50);
+    pAboutBoxItem_->setZValue(1000);
+    pAboutBoxItem_->hide();
+
+    pAboutBoxItem_->setHtml(tr("<font color = darkorange size = \"7\">"
+                          "%1 <br> <font size = \"5\"> Version %2"
+                          "<p><font size = \"4\"> Copyright 2011 Heli Hyv&auml;ttinen"
+                          "<p><font size = \"4\"> License: General Public License v2"
+                          "<p><font size = \"3\"> Bug Reports: <br> https://bugs.maemo.org/ "
+                          "enter_bug.cgi?product=Ghosts%20Overboard"
+                          ).arg(QApplication::applicationName(),QApplication::applicationVersion()));
+
+}
+
+void SeaScene::setItemPointersNull()
+{
+    pPausetextItem_ = NULL;
+    pRestartLevelItem_ = NULL;
+    pRestartGameItem_ = NULL;
+    pSettingsItem_ = NULL;
+    pAboutItem_ = NULL;
+    pQuitItem_ = NULL ;
+    pMinimizeItem_ = NULL;
+
+    pAboutBoxItem_ = NULL;
 }
