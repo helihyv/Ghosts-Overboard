@@ -459,7 +459,7 @@ void SeaScene::handleScreenTapped()
 
     //The user propably went to paused state just to access menu, so unpause unless vibration set (so the user sees its changed)
     //or unless status bar was requested
-    if (pItem != pMinimizeItem_ || pItem != pSettingsItem)
+    if (pItem != pMinimizeItem_ || pItem != pSettingsItem_)
 
     {
         pPauseAction_->setChecked(false);
