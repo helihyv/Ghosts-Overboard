@@ -33,6 +33,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QSettings>
+#include <QPixmap>
 
 const QString ghostImageFilename_ = ":/pix/aave.png";
 const QString rockImageFilename_ =":/pix/kari.png";
@@ -70,6 +71,7 @@ SeaScene::SeaScene(QObject *parent) :
 
     currentLevel_ = 0;
 
+
     connect(this,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
 
 
@@ -99,6 +101,9 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
     clear();
 
     createMenuItems();
+
+    createVictoryItems();
+
 
     //empty the list of moving items
 
@@ -386,7 +391,19 @@ void SeaScene::handleScreenTapped()
         return;
     }
 
-    //If the game is paused, chacl if menu item was selected
+    //If the game is paused, check if the victory item is being shown
+    if(pVictoryCongratulationsItem_)
+    {
+        if (pVictoryCongratulationsItem_->isVisibleTo(NULL)) //returns visibility to scene
+        {
+            pVictoryCongratulationsItem_->hide();
+            restartGame();
+            pPauseAction_->setChecked(false); // unpause
+            return;
+        }
+    }
+
+    //If the game is paused and no victory, check if menu item was selected
 
     QList<QGraphicsItem *> items = selectedItems();
 
@@ -586,47 +603,12 @@ void SeaScene::nextLevel()
     else //Victory!
     {
 
-       QDialog* pVictoryDialog = new QDialog();
-       pVictoryDialog->setWindowTitle(tr("You won!"));
+        pPauseAction_->setChecked(true); //Pause the game while showing the victory dialog
 
+        pPausetextItem_->hide();
 
-       QPushButton* pPlayAgainButton = new QPushButton(tr("Play again"));
-//       QPushButton* pQuitButton = new QPushButton(tr("Quit game"));
+        pVictoryCongratulationsItem_->show();
 
-       QPixmap victoryIcon (":/pix/aavesaari.png");
-       QLabel* pVictoryLabel = new QLabel();
-       pVictoryLabel->setPixmap(victoryIcon);
-
-       QLabel* pTextLabel = new QLabel(tr("Congratulations! <p>You have saved all the ghosts."));
-
-
-       QVBoxLayout* pMainLayout = new QVBoxLayout;
-
-       QHBoxLayout* pTopLayout = new QHBoxLayout;
-       pMainLayout->addLayout(pTopLayout);
-
-       pTopLayout->addWidget(pVictoryLabel);
-       pTopLayout->addWidget(pTextLabel);
-
-
-
-       QHBoxLayout* pButtonLayout = new QHBoxLayout();
-       pMainLayout->addLayout(pButtonLayout);
-
- //      pButtonLayout->addWidget(pQuitButton);
-       pButtonLayout->addWidget(pPlayAgainButton);
-
-
-
-       pVictoryDialog->setLayout(pMainLayout);
-
-       connect(pPlayAgainButton, SIGNAL(clicked()),pVictoryDialog,SLOT(accept()));
-
-       pVictoryDialog->exec();
-
-        //Never mind if the user cancels the dialog: restart the game anyway
-
-       restartGame();
     }
 }
 
@@ -644,10 +626,33 @@ void SeaScene::forcePause()
     pause(true);
 }
 
-void::SeaScene::softContinue()
+void SeaScene::softContinue()
 {
     //Continue if not being paused by the user
     // Reverts forcePause()
 
     pause(pPauseAction_->isChecked());
+}
+
+void SeaScene::createVictoryItems()
+{
+    pVictoryCongratulationsItem_ = new QGraphicsTextItem;
+    pVictoryCongratulationsItem_->setHtml("<font size=\"6\" color = darkorange> Victory!");
+    pVictoryCongratulationsItem_->hide();
+    pVictoryCongratulationsItem_->setPos(300,50);
+    pVictoryCongratulationsItem_->setZValue(1000);
+    addItem(pVictoryCongratulationsItem_);
+
+//    QGraphicsPixmapItem * pImageItem = new QGraphicsPixmapItem(QPixmap(":/pix/aavesaari.png"),pVictoryCongratulationsItem_);
+//    pImageItem->setPos(-100,150);
+//    pImageItem->setZValue(1000);
+//    pImageItem->setScale(2.0);
+
+
+    QGraphicsTextItem * pTextItem = new QGraphicsTextItem(pVictoryCongratulationsItem_);
+    pTextItem->setHtml("<center> <font size=\"5\" color = darkorange> Congratulations! <br> You have saved all the ghosts."
+                       "<br><br> Tap to play again ");
+    pTextItem->setPos(-50,100);
+    pTextItem->setZValue(1000);
+
 }
