@@ -32,6 +32,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QSettings>
 
 const QString ghostImageFilename_ = ":/pix/aave.png";
 const QString rockImageFilename_ =":/pix/kari.png";
@@ -75,6 +76,8 @@ SeaScene::SeaScene(QObject *parent) :
     pVibrateAction_ = new QAction(tr("Vibration effects"),this);
     pVibrateAction_->setCheckable(true);
     connect(pVibrateAction_,SIGNAL(toggled(bool)),this,SLOT(vibrationActivate(bool)));
+    QSettings settings;
+    pVibrateAction_->setChecked(settings.value("vibration",false).toBool());
 
 
     pPauseAction_ = new QAction(tr("Pause"),this);
@@ -409,6 +412,13 @@ void SeaScene::handleScreenTapped()
     else if (pItem == pSettingsItem_)
     {
         pVibrateAction_->toggle();
+          QSettings settings;
+          {
+              settings.setValue("vibration",true);
+          }
+          {
+              settings.setValue("vibration",false);
+          }
     }
 
     else if (pItem == pAboutItem_)
