@@ -412,13 +412,8 @@ void SeaScene::handleScreenTapped()
     else if (pItem == pSettingsItem_)
     {
         pVibrateAction_->toggle();
-          QSettings settings;
-          {
-              settings.setValue("vibration",true);
-          }
-          {
-              settings.setValue("vibration",false);
-          }
+        QSettings settings;
+        settings.setValue("vibration",pVibrateAction_->isChecked());
     }
 
     else if (pItem == pAboutItem_)
