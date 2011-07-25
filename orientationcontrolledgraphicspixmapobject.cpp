@@ -123,3 +123,16 @@ bool OrientationControlledGraphicsPixmapObject::handleCollisions()
     return true;
 }
 
+
+void OrientationControlledGraphicsPixmapObject::setPos(const QPointF &pos)
+{
+    QPointF oldPos = OrientationControlledGraphicsPixmapObject::pos();
+
+    QGraphicsPixmapItem::setPos(pos);
+
+    if (!handleCollisions())
+    {
+        QGraphicsPixmapItem::setPos(oldPos);
+    }
+
+}

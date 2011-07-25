@@ -40,12 +40,15 @@ public:
 //    explicit OrientationControlledGraphicsPixmapObject(QGraphicsItem *parent = 0);
     explicit OrientationControlledGraphicsPixmapObject(QPixmap pixmap = 0, QGraphicsItem *parent = 0);
 
+
 signals:
+
 
 public slots:
     void startMoving();
     void stopMoving();
     void readRotationSensor();
+      virtual void setPos(const QPointF &pos);
 
 
 protected:
@@ -54,9 +57,11 @@ protected:
 */
     virtual bool handleCollisions();
 
+
 private:
 
     QRotationSensor rotationSensor_;
+    QPointF oldOldPos_;
 
 
 
