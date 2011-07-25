@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT      += dbus
+QT      += declarative
 
 TARGET = ghostsoverboard
 TEMPLATE = app

@@ -27,7 +27,7 @@
 #include <QDebug>
 
 SeaView::SeaView(QWidget *parent) :
-    QGraphicsView(parent)
+    QDeclarativeView(parent)
 {
 
 
@@ -56,7 +56,7 @@ SeaView::SeaView(QWidget *parent) :
 void  SeaView::mousePressEvent(QMouseEvent *event)
 {
 
-    QGraphicsView::mousePressEvent(event);
+    QDeclarativeView::mousePressEvent(event);
     emit screenTapped();
 
 
@@ -90,7 +90,7 @@ bool SeaView::event(QEvent *event)
 
 
     //pass the event to the ancestor for handling
-    return QGraphicsView::event(event);
+    return QDeclarativeView::event(event);
 
  }
 

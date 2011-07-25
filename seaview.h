@@ -23,10 +23,10 @@
 #ifndef SEAVIEW_H
 #define SEAVIEW_H
 
-#include <QGraphicsView>
+#include <QDeclarativeView>
 #include "seascene.h"
 
-class SeaView : public QGraphicsView
+class SeaView : public QDeclarativeView
 {
     Q_OBJECT
 public:
