@@ -88,8 +88,8 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
 //    int newy = y() + deltay/15;
 
     //this is for Harmattan
-    int newx = x() + deltax/2;
-    int newy = y() + deltay/2;
+    int newx = x() + deltax/3;
+    int newy = y() + deltay/3;
 
 
 //    qDebug() << sceneRectangle.left() << sceneRectangle.right();
@@ -102,7 +102,7 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
 
 
     QPropertyAnimation * animation = new QPropertyAnimation(this,"pos",this);
-    animation->setDuration(100); //milliseconds
+    animation->setDuration(60); //milliseconds
     animation->setStartValue(pos());
     animation->setEndValue( QPointF(finalX,finalY));
     animation->start(QAbstractAnimation::DeleteWhenStopped);
