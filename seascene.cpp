@@ -474,7 +474,7 @@ void SeaScene::handleScreenTapped()
     {
         qApp->quit();
     }
-    if (pItem != pSettingsItem_)
+
 }
 
 
@@ -686,7 +686,7 @@ void SeaScene::setItemPointersNull()
     pSettingsItem_ = NULL;
     pAboutItem_ = NULL;
     pQuitItem_ = NULL ;
-    pMinimizeItem_ = NULL;
+//    pMinimizeItem_ = NULL; //Fremantle spesific
 
     pAboutBoxItem_ = NULL;
 }
