@@ -412,8 +412,16 @@ void SeaScene::handleScreenTapped()
     else if (pItem == pSettingsItem_)
     {
         pVibrateAction_->toggle();
+
         QSettings settings;
         settings.setValue("vibration",pVibrateAction_->isChecked());
+
+        QString text = pSettingsItem_->toHtml();
+        if (pVibrateAction_->isChecked())
+            text.replace(" on"," off"); //don't remove spaces or you get vibratioff...
+        else
+            text.replace(" off"," on");
+        pSettingsItem_->setHtml(text);
     }
 
     else if (pItem == pAboutItem_)
@@ -431,10 +439,12 @@ void SeaScene::handleScreenTapped()
 
     clearSelection();
 
-    //The user propably went to paused state just to access menu, so unpause
+    //The user propably went to paused state just to access menu, so unpause unless vibration set (so the user sees its changed)
 
-    pPauseAction_->setChecked(false);
-
+    if (pItem != pSettingsItem_)
+    {
+        pPauseAction_->setChecked(false);
+    }
 }
 
 
@@ -467,7 +477,7 @@ void SeaScene::createMenuItems()
     prepareForMenu(pRestartLevelItem_);
 
     pSettingsItem_ = new QGraphicsTextItem;
-    QString vibraText(tr("Vibration <br> effects"));
+    QString vibraText(tr("Vibration <br> effects "));
     QString statusText;
     if (pVibrateAction_->isChecked())
     {
