@@ -24,6 +24,7 @@
 #include "orientationcontrolledgraphicspixmapobject.h"
 #include <QDebug>
 #include <QGraphicsScene>
+#include <QPropertyAnimation>
 
 //OrientationControlledGraphicsPixmapObject::OrientationControlledGraphicsPixmapObject (QGraphicsItem *parent) :
 //    QObject(), QGraphicsPixmapItem (parent)
@@ -37,8 +38,13 @@ OrientationControlledGraphicsPixmapObject::OrientationControlledGraphicsPixmapOb
 
     connect(&rotationSensor_,SIGNAL(readingChanged()),this,SLOT(readRotationSensor()));
 
+    qrangelist rangelist = rotationSensor_.availableDataRates();
 
-
+    qDebug() << rangelist.length() << "ranges found";
+    foreach (qrange range, rangelist)
+    {
+        qDebug() << "Rotation sensor: " << range.first <<", " << "range.second";
+    }
 }
 
 void OrientationControlledGraphicsPixmapObject::startMoving()
@@ -82,24 +88,32 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
 //    int newy = y() + deltay/15;
 
     //this is for Harmattan
-    int newx = x() + deltax/5;
-    int newy = y() + deltay/5;
+    int newx = x() + deltax/2;
+    int newy = y() + deltay/2;
 
 
 //    qDebug() << sceneRectangle.left() << sceneRectangle.right();
 
 
-    setX(qBound(sceneRectangle.left(),newx,sceneRectangle.right()-pixmap().width()));
-    setY(qBound(sceneRectangle.top(),newy,sceneRectangle.bottom()-pixmap().height()));
 
+    int finalX = qBound(sceneRectangle.left(),newx,sceneRectangle.right()-pixmap().width());
+    int finalY = qBound(sceneRectangle.top(),newy,sceneRectangle.bottom()-pixmap().height());
+
+
+
+    QPropertyAnimation * animation = new QPropertyAnimation(this,"pos",this);
+    animation->setDuration(100); //milliseconds
+    animation->setStartValue(pos());
+    animation->setEndValue( QPointF(finalX,finalY));
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
 
     //handle collisions and move back to the original position if false returned
 
-    if (handleCollisions() == false)
-    {
-        setX(oldx);
-        setY(oldy);
-    }
+//    if (handleCollisions() == false)
+//    {
+//        setX(oldx);
+//        setY(oldy);
+//    }
 
 }
 

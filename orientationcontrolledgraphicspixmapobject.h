@@ -33,6 +33,9 @@ QTM_USE_NAMESPACE
 class OrientationControlledGraphicsPixmapObject : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
+
+    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
+
 public:
 //    explicit OrientationControlledGraphicsPixmapObject(QGraphicsItem *parent = 0);
     explicit OrientationControlledGraphicsPixmapObject(QPixmap pixmap = 0, QGraphicsItem *parent = 0);
