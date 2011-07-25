@@ -408,17 +408,27 @@ void SeaScene::handleScreenTapped()
     QGraphicsItem* pItem = items.at(0); //Selecting an item brings here, thus only selecting one item should be possible
                                        //... so we can just take the first one
 
+    //Selection is just used to get notice of a menu item being clicked, removed after use
+
+    clearSelection();
+
+
+    //Act upon the selected item
+
 
     if (pItem == pRestartGameItem_)
     {
         qDebug() << "game restart requested";
         restartGame();
+        pPauseAction_->setChecked(false); //unpause game
+
     }
 
     else if (pItem == pRestartLevelItem_)
     {
         qDebug() << "Level restart requested";
         restartLevel();
+        pPauseAction_->setChecked(false); //unpause game
 
     }
 
@@ -446,18 +456,7 @@ void SeaScene::handleScreenTapped()
     {
         qApp->quit();
     }
-
-
-    //Selection is just used to get notice of a menu item being clicked, removed after use
-
-    clearSelection();
-
-    //The user propably went to paused state just to access menu, so unpause unless vibration set (so the user sees its changed)
-
     if (pItem != pSettingsItem_)
-    {
-        pPauseAction_->setChecked(false);
-    }
 }
 
 
