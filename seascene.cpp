@@ -669,10 +669,10 @@ void SeaScene::createAboutBoxItems()
     pAboutBoxItem_->hide();
 
     pAboutBoxItem_->setHtml(tr("<font color = darkorange size = \"7\">"
-                          "%1 <br> <font size = \"5\"> Version %2"
-                          "<p><font size = \"4\"> Copyright 2011 Heli Hyv&auml;ttinen"
-                          "<p><font size = \"4\"> License: General Public License v2"
-                          "<p><font size = \"3\"> Bug Reports: <br> https://bugs.maemo.org/ "
+                          "%1 <br> <font size = \"7\"> Version %2"
+                          "<p><font size = \"6\"> Copyright 2011 Heli Hyv&auml;ttinen"
+                          "<p><font size = \"6\"> License: General Public License v2"
+                          "<p><font size = \"5\"> Bug Reports: <br> https://bugs.maemo.org/ "
                           "enter_bug.cgi?product=Ghosts%20Overboard"
                           ).arg(QApplication::applicationName(),QApplication::applicationVersion()));
 
