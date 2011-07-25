@@ -408,14 +408,7 @@ void SeaScene::handleScreenTapped()
 
     else if (pItem == pSettingsItem_)
     {
-    //Temporary code for settings, likely to be turned into a QML dialog
-
-          QMessageBox::StandardButton buttonpressed = QMessageBox::question(NULL,"Settings","Do you wish to have vibration effects enabled?", QMessageBox::Yes | QMessageBox::No);
-
-          if (buttonpressed == QMessageBox::Yes)
-              pVibrateAction_->setChecked(true);
-          if (buttonpressed == QMessageBox::No)
-              pVibrateAction_->setChecked(false);
+        pVibrateAction_->toggle();
     }
 
     else if (pItem == pAboutItem_)
@@ -469,7 +462,18 @@ void SeaScene::createMenuItems()
     prepareForMenu(pRestartLevelItem_);
 
     pSettingsItem_ = new QGraphicsTextItem;
-    pSettingsItem_->setHtml(tr("Vibration <br> effects").prepend(menufonthtml));
+    QString vibraText(tr("Vibration <br> effects"));
+    QString statusText;
+    if (pVibrateAction_->isChecked())
+    {
+        statusText = "off";
+    }
+    else
+    {
+        statusText = "on";
+    }
+    vibraText.append(statusText);
+    pSettingsItem_->setHtml(vibraText.prepend(menufonthtml));
     prepareForMenu(pSettingsItem_);
 
     pAboutItem_ = new QGraphicsTextItem;
