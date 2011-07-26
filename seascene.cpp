@@ -652,17 +652,23 @@ void SeaScene::createVictoryItems()
     pVictoryCongratulationsItem_->setZValue(1000);
     addItem(pVictoryCongratulationsItem_);
 
-//    QGraphicsPixmapItem * pImageItem = new QGraphicsPixmapItem(QPixmap(":/pix/aavesaari.png"),pVictoryCongratulationsItem_);
-//    pImageItem->setPos(-100,150);
-//    pImageItem->setZValue(1000);
-//    pImageItem->setScale(2.0);
 
+    //coordinates are relative to the parent
 
     QGraphicsTextItem * pTextItem = new QGraphicsTextItem(pVictoryCongratulationsItem_);
-    pTextItem->setHtml("<center> <font size=\"7\" color = darkorange> Congratulations! <br> You have saved all the ghosts."
-                       "<br><br> Tap to play again ");
+    pTextItem->setHtml("<font size=\"7\" color = darkorange> Congratulations!");
     pTextItem->setPos(-50,100);
     pTextItem->setZValue(1000);
+
+    QGraphicsTextItem * pMiddleTextItem = new QGraphicsTextItem(pVictoryCongratulationsItem_);
+    pMiddleTextItem->setHtml("<font size=\"7\" color = darkorange> You have saved all the ghosts.");
+    pMiddleTextItem->setPos(-145,140);
+    pMiddleTextItem->setZValue(1000);
+
+    QGraphicsTextItem * pLowestTextItem = new QGraphicsTextItem(pVictoryCongratulationsItem_);
+    pLowestTextItem->setHtml("<font size=\"7\" color = darkorange> Tap to play again");
+    pLowestTextItem->setPos(-50,220);
+    pLowestTextItem->setZValue(1000);
 }
 
 
