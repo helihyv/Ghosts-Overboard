@@ -1,17 +1,15 @@
-This package was debianized by Heli Hyvättinen <heli@unknown> on
+This package for Meego 1.2 Harmattan was created by Heli Hyvättinen <helihyvattinen@kymp.net> on
 Sat, 16 Jul 2011 16:15:34 +0300.
-
-It was downloaded from <url://example.com>
 
 Upstream Author(s):
 
-    <put author's name and email here>
-    <likewise for another author>
+    Heli Hyvättinen heli.hyvattinen@kymp.net
+
 
 Copyright:
 
-    <Copyright (C) YYYY Name OfAuthor>
-    <likewise for another author>
+    Copyright (C) 2011 Heli Hyvättinen
+
 
 License:
 
@@ -28,13 +26,8 @@ License:
     You should have received a copy of the GNU General Public License
     along with this package; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+    or see http://www.gnu.org/licenses/gpl-2.0.html
 
-On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL'.
 
-The Debian packaging is (C) 2011, Heli Hyvättinen <heli@unknown> and
+The Meego 1.2 Harmattan packaging is (C) 2011, Heli Hyvättinen <heli.hyvattinen@kymp.net> and
 is licensed under the GPL, see above.
-
-
-# Please also look if there are files or directories which have a
-# different copyright/license attached and list them here.
