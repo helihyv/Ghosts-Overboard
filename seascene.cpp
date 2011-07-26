@@ -537,7 +537,7 @@ void SeaScene::createMenuItems()
     prepareForMenu(pRestartLevelItem_);
 
     pSettingsItem_ = new QGraphicsTextItem;
-    QString vibraText(tr("Vibration <br> effects "));
+    QString vibraText(tr("Turn vibration <br> effects "));
     QString statusText;
     if (pVibrateAction_->isChecked())
     {
@@ -648,7 +648,7 @@ void SeaScene::createVictoryItems()
     pVictoryCongratulationsItem_ = new QGraphicsTextItem;
     pVictoryCongratulationsItem_->setHtml("<font size=\"7\" color = darkorange> <b> Victory!");
     pVictoryCongratulationsItem_->hide();
-    pVictoryCongratulationsItem_->setPos(300,50);
+    pVictoryCongratulationsItem_->setPos(355,50);
     pVictoryCongratulationsItem_->setZValue(1000);
     addItem(pVictoryCongratulationsItem_);
 
