@@ -357,7 +357,7 @@ void SeaScene::pause(bool paused)
         if (paused == false)
         {
      //       qDebug() << "starting to move again";
-            emit fullscreenRequested();
+//            emit fullscreenRequested();   fremantle specific (since no "show statusbar" action in harmattan version)
             emit pauseOff();
             screenLitKeeper_.keepScreenLit(true);
             if (pPausetextItem_)
@@ -642,11 +642,11 @@ void SeaScene::softContinue()
     pause(pPauseAction_->isChecked());
 }
 
-void SeaScene::createAboutBoxItems()
+
 void SeaScene::createVictoryItems()
 {
     pVictoryCongratulationsItem_ = new QGraphicsTextItem;
-    pVictoryCongratulationsItem_->setHtml("<font size=\"6\" color = darkorange> Victory!");
+    pVictoryCongratulationsItem_->setHtml("<font size=\"7\" color = darkorange> <b> Victory!");
     pVictoryCongratulationsItem_->hide();
     pVictoryCongratulationsItem_->setPos(300,50);
     pVictoryCongratulationsItem_->setZValue(1000);
@@ -659,11 +659,15 @@ void SeaScene::createVictoryItems()
 
 
     QGraphicsTextItem * pTextItem = new QGraphicsTextItem(pVictoryCongratulationsItem_);
-    pTextItem->setHtml("<center> <font size=\"5\" color = darkorange> Congratulations! <br> You have saved all the ghosts."
+    pTextItem->setHtml("<center> <font size=\"7\" color = darkorange> Congratulations! <br> You have saved all the ghosts."
                        "<br><br> Tap to play again ");
     pTextItem->setPos(-50,100);
     pTextItem->setZValue(1000);
+}
 
+
+void SeaScene::createAboutBoxItems()
+{
     pAboutBoxItem_ = new QGraphicsTextItem;
     addItem(pAboutBoxItem_);
     pAboutBoxItem_->setPos(25,50);
