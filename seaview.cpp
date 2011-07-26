@@ -111,9 +111,10 @@ void SeaView::initializeBoundaries()
 
     //This is for Harmattan
     //The automatic code above gives 854 width and 480 height, but that gives both scrollbars
-    //Found by forking: 843 width and 476 height are the largest that don't bring up the scrollbars
+    //Found by forking: 843 width and 476 height are the largest that don't bring up the scrollbars (when there is the frame)
+    //With the move from QGraphicsView to QDeclarative view the gray frame is gone and full screen can be used
 
-    QRectF rectangle(0,0,843,476);
+    QRectF rectangle(0,0,854,480);
 
     pScene_->setSceneRect(rectangle);
     setSceneRect(rectangle);
