@@ -5,6 +5,7 @@ ghostsoverboard (0.3.0) unstable; urgency=low
   * victory dialog integrated to the game view
   * about box integrated to the game view
   * vibration setting now saved
+  * autopause after 15 minutes, counting reset from starting a level and returning from pause
 
  -- Heli Hyvättinen <helihyvattinen@kymp.net>  Tue, 26 July 2011 18:08:00 +0300
 
