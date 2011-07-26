@@ -368,16 +368,16 @@ void SeaScene::pause(bool paused)
 
         else
         {
-         qDebug("about to stop movement");
+//         qDebug("about to stop movement");
             emit pauseOn();
             screenLitKeeper_.keepScreenLit(false);
             if (pPausetextItem_ != NULL)
             {
-                qDebug() << "about to show the pause text";
+//                qDebug() << "about to show the pause text";
                 pPausetextItem_->show();
-                qDebug() << "showing pause text";
+//                qDebug() << "showing pause text";
             }
-                else qDebug() << "No pause text available";
+//                else qDebug() << "No pause text available";
 
             autopauseTimer.stop(); //No need to count toward autopause when already paused
         }
@@ -453,7 +453,7 @@ void SeaScene::handleScreenTapped()
 
     if (pItem == pRestartGameItem_)
     {
-        qDebug() << "game restart requested";
+//        qDebug() << "game restart requested";
         restartGame();
         pPauseAction_->setChecked(false); //unpause game
 
@@ -461,7 +461,7 @@ void SeaScene::handleScreenTapped()
 
     else if (pItem == pRestartLevelItem_)
     {
-        qDebug() << "Level restart requested";
+//        qDebug() << "Level restart requested";
         restartLevel();
         pPauseAction_->setChecked(false); //unpause game
 
