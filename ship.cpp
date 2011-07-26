@@ -1,5 +1,5 @@
 /**************************************************************************
-        Ghosts Overboard - a game for Maemo 5
+        Ghosts Overboard - a game for 'Meego 1.2 Harmattan'
 
         Copyright (C) 2011  Heli Hyvättinen
 
