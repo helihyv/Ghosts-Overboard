@@ -119,7 +119,7 @@ void SeaView::initializeBoundaries()
     pScene_->setSceneRect(rectangle);
     setSceneRect(rectangle);
 
-    qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << width() << height();
+//    qDebug() << "Initialized boundaries" << rectangle.right() << rectangle.bottom() << width() << height();
 
     pScene_->restartLevel();
 }
