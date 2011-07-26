@@ -90,3 +90,10 @@ unix:!symbian:!maemo5 {
     desktopfile.path = /usr/share/applications
     INSTALLS += desktopfile
 }
+
+unix:!symbian:!maemo5 {
+    icon.files = ghostsoverboard.svg
+    icon.path = /usr/share/icons/hicolor/scalable/apps
+    INSTALLS += icon
+}
+
