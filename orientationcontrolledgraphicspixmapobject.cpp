@@ -38,13 +38,13 @@ OrientationControlledGraphicsPixmapObject::OrientationControlledGraphicsPixmapOb
 
     connect(&rotationSensor_,SIGNAL(readingChanged()),this,SLOT(readRotationSensor()));
 
-    qrangelist rangelist = rotationSensor_.availableDataRates();
+//    qrangelist rangelist = rotationSensor_.availableDataRates();
 
-    qDebug() << rangelist.length() << "ranges found";
-    foreach (qrange range, rangelist)
-    {
-        qDebug() << "Rotation sensor: " << range.first <<", " << "range.second";
-    }
+//    qDebug() << rangelist.length() << "ranges found";
+//    foreach (qrange range, rangelist)
+//    {
+//        qDebug() << "Rotation sensor: " << range.first <<", " << "range.second";
+//    }
 }
 
 void OrientationControlledGraphicsPixmapObject::startMoving()
