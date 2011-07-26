@@ -697,4 +697,6 @@ void SeaScene::setItemPointersNull()
     pMinimizeItem_ = NULL;
 
     pAboutBoxItem_ = NULL;
+    pVictoryCongratulationsItem_ = NULL;
+
 }
