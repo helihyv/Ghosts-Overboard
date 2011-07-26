@@ -92,7 +92,7 @@ SeaScene::SeaScene(QObject *parent) :
 
     autopauseTimer.setSingleShot(true);
     autopauseTimer.setInterval(15*60*1000);
-    connect(&autopauseTimer,SIGNAL(timeout()),this,SLOT(forcePause()));
+    connect(&autopauseTimer,SIGNAL(timeout()),this,SLOT(turnPauseOn()));
 
 
 }
@@ -706,4 +706,9 @@ void SeaScene::setItemPointersNull()
     pAboutBoxItem_ = NULL;
     pVictoryCongratulationsItem_ = NULL;
 
+}
+
+void SeaScene::turnPauseOn()
+{
+    pPauseAction_->setChecked(true);
 }

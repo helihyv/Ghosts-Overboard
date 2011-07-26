@@ -88,6 +88,8 @@ public slots:
 
     void setItemPointersNull();
 
+    void turnPauseOn();
+
 
 
 protected:
