@@ -1,3 +1,13 @@
+ghostsoverboard (0.3.0) unstable; urgency=low
+
+  * game view uses full screen
+  * menu integrated to the game view
+  * victory dialog integrated to the game view
+  * about box integrated to the game view
+  * vibration setting now saved
+
+ -- Heli Hyvättinen <helihyvattinen@kymp.net>  Tue, 26 July 2011 18:08:00 +0300
+
 ghostsoverboard (0.2.1) unstable; urgency=low
 
   * vibration effects no longer disappear when level changes or is restarted
