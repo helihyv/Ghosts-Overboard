@@ -84,6 +84,8 @@ public slots:
 
     void createAboutBoxItems();
 
+    void createVictoryItems();
+
     void setItemPointersNull();
 
 
@@ -126,6 +128,7 @@ protected:
     QGraphicsTextItem * pQuitItem_;
     QGraphicsTextItem * pMinimizeItem_;
 
+    QGraphicsTextItem * pVictoryCongratulationsItem_;
     QGraphicsTextItem * pAboutBoxItem_;
 
     QList<Level> levelList_;
