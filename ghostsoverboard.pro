@@ -10,6 +10,7 @@ QT      += declarative
 
 TARGET = ghostsoverboard
 TEMPLATE = app
+VERSION = 0.3.0
 
 
 SOURCES += main.cpp\
