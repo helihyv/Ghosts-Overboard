@@ -89,7 +89,10 @@ SeaScene::SeaScene(QObject *parent) :
     pPauseAction_->setCheckable(true);
     connect(pPauseAction_,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
-    connect(&deviceInfo_,SIGNAL(lockStatusChanged(bool)),this,SLOT(handleDeviceLocked(bool)));
+
+    deviceLockPollTimer_.setInterval(20*60); // 2s
+    connect(&deviceLockPollTimer_,SIGNAL(timeout()),this,SLOT(pollDeviceLocked()));
+    deviceLockPollTimer_.start();
 
 
     autopauseTimer.setSingleShot(true);
@@ -366,6 +369,7 @@ void SeaScene::pause(bool paused)
                 pPausetextItem_->hide();
 
             autopauseTimer.start(); //Start counting towards autopause
+            deviceLockPollTimer_.start(); //Start polling whether device is locked
         }
 
         else
@@ -382,6 +386,7 @@ void SeaScene::pause(bool paused)
 //                else qDebug() << "No pause text available";
 
             autopauseTimer.stop(); //No need to count toward autopause when already paused
+            deviceLockPollTimer_.stop(); //No need to check for unlock as no unpause anyway
         }
 }
 
@@ -721,5 +726,25 @@ void SeaScene::handleDeviceLocked(bool isLocked)
     if(isLocked)
     {
         pPauseAction_->setChecked(true);
+    }
+}
+
+void SeaScene::pollDeviceLocked()
+{
+
+    bool locked = deviceInfo_.isDeviceLocked();
+
+    if (locked)
+    {
+        if (!alreadyLocked_)
+        {
+            pPauseAction_->setChecked(true);
+            alreadyLocked_ = true;
+        }
+
+    else
+        {
+            alreadyLocked_ = false;
+        }
     }
 }

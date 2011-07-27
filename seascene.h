@@ -48,6 +48,7 @@ signals:
     void vibrationActivated(bool on);
     void minimizeRequested();
     void fullscreenRequested();
+    void deviceJustLocked();
 
 public slots:
 
@@ -94,6 +95,8 @@ public slots:
     void turnPauseOn();
 
     void handleDeviceLocked(bool isLocked);
+
+    void pollDeviceLocked();
 
 
 
@@ -149,6 +152,10 @@ protected:
     QTimer autopauseTimer;
 
     QSystemDeviceInfo deviceInfo_;
+
+    bool alreadyLocked_;
+
+    QTimer deviceLockPollTimer_;
 
 };
 
