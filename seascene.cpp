@@ -90,7 +90,7 @@ SeaScene::SeaScene(QObject *parent) :
     connect(pPauseAction_,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
 
-    deviceLockPollTimer_.setInterval(20*60); // 2s
+    deviceLockPollTimer_.setInterval(20*60);
     connect(&deviceLockPollTimer_,SIGNAL(timeout()),this,SLOT(pollDeviceLocked()));
     deviceLockPollTimer_.start();
 
