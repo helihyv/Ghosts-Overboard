@@ -30,6 +30,9 @@
 #include "level.h"
 #include <QAction>
 #include <QTimer>
+#include <QSystemDeviceInfo>
+
+using namespace QtMobility;
 
 class SeaScene : public QGraphicsScene
 {
@@ -90,6 +93,8 @@ public slots:
 
     void turnPauseOn();
 
+    void handleDeviceLocked(bool isLocked);
+
 
 
 protected:
@@ -118,7 +123,6 @@ protected:
 
     ScreenLitKeeper screenLitKeeper_;
 
-
     int menuItemCount_;
 
     QGraphicsTextItem * pPausetextItem_;
@@ -142,9 +146,9 @@ protected:
 
     QAction* pPauseAction_;
 
-    bool pauseForced_;
-
     QTimer autopauseTimer;
+
+    QSystemDeviceInfo deviceInfo_;
 
 };
 

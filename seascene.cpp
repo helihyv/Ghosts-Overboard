@@ -89,6 +89,8 @@ SeaScene::SeaScene(QObject *parent) :
     pPauseAction_->setCheckable(true);
     connect(pPauseAction_,SIGNAL(toggled(bool)),this,SLOT(pause(bool)));
 
+    connect(&deviceInfo_,SIGNAL(lockStatusChanged(bool)),this,SLOT(handleDeviceLocked(bool)));
+
 
     autopauseTimer.setSingleShot(true);
     autopauseTimer.setInterval(15*60*1000);
@@ -711,4 +713,13 @@ void SeaScene::setItemPointersNull()
 void SeaScene::turnPauseOn()
 {
     pPauseAction_->setChecked(true);
+}
+
+void SeaScene::handleDeviceLocked(bool isLocked)
+{
+    //pauses if locked but does not unpause if unlocked
+    if(isLocked)
+    {
+        pPauseAction_->setChecked(true);
+    }
 }

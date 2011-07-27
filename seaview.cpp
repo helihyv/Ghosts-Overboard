@@ -39,8 +39,8 @@ SeaView::SeaView(QWidget *parent) :
 
 
     connect(this,SIGNAL(screenTapped()),pScene_,SLOT(handleScreenTapped()));
-    connect(this,SIGNAL(goingBackgroung()),pScene_,SLOT(forcePause()));
-    connect(this,SIGNAL(goingForeground()),pScene_,SLOT(softContinue()));
+    connect(this,SIGNAL(goingBackgroung()),pScene_,SLOT(turnPauseOn()));
+//    connect(this,SIGNAL(goingForeground()),pScene_,SLOT(softContinue()));
 
     connect(pScene_,SIGNAL(minimizeRequested()),this,SLOT(showNormal()));
     connect(pScene_,SIGNAL(fullscreenRequested()),this,SLOT(showFullScreen()));
