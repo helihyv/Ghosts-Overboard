@@ -23,7 +23,7 @@
 #include <QtGui/QApplication>
 #include "seaview.h"
 
-int main(int argc, char *argv[])
+Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setApplicationName("Ghosts Overboard");
