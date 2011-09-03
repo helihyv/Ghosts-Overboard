@@ -1,7 +1,7 @@
 Source: ghostsoverboard
 Section: user/other
 Priority: optional
-Maintainer: Heli Hyvättinen <heli,hyvattinen@kymp.net>
+Maintainer: Heli Hyvättinen <heli.hyvattinen@kymp.net>
 Build-Depends: debhelper (>= 5), libqt4-dev, libqtm-dev
 Standards-Version: 3.7.3
 Homepage: http://ghostsoverboard.garage.maemo.org/
