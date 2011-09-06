@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     timercontrolledgraphicspixmapobject.cpp \
     octopus.cpp \
     level.cpp \
-    seaview.cpp
+    seaview.cpp \
+    levelset.cpp
 
 HEADERS  += \
     orientationcontrolledgraphicspixmapobject.h \
@@ -31,7 +32,8 @@ HEADERS  += \
     timercontrolledgraphicspixmapobject.h \
     octopus.h \
     level.h \
-    seaview.h
+    seaview.h \
+    levelset.h
 
 CONFIG += mobility
 MOBILITY = sensors
@@ -97,4 +99,6 @@ unix:!symbian:!maemo5 {
     icon.path = /usr/share/icons/hicolor/scalable/apps
     INSTALLS += icon
 }
+
+
 
