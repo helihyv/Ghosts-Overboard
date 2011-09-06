@@ -61,16 +61,20 @@ SeaScene::SeaScene(QObject *parent) :
 
 //Setup the level list
 
+    QList<Level> levelList;
     Level level1(5,10);
-    levelList_.append(level1);
+    levelList.append(level1);
     Level level2(5,10,2,50);
-    levelList_.append(level2);
+    levelList.append(level2);
     Level level3(5,15,2,50);
-    levelList_.append(level3);
+    levelList.append(level3);
     Level level4(5,15,4,50);
-    levelList_.append(level4);
+    levelList.append(level4);
     Level level5(5,15,5,100);
-    levelList_.append(level5);
+    levelList.append(level5);
+
+    Levelset set ("Original",levelList);
+    levelset_ = set;
 
     currentLevel_ = 0;
 
@@ -586,7 +590,7 @@ void SeaScene::about()
 
 void SeaScene::restartLevel()
 {
-    setupMap(levelList_.value(currentLevel_));  //value() returns default constructor Level if index is invalid, so no risk of crash
+    setupMap(levelset_.getLevel(currentLevel_));  //getLevel() returns default constructor Level if index is invalid, so no risk of crash
     vibrationActivate(pVibrateAction_->isChecked());  //Vibration effects are lost without this
    // qDebug() << pVibrateAction_->isChecked();
     autopauseTimer.start();  //reset counting towards autopause
@@ -599,11 +603,11 @@ void SeaScene::nextLevel()
 
     currentLevel_++;
 
-    if (levelList_.empty())
+    if (!levelset_.isValid())
         setupMap(Level());
 
 
-    if ( currentLevel_ < levelList_.size() )
+    if ( currentLevel_ < levelset_.numberOfLevels() )
     {
        restartLevel();
     }
