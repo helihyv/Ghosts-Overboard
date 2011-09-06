@@ -28,6 +28,7 @@
 #include<QGraphicsItemGroup>
 #include "screenlitkeeper.h"
 #include "level.h"
+#include "levelset.h"
 #include <QAction>
 #include <QTimer>
 #include <QSystemDeviceInfo>
@@ -140,7 +141,8 @@ protected:
     QGraphicsTextItem * pVictoryCongratulationsItem_;
     QGraphicsTextItem * pAboutBoxItem_;
 
-    QList<Level> levelList_;
+
+    Levelset levelset_;
 
     int currentLevel_;
 
