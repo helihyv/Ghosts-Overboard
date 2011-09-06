@@ -78,6 +78,8 @@ SeaScene::SeaScene(QObject *parent) :
 
     currentLevel_ = 0;
 
+    totalScore_ = 0;
+
 
     connect(this,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
 
@@ -119,6 +121,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
     createAboutBoxItems();
 
     createVictoryItems();
+
+    createLevelCompletedItem();
 
 
     //empty the list of moving items
@@ -237,6 +241,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
         connect(pOctopus,SIGNAL(droppingGhosts()),pShip,SLOT(dropAllGhosts()));
     }
     delete pPosition;
+
+    scoreCounter_.start();
 
 
 }
@@ -611,26 +617,32 @@ void SeaScene::restartLevel()
 void SeaScene::nextLevel()
 {
 
+    //get score for previous level
+    int score = scoreCounter_.elapsed()/1000;
+    totalScore_ += score;
+    int highscore = levelset_.getLevelHighScore(currentLevel_);
+
+    QString scoretext = tr("Your time: %1 min %2 s<br>Best time: %3 min %4 sec").arg(score/60).arg(score%60).arg(highscore/60).arg(highscore%60);
+
+    //pause to show the highscore or victory screen
+
+    turnPauseOn();
+    pPausetextItem_->hide();
+
+
+    //Go to the next level if available
     currentLevel_++;
-
-    if (!levelset_.isValid())
-        setupMap(Level());
-
 
     if ( currentLevel_ < levelset_.numberOfLevels() )
     {
-       restartLevel();
+       pLevelCompletedItem_->setHtml(scoretext);
+       pLevelCompletedItem_->show();
+//       restartLevel();
     }
 
     else //Victory!
     {
-
-        pPauseAction_->setChecked(true); //Pause the game while showing the victory dialog
-
-        pPausetextItem_->hide();
-
         pVictoryCongratulationsItem_->show();
-
     }
 }
 
@@ -638,6 +650,7 @@ void SeaScene::nextLevel()
 void SeaScene::restartGame()
 {
     currentLevel_ = 0;
+    totalScore_ = 0;
     restartLevel();
 }
 
@@ -716,6 +729,8 @@ void SeaScene::setItemPointersNull()
 
     pAboutBoxItem_ = NULL;
     pVictoryCongratulationsItem_ = NULL;
+    pLevelCompletedItem_ = NULL;
+
 
 }
 
@@ -751,4 +766,15 @@ void SeaScene::pollDeviceLocked()
             alreadyLocked_ = false;
         }
     }
+}
+
+void SeaScene::createLevelCompletedItem()
+{
+    pLevelCompletedItem_ = new QGraphicsTextItem;
+    addItem(pLevelCompletedItem_);
+    pLevelCompletedItem_->setPos(20,20);
+    pLevelCompletedItem_->setZValue(1000);
+    pLevelCompletedItem_->hide();
+    //The text is set at usetime
+
 }

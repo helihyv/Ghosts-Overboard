@@ -32,6 +32,7 @@
 #include <QAction>
 #include <QTimer>
 #include <QSystemDeviceInfo>
+#include <QTime>
 
 using namespace QtMobility;
 
@@ -87,10 +88,6 @@ public slots:
 
     void softContinue();
 
-    void createAboutBoxItems();
-
-    void createVictoryItems();
-
     void setItemPointersNull();
 
     void turnPauseOn();
@@ -111,6 +108,9 @@ protected:
 
     void createMenuItems();
     void prepareForMenu(QGraphicsItem * pItem);
+    void createAboutBoxItems();
+    void createVictoryItems();
+    void createLevelCompletedItem();
 
     const QString ghostImageFilename_;
     const QString rockImageFilename_;
@@ -141,6 +141,8 @@ protected:
     QGraphicsTextItem * pVictoryCongratulationsItem_;
     QGraphicsTextItem * pAboutBoxItem_;
 
+    QGraphicsTextItem * pLevelCompletedItem_;
+
 
     Levelset levelset_;
 
@@ -158,6 +160,9 @@ protected:
     bool alreadyLocked_;
 
     QTimer deviceLockPollTimer_;
+
+    QTime scoreCounter_;
+    int totalScore_;
 
 };
 
