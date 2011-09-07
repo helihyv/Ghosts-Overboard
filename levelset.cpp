@@ -22,6 +22,7 @@
 
 #include "levelset.h"
 #include <QSettings>
+#include <QDebug>
 
 Levelset::Levelset()
 {
@@ -78,8 +79,11 @@ void Levelset::setTotalHighScore(int highscore)
 int Levelset::getLevelHighScore(int index)
 {
     QSettings settings;
-    QString group = name_.append("/LevelHighScore");
+    QString group = name_;
+    group.append("/LevelHighScore");
     settings.beginGroup(group);
+
+    qDebug() << group;
 
     return settings.value(QString(index),900).toInt();
 }
@@ -87,8 +91,11 @@ int Levelset::getLevelHighScore(int index)
 void Levelset::setLevelHighScore(int index, int highScore)
 {
     QSettings settings;
-    QString group = name_.append("/LevelHighScore");
+    QString group = name_;
+    group.append("/LevelHighScore");
     settings.beginGroup(group);
+
+    qDebug() << group;
 
     settings.setValue(QString(index),highScore);
 }
