@@ -632,7 +632,7 @@ void SeaScene::nextLevel()
 {
 
     //get score for previous level
-    int score = scoreCounter_.elapsed()/1000;
+    int score = scoreCounter_.elapsed();
     totalScore_ += score;
     int highscore = levelset_.getLevelHighScore(currentLevel_);
     qDebug() << highscore;
@@ -641,13 +641,13 @@ void SeaScene::nextLevel()
 
     if (score >= highscore)
     {
-        scoretext = tr("<font size=\"5\" color = darkorange>Your time: %1 min %2 s<br>Best time: %3 min %4 sec").arg(score/60).arg(score%60).arg(highscore/60).arg(highscore%60);
+        scoretext = tr("<font size=\"5\" color = darkorange>Your time: %1.%2 s<br>Best time: %3.%4 s<br><br>Tap to start the next level").arg(score/1000).arg((score%1000)/100).arg(highscore/1000).arg((highscore%1000)/100);
     }
 
     else //New high score!
 
     {
-        scoretext = tr("<font size=\"5\" color = darkorange>Your time %1 min %2 s is the new best time!").arg(score/60).arg(score%60);
+        scoretext = tr("<font size=\"5\" color = darkorange>Your time %1.%2 s is the new best time!<br>br> Tap to start the next level").arg(score/1000).arg((score%1000)/100);
         levelset_.setLevelHighScore(currentLevel_,score);
     }
 
