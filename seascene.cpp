@@ -641,13 +641,13 @@ void SeaScene::nextLevel()
 
     if (score >= highscore)
     {
-        scoretext = tr("Your time: %1 min %2 s<br>Best time: %3 min %4 sec").arg(score/60).arg(score%60).arg(highscore/60).arg(highscore%60);
+        scoretext = tr("<font size=\"5\" color = darkorange>Your time: %1 min %2 s<br>Best time: %3 min %4 sec").arg(score/60).arg(score%60).arg(highscore/60).arg(highscore%60);
     }
 
     else //New high score!
 
     {
-        scoretext = tr("Your time %1 min %2 s is the new best time!").arg(score/60).arg(score%60);
+        scoretext = tr("<font size=\"5\" color = darkorange>Your time %1 min %2 s is the new best time!").arg(score/60).arg(score%60);
         levelset_.setLevelHighScore(currentLevel_,score);
     }
 
