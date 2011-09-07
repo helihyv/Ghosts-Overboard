@@ -64,7 +64,7 @@ int Levelset::getTotalHighScore()
 {
     QSettings settings;
     settings.beginGroup(name_);
-    return settings.value("TotalHighScore",900*100).toInt();
+    return settings.value("TotalHighScore",900*1000*100).toInt();
 }
 
 void Levelset::setTotalHighScore(int highscore)
@@ -85,7 +85,7 @@ int Levelset::getLevelHighScore(int index)
 
     qDebug() << group;
 
-    return settings.value(QString(index),900).toInt();
+    return settings.value(QString(index),900*1000).toInt();
 }
 
 void Levelset::setLevelHighScore(int index, int highScore)
