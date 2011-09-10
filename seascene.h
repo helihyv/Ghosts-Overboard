@@ -163,6 +163,7 @@ protected:
 
     QTime scoreCounter_;
     int totalScore_;
+    int levelScore_;
 
 };
 
