@@ -784,7 +784,7 @@ void SeaScene::turnPauseOn()
     pPauseAction_->setChecked(true);
 }
 
-}
+
 
 void SeaScene::createLevelCompletedItems()
 {
@@ -799,3 +799,4 @@ void SeaScene::createLevelCompletedItems()
     pTapForNextLevelItem->setPos(-60,100);
     pTapForNextLevelItem->setZValue(1000);
     pTapForNextLevelItem->setHtml("<font size=\"5\" color = darkorange>Tap to start the next level");
+}
