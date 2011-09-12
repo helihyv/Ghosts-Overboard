@@ -416,9 +416,22 @@ void SeaScene::handleScreenTapped()
         {
             pAboutBoxItem_->hide();
             pPausetextItem_->show();
+            return;
         }
     }
 
+    //If the game is paused, check if the level completed item is shown
+
+    if (pLevelCompletedItem_)
+    {
+        if (pLevelCompletedItem_->isVisible())
+        {
+            pLevelCompletedItem_->hide();
+            restartLevel(); //Current level has already been set to the next one before showing the level completed item
+            pPauseAction_->setChecked(false); //unpause
+            return;
+        }
+    }
    
     //If the game is paused, check if the victory item is being shown
     if(pVictoryCongratulationsItem_)
@@ -431,6 +444,7 @@ void SeaScene::handleScreenTapped()
             return;
         }
     }
+
 
     //If the game is paused and no victory or about box, check if menu item was selected
 
