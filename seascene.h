@@ -31,6 +31,7 @@
 #include "levelset.h"
 #include <QAction>
 #include <QTimer>
+#include <QTime>
 
 class SeaScene : public QGraphicsScene
 {
@@ -81,9 +82,6 @@ public slots:
 
     void softContinue();
 
-    void createAboutBoxItems();
-    void createVictoryItems();
-
     void setItemPointersNull();
 
     void turnPauseOn();
@@ -100,6 +98,9 @@ protected:
 
     void createMenuItems();
     void prepareForMenu(QGraphicsItem * pItem);
+    void createAboutBoxItems();
+    void createVictoryItems();
+    void createLevelCompletedItem();
 
     const QString ghostImageFilename_;
     const QString rockImageFilename_;
@@ -130,6 +131,8 @@ protected:
     QGraphicsTextItem * pAboutBoxItem_;
     QGraphicsTextItem * pVictoryCongratulationsItem_;
 
+    QGraphicsTextItem * pLevelCompletedItem_;
+
 
     Levelset levelset_;
 
@@ -144,6 +147,9 @@ protected:
 
     QTimer autopauseTimer;
 
+
+    QTime scoreCounter_;
+    int totalScore_;
 };
 
 #endif // SEASCENE_H
