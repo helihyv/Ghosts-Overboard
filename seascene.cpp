@@ -236,10 +236,6 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
         connect(pOctopus,SIGNAL(droppingGhosts()),pShip,SLOT(dropAllGhosts()));
     }
     delete pPosition;
-
-    scoreCounter_.start();
-
-
 }
 
 void SeaScene::setupMap(Level level)
@@ -373,6 +369,8 @@ void SeaScene::pause(bool paused)
             if (pPausetextItem_)
                 pPausetextItem_->hide();
 
+            scoreCounter_.start();
+
             autopauseTimer.start(); //Start counting towards autopause
         }
 
@@ -388,6 +386,8 @@ void SeaScene::pause(bool paused)
 //                qDebug() << "showing pause text";
             }
 //                else qDebug() << "No pause text available";
+
+            levelScore_ += scoreCounter_.elapsed();
 
             autopauseTimer.stop(); //No need to count toward autopause when already paused
         }
@@ -610,10 +610,18 @@ void SeaScene::about()
 
 void SeaScene::restartLevel()
 {
+
+    levelScore_ = 0;
+
     setupMap(levelset_.getLevel(currentLevel_));  //getLevel() returns default constructor Level if index is invalid, so no risk of crash
+
+    scoreCounter_.start();
+
     vibrationActivate(pVibrateAction_->isChecked());  //Vibration effects are lost without this
    // qDebug() << pVibrateAction_->isChecked();
     autopauseTimer.start();  //reset counting towards autopause
+
+
 }
 
 
@@ -622,23 +630,23 @@ void SeaScene::nextLevel()
 {
 
     //get score for previous level
-    int score = scoreCounter_.elapsed();
-    totalScore_ += score;
+    levelScore_ += scoreCounter_.elapsed();
+    totalScore_ += levelScore_;
     int highscore = levelset_.getLevelHighScore(currentLevel_);
     qDebug() << highscore;
 
     QString scoretext;
 
-    if (score >= highscore)
+    if (levelScore_ >= highscore)
     {
-        scoretext = tr("<font size=\"5\" color = darkorange>Your time: %1.%2 s<br>Best time: %3.%4 s<br><br>Tap to start the next level").arg(score/1000).arg((score%1000)/100).arg(highscore/1000).arg((highscore%1000)/100);
+        scoretext = tr("<font size=\"5\" color = darkorange>Your time: %1.%2 s<br>Best time: %3.%4 s<br><br>Tap to start the next level").arg(levelScore_/1000).arg((levelScore_%1000)/100).arg(highscore/1000).arg((highscore%1000)/100);
     }
 
     else //New high score!
 
     {
-        scoretext = tr("<font size=\"5\" color = darkorange>Your time %1.%2 s is the new best time!<br>br> Tap to start the next level").arg(score/1000).arg((score%1000)/100);
-        levelset_.setLevelHighScore(currentLevel_,score);
+        scoretext = tr("<font size=\"5\" color = darkorange>Your time %1.%2 s is the new best time!<br>br> Tap to start the next level").arg(levelScore_/1000).arg((levelScore_%1000)/100);
+        levelset_.setLevelHighScore(currentLevel_,levelScore_);
     }
 
     //pause to show the highscore or victory screen

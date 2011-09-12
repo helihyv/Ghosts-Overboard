@@ -150,6 +150,7 @@ protected:
 
     QTime scoreCounter_;
     int totalScore_;
+    int levelScore_;
 };
 
 #endif // SEASCENE_H
