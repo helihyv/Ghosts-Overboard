@@ -117,7 +117,7 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
     createAboutBoxItems();
     createVictoryItems();
 
-    createLevelCompletedItem();
+    createLevelCompletedItems();
 
 
     //empty the list of moving items
@@ -633,19 +633,20 @@ void SeaScene::nextLevel()
     levelScore_ += scoreCounter_.elapsed();
     totalScore_ += levelScore_;
     int highscore = levelset_.getLevelHighScore(currentLevel_);
+
     qDebug() << highscore;
 
     QString scoretext;
 
     if (levelScore_ >= highscore)
     {
-        scoretext = tr("<font size=\"5\" color = darkorange>Your time: %1.%2 s<br>Best time: %3.%4 s<br><br>Tap to start the next level").arg(levelScore_/1000).arg((levelScore_%1000)/100).arg(highscore/1000).arg((highscore%1000)/100);
+        scoretext = tr("<font size=\"5\" color = darkorange>Your time: %1.%2 s<br>Best time: %3.%4 s").arg(levelScore_/1000).arg((levelScore_%1000)/100).arg(highscore/1000).arg((highscore%1000)/100);
     }
 
     else //New high score!
 
     {
-        scoretext = tr("<font size=\"5\" color = darkorange>Your time %1.%2 s is the new best time!<br>br> Tap to start the next level").arg(levelScore_/1000).arg((levelScore_%1000)/100);
+        scoretext = tr("<font size=\"5\" color = darkorange>Your time %1.%2 s is<br>the new best time!").arg(levelScore_/1000).arg((levelScore_%1000)/100);
         levelset_.setLevelHighScore(currentLevel_,levelScore_);
     }
 
@@ -660,6 +661,7 @@ void SeaScene::nextLevel()
 
     if ( currentLevel_ < levelset_.numberOfLevels() )
     {
+
        pLevelCompletedItem_->setHtml(scoretext);
        pLevelCompletedItem_->show();
 //       restartLevel();
@@ -667,6 +669,18 @@ void SeaScene::nextLevel()
 
     else //Victory!
     {
+        int totalHighsore = levelset_.getTotalHighScore();
+        if (totalScore_ >= totalHighsore)
+        {
+            scoretext.append(tr("<br>Your total time: %1.%2 s<br>Best total time:%3.%4 s").arg(totalScore_/1000).arg((totalScore_%1000)/100).arg(totalHighsore/1000).arg((totalHighsore%1000)/100));
+        }
+        else //new total high score
+        {
+            scoretext.append(tr("<br>Your total time %1.%2 s is<br>the new best time").arg(totalScore_/1000).arg((totalScore_%1000)/100));
+            levelset_.setTotalHighScore(totalScore_);
+        }
+
+        pVictoryScoreItem_->setHtml(scoretext);
         pVictoryCongratulationsItem_->show();
     }
 }
@@ -700,7 +714,7 @@ void SeaScene::createVictoryItems()
     pVictoryCongratulationsItem_ = new QGraphicsTextItem;
     pVictoryCongratulationsItem_->setHtml("<font size=\"7\" color = darkorange> <b> Victory!");
     pVictoryCongratulationsItem_->hide();
-    pVictoryCongratulationsItem_->setPos(355,50);
+    pVictoryCongratulationsItem_->setPos(315,30);
     pVictoryCongratulationsItem_->setZValue(1000);
     addItem(pVictoryCongratulationsItem_);
 
@@ -709,17 +723,23 @@ void SeaScene::createVictoryItems()
 
     QGraphicsTextItem * pTextItem = new QGraphicsTextItem(pVictoryCongratulationsItem_);
     pTextItem->setHtml("<font size=\"7\" color = darkorange> Congratulations!");
-    pTextItem->setPos(-50,100);
+    pTextItem->setPos(-50,80);
     pTextItem->setZValue(1000);
 
     QGraphicsTextItem * pMiddleTextItem = new QGraphicsTextItem(pVictoryCongratulationsItem_);
     pMiddleTextItem->setHtml("<font size=\"7\" color = darkorange> You have saved all the ghosts.");
-    pMiddleTextItem->setPos(-145,140);
+    pMiddleTextItem->setPos(-145,120);
     pMiddleTextItem->setZValue(1000);
+
+
+    pVictoryScoreItem_ = new QGraphicsTextItem(pVictoryCongratulationsItem_);
+    pVictoryScoreItem_->setPos(-50,180);
+    pMiddleTextItem->setZValue(1000);
+    //Text is set at usetime!
 
     QGraphicsTextItem * pLowestTextItem = new QGraphicsTextItem(pVictoryCongratulationsItem_);
     pLowestTextItem->setHtml("<font size=\"7\" color = darkorange> Tap to play again");
-    pLowestTextItem->setPos(-50,220);
+    pLowestTextItem->setPos(-50,360);
     pLowestTextItem->setZValue(1000);
 }
 
@@ -755,6 +775,7 @@ void SeaScene::setItemPointersNull()
 
     pAboutBoxItem_ = NULL;
     pLevelCompletedItem_ = NULL;
+    pVictoryScoreItem_ = NULL;
 
 }
 
@@ -765,11 +786,16 @@ void SeaScene::turnPauseOn()
 
 }
 
-void SeaScene::createLevelCompletedItem()
+void SeaScene::createLevelCompletedItems()
 {
     pLevelCompletedItem_ = new QGraphicsTextItem;
     addItem(pLevelCompletedItem_);
-    pLevelCompletedItem_->setPos(20,20);
+    pLevelCompletedItem_->setPos(240,100);
     pLevelCompletedItem_->setZValue(1000);
     pLevelCompletedItem_->hide();
     //The text is set at usetime
+
+    QGraphicsTextItem * pTapForNextLevelItem = new QGraphicsTextItem(pLevelCompletedItem_);
+    pTapForNextLevelItem->setPos(-60,100);
+    pTapForNextLevelItem->setZValue(1000);
+    pTapForNextLevelItem->setHtml("<font size=\"5\" color = darkorange>Tap to start the next level");
