@@ -640,13 +640,13 @@ void SeaScene::nextLevel()
 
     if (levelScore_ >= highscore)
     {
-        scoretext = tr("<font size=\"5\" color = darkorange>Your time: %1.%2 s<br>Best time: %3.%4 s").arg(levelScore_/1000).arg((levelScore_%1000)/100).arg(highscore/1000).arg((highscore%1000)/100);
+        scoretext = tr("<font size=\"7\" color = darkorange>Your time: %1.%2 s<br>Best time: %3.%4 s").arg(levelScore_/1000).arg((levelScore_%1000)/100).arg(highscore/1000).arg((highscore%1000)/100);
     }
 
     else //New high score!
 
     {
-        scoretext = tr("<font size=\"5\" color = darkorange>Your time %1.%2 s is<br>the new best time!").arg(levelScore_/1000).arg((levelScore_%1000)/100);
+        scoretext = tr("<font size=\"7\" color = darkorange>Your time %1.%2 s is<br>the new best time!").arg(levelScore_/1000).arg((levelScore_%1000)/100);
         levelset_.setLevelHighScore(currentLevel_,levelScore_);
     }
 
@@ -672,7 +672,7 @@ void SeaScene::nextLevel()
         int totalHighsore = levelset_.getTotalHighScore();
         if (totalScore_ >= totalHighsore)
         {
-            scoretext.append(tr("<br>Your total time: %1.%2 s<br>Best total time:%3.%4 s").arg(totalScore_/1000).arg((totalScore_%1000)/100).arg(totalHighsore/1000).arg((totalHighsore%1000)/100));
+            scoretext.append(tr("<br>Your total time: %1.%2 s<br>Best total time: %3.%4 s").arg(totalScore_/1000).arg((totalScore_%1000)/100).arg(totalHighsore/1000).arg((totalHighsore%1000)/100));
         }
         else //new total high score
         {
@@ -798,5 +798,5 @@ void SeaScene::createLevelCompletedItems()
     QGraphicsTextItem * pTapForNextLevelItem = new QGraphicsTextItem(pLevelCompletedItem_);
     pTapForNextLevelItem->setPos(-60,100);
     pTapForNextLevelItem->setZValue(1000);
-    pTapForNextLevelItem->setHtml("<font size=\"5\" color = darkorange>Tap to start the next level");
+    pTapForNextLevelItem->setHtml("<font size=\"7\" color = darkorange>Tap to start the next level");
 }
