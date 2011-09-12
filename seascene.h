@@ -110,7 +110,7 @@ protected:
     void prepareForMenu(QGraphicsItem * pItem);
     void createAboutBoxItems();
     void createVictoryItems();
-    void createLevelCompletedItem();
+    void createLevelCompletedItems();
 
     const QString ghostImageFilename_;
     const QString rockImageFilename_;
@@ -139,6 +139,7 @@ protected:
     QGraphicsTextItem * pMinimizeItem_;
 
     QGraphicsTextItem * pVictoryCongratulationsItem_;
+    QGraphicsTextItem * pVictoryScoreItem_;
     QGraphicsTextItem * pAboutBoxItem_;
 
     QGraphicsTextItem * pLevelCompletedItem_;
