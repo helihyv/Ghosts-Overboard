@@ -51,7 +51,7 @@ unix:!symbian {
     maemo5 {
         target.path = /opt/usr/bin
     } else {
-        target.path = /opt/ghostsoverboard/bin
+    target.path = /opt/ghostsoverboard/bin
     }
     INSTALLS += target
 }
