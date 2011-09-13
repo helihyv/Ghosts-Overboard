@@ -4,7 +4,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=Ghosts Overboard
-Exec=invoker --single-instance --type=d /opt/ghostsoverboard/bin/ghostsoverboard
+Exec=invoker --single-instance --type=e /opt/ghostsoverboard/bin/ghostsoverboard
 Icon=ghostsoverboard
 X-Window-Icon=ghostsoverboard
 X-HildonDesk-ShowInToolbar=true
