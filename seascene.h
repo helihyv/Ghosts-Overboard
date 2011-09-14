@@ -101,6 +101,7 @@ protected:
     void createAboutBoxItems();
     void createVictoryItems();
     void createLevelCompletedItems();
+    void createSelectLevelsetFromListItems();
 
     const QString ghostImageFilename_;
     const QString rockImageFilename_;
@@ -127,12 +128,15 @@ protected:
     QGraphicsTextItem * pSettingsItem_;
     QGraphicsTextItem * pAboutItem_;
     QGraphicsTextItem * pQuitItem_;
+    QGraphicsTextItem * pChooseLevelsetItem_;
 
     QGraphicsTextItem * pVictoryScoreItem_;
     QGraphicsTextItem * pAboutBoxItem_;
     QGraphicsTextItem * pVictoryCongratulationsItem_;
 
     QGraphicsTextItem * pLevelCompletedItem_;
+
+    QGraphicsTextItem * pSelectLevelsetFromListItem_;
 
     QList<Levelset> availableLevelsets_;
 

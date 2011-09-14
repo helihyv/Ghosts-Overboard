@@ -48,6 +48,11 @@ bool Levelset::isValid()
     return true;
 }
 
+QString Levelset::getName()
+{
+    return name_;
+}
+
 int Levelset::numberOfLevels()
 {
     return levels_.length();
