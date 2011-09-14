@@ -59,6 +59,8 @@ SeaScene::SeaScene(QObject *parent) :
 
     qsrand(QTime::currentTime().msec()+2);  //+2 to avoid setting it to 1
 
+
+
 //Setup the level list
 
     QList<Level> levelList;
@@ -75,10 +77,28 @@ SeaScene::SeaScene(QObject *parent) :
 
     Levelset set ("Original",levelList);
     levelset_ = set;
+    availableLevelsets_.append(set);
 
     currentLevel_ = 0;
 
     totalScore_ = 0;
+
+   //Create another set of levels and place it in the available levelsets list
+    levelList.clear();
+    Level set2level1(8,15,4,50);
+    levelList.append(set2level1);
+    Level set2level2(8,20,4,50);
+    levelList.append(set2level2);
+    Level set2level3(8,15,5,100);
+    levelList.append(set2level3);
+    Level set2level4(8,20,6,100);
+    levelList.append(set2level4);
+    Level set2level5(8,20,6,150);
+    levelList.append(set2level5);
+
+    Levelset set2("Difficult",levelList);
+    availableLevelsets_.append(set2);
+
 
     //This ensures that nextlevel will not be called until its safe to delete the Ship object.
     //Leaving out Qt::QueuedConnection or calling nextlevel directly instead of emitting the signal will CRASH

@@ -134,6 +134,7 @@ protected:
 
     QGraphicsTextItem * pLevelCompletedItem_;
 
+    QList<Levelset> availableLevelsets_;
 
     Levelset levelset_;
 
