@@ -88,6 +88,8 @@ public slots:
 
 
 
+
+
 protected:
 
     /*! Gives a pointer to a random position if a free one is found. Otherwise returns NULL.
@@ -137,6 +139,8 @@ protected:
     QGraphicsTextItem * pLevelCompletedItem_;
 
     QGraphicsTextItem * pSelectLevelsetFromListItem_;
+
+    QList<QGraphicsItem *>  levelsetItems_;
 
     QList<Levelset> availableLevelsets_;
 

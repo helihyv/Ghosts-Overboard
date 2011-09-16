@@ -26,6 +26,7 @@
 #include "level.h"
 #include <QList>
 #include <QString>
+ #include <QMetaType>
 
 class Levelset
 {
@@ -58,5 +59,7 @@ private:
     QList<Level> levels_;
 
 };
+
+Q_DECLARE_METATYPE(Levelset)
 
 #endif // LEVELSET_H
