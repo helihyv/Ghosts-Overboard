@@ -100,8 +100,13 @@ unix:!symbian:!maemo5 {
     INSTALLS += icon
 }
 
-#Harmattan specific:
 
-  CONFIG +=  link_pkgconfig
-  PKGCONFIG += libresourceqt1
+unix:!symbian:!maemo5 {
+    resourcepolicy.files = ghostsoverboard.conf
+    resourcepolicy.path = /usr/share/policy/etc/syspart.conf.d
+    INSTALLS += resourcepolicy
 
+
+    CONFIG +=  link_pkgconfig
+    PKGCONFIG += libresourceqt1
+}
