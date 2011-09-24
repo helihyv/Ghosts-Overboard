@@ -32,6 +32,7 @@
 #include <QAction>
 #include <QTimer>
 #include <QTime>
+#include <policy/resource-set.h>
 
 class SeaScene : public QGraphicsScene
 {
@@ -85,6 +86,10 @@ public slots:
     void setItemPointersNull();
 
     void turnPauseOn();
+
+    void resourcesAvailable();
+
+    void resourcesLost();
 
 
 
@@ -152,6 +157,9 @@ protected:
     QTime scoreCounter_;
     int totalScore_;
     int levelScore_;
+
+    ResourcePolicy::ResourceSet * pResourceSet_;
+
 };
 
 #endif // SEASCENE_H

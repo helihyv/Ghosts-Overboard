@@ -100,5 +100,8 @@ unix:!symbian:!maemo5 {
     INSTALLS += icon
 }
 
+#Harmattan specific:
 
+  CONFIG +=  link_pkgconfig
+  PKGCONFIG += libresourceqt1
 

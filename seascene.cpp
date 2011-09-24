@@ -35,6 +35,7 @@
 #include <QSettings>
 #include <QPixmap>
 
+
 const QString ghostImageFilename_ = ":/pix/aave.png";
 const QString rockImageFilename_ =":/pix/kari.png";
 const QString octopusImageFilename_= ":/pix/tursas.png";
@@ -101,6 +102,19 @@ SeaScene::SeaScene(QObject *parent) :
     autopauseTimer.setInterval(15*60*1000);
     connect(&autopauseTimer,SIGNAL(timeout()),this,SLOT(turnPauseOn()));
 
+    pResourceSet_ = new ResourcePolicy::ResourceSet("gaming",this);
+    ResourcePolicy::VibraResource * pVibraResource = new ResourcePolicy::VibraResource();
+    pVibraResource->setOptional(false); //The only resource of the set, so no sense for it to be optional
+    pResourceSet_->addResourceObject(pVibraResource);
+
+    connect(pResourceSet_,SIGNAL(resourcesGranted(const QList< ResourcePolicy::ResourceType >)),this,SLOT(resourcesAvailable()));
+    connect(pResourceSet_,SIGNAL(lostResources()),this,SLOT(resourcesLost()));
+
+    //To test whether resources were succesfully asked but not given
+    connect(pResourceSet_,SIGNAL(resourcesDenied()),this,SLOT(resourcesLost()));
+    pResourceSet_->setAlwaysReply();
+
+    pResourceSet_->acquire();
 
 }
 
@@ -800,3 +814,14 @@ void SeaScene::createLevelCompletedItems()
     pTapForNextLevelItem->setZValue(1000);
     pTapForNextLevelItem->setHtml("<font size=\"7\" color = darkorange>Tap to start the next level");
 }
+
+void SeaScene::resourcesAvailable()
+{
+    qDebug() << "Resources available";
+}
+
+void SeaScene::resourcesLost()
+{
+    qDebug() << "Resources lost";
+}
+
