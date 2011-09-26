@@ -32,6 +32,7 @@
 #include <QAction>
 #include <QTimer>
 #include <QTime>
+#include <policy/resource-set.h>
 
 class SeaScene : public QGraphicsScene
 {
@@ -45,6 +46,7 @@ signals:
     void pauseOn();
     void pauseOff();
     void vibrationActivated(bool on);
+
 
 public slots:
 
@@ -85,6 +87,10 @@ public slots:
     void setItemPointersNull();
 
     void turnPauseOn();
+
+    void resourcesAvailable();
+
+    void resourcesLost();
 
 
 
@@ -161,6 +167,10 @@ protected:
     QTime scoreCounter_;
     int totalScore_;
     int levelScore_;
+
+    ResourcePolicy::ResourceSet * pResourceSet_;
+    bool vibrationAllowed_;
+
 };
 
 #endif // SEASCENE_H

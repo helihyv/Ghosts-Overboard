@@ -101,4 +101,12 @@ unix:!symbian:!maemo5 {
 }
 
 
+unix:!symbian:!maemo5 {
+    resourcepolicy.files = ghostsoverboard.conf
+    resourcepolicy.path = /usr/share/policy/etc/syspart.conf.d
+    INSTALLS += resourcepolicy
 
+
+    CONFIG +=  link_pkgconfig
+    PKGCONFIG += libresourceqt1
+}

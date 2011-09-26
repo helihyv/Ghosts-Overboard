@@ -25,7 +25,7 @@
 #include <QDebug>
 #include <QDBusMessage>
 #include <QDBusConnection>
-#include <QFeedbackHapticsEffect>
+
 
 
 
@@ -38,7 +38,20 @@ Ship::Ship(QList<QPixmap> pixmapList, QGraphicsItem *parent) :
     shipImages_ = pixmapList;
     ghostsAboard_ = 0;
     vibrationActive_ = false;
+    vibrationAllowed_ = false;
+
+    pVibrationEffect_ = new QFeedbackHapticsEffect();
+    pVibrationEffect_->setDuration(500);
+    pVibrationEffect_->setIntensity(1.0);
+
 }
+
+Ship::~Ship()
+{
+    if (pVibrationEffect_)
+      delete pVibrationEffect_;
+}
+
 
 bool Ship::handleCollisions()
 {
@@ -98,7 +111,7 @@ void Ship::dropAllGhosts()
 
     //vibrate
 
-    if (vibrationActive_)
+    if (vibrationActive_ && vibrationAllowed_)
     {
 
  //       This is for fremantle
@@ -117,10 +130,8 @@ void Ship::dropAllGhosts()
 
         //This is for Harmattan
 
-        QFeedbackHapticsEffect vibrationEffect;
-        vibrationEffect.setDuration(1000);
-        vibrationEffect.setIntensity(1.0);
-        vibrationEffect.start();
+        pVibrationEffect_->start();
+
 
     }
 }
@@ -128,4 +139,14 @@ void Ship::dropAllGhosts()
 void Ship::setVibrationActivate(bool on)
 {
     vibrationActive_ = on;
+}
+
+void Ship::allowVibration()
+{
+    vibrationAllowed_ = true;
+}
+
+void Ship::disallowVibration()
+{
+    vibrationAllowed_ = false;
 }

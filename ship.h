@@ -24,6 +24,7 @@
 #define SHIP_H
 
 #include "orientationcontrolledgraphicspixmapobject.h"
+#include <QFeedbackHapticsEffect>
 
 class Ship : public OrientationControlledGraphicsPixmapObject
 {
@@ -31,6 +32,8 @@ class Ship : public OrientationControlledGraphicsPixmapObject
        Q_OBJECT
 public:
     explicit Ship(QList<QPixmap> pixmapList, QGraphicsItem *parent = 0);
+
+    virtual ~Ship();
 
 signals:
 
@@ -48,7 +51,9 @@ public slots:
 
     void setVibrationActivate(bool on);
 
-protected:
+    void allowVibration();
+
+    void disallowVibration();
 
 protected:
     bool handleCollisions();
@@ -60,6 +65,10 @@ protected:
     QList<QPixmap> shipImages_;
 
     bool vibrationActive_;
+
+    bool vibrationAllowed_;
+
+    QFeedbackHapticsEffect * pVibrationEffect_;
 
 
 };
