@@ -41,7 +41,7 @@ Ship::Ship(QList<QPixmap> pixmapList, QGraphicsItem *parent) :
     vibrationAllowed_ = false;
 
     pVibrationEffect_ = new QFeedbackHapticsEffect();
-    pVibrationEffect_->setDuration(1000);
+    pVibrationEffect_->setDuration(500);
     pVibrationEffect_->setIntensity(1.0);
 
 }
