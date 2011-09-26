@@ -649,9 +649,6 @@ void SeaScene::prepareForMenu(QGraphicsItem * pItem)
     int itemsPerRow = 3;
 
 
-
-    int itemsPerRow = 3;
-
     pItem->setParentItem(pPausetextItem_);
     pItem->setZValue(1000);
     pItem->setFlag(QGraphicsItem::ItemIsSelectable);
@@ -896,7 +893,7 @@ void SeaScene::createLevelCompletedItems()
     pTapForNextLevelItem->setZValue(1000);
     pTapForNextLevelItem->setHtml("<font size=\"5\" color = darkorange>Tap to start the next level");
 
-
+}
 void SeaScene::createSelectLevelsetFromListItems()
 {
     if (availableLevelsets_.isEmpty()) //Something is badly wrong in code if this is true...

@@ -145,7 +145,6 @@ protected:
     QGraphicsTextItem * pVictoryCongratulationsItem_;
     QGraphicsTextItem * pVictoryScoreItem_;
     QGraphicsTextItem * pAboutBoxItem_;
-    QGraphicsTextItem * pVictoryCongratulationsItem_;
 
     QGraphicsTextItem * pLevelCompletedItem_;
 
