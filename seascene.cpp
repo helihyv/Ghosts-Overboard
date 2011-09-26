@@ -89,11 +89,11 @@ SeaScene::SeaScene(QObject *parent) :
     levelList.append(set2level1);
     Level set2level2(8,20,4,50);
     levelList.append(set2level2);
-    Level set2level3(8,15,5,100);
+    Level set2level3(8,20,5,100);
     levelList.append(set2level3);
-    Level set2level4(8,20,6,100);
+    Level set2level4(8,20,6,150);
     levelList.append(set2level4);
-    Level set2level5(8,20,6,150);
+    Level set2level5(8,25,6,200);
     levelList.append(set2level5);
 
     Levelset set2("Difficult",levelList);
@@ -483,7 +483,9 @@ void SeaScene::handleScreenTapped()
 
     if (items.isEmpty())
     {
+        pSelectLevelsetFromListItem_->hide();
         pPauseAction_->setChecked(false);
+
         return;
 
     }
@@ -553,6 +555,24 @@ void SeaScene::handleScreenTapped()
     {
         pPausetextItem_->hide();
         pSelectLevelsetFromListItem_->show();
+    }
+
+    else
+    {
+        foreach (QGraphicsItem* pLevelItem, levelsetItems_)
+        {
+            if (pItem == pLevelItem)
+            {
+                QVariant variant = pLevelItem->data(0);
+
+                if (variant.canConvert<Levelset>())
+                {
+                    levelset_ = variant.value<Levelset>();
+                    restartGame();
+                    pPauseAction_->setChecked(false); //unpause game
+                }
+            }
+        }
     }
 
 }
@@ -626,6 +646,7 @@ void SeaScene::prepareForMenu(QGraphicsItem * pItem)
     //They are also shown and hidden with it, resulting in the menu being visble when the game is paused
     //Their coordinates are given relative to the parent.
 
+    int itemsPerRow = 3;
 
 
 
@@ -640,6 +661,9 @@ void SeaScene::prepareForMenu(QGraphicsItem * pItem)
     pItem->setX(((menuItemCount_%(itemsPerRow))*180+5));
 
     menuItemCount_++;
+
+
+    pItem->setX((menuItemCount_++%itemsPerRow)*180-10);
  }
 
 
@@ -875,19 +899,40 @@ void SeaScene::createLevelCompletedItems()
 
 void SeaScene::createSelectLevelsetFromListItems()
 {
+    if (availableLevelsets_.isEmpty()) //Something is badly wrong in code if this is true...
+            return;
+
+
     pSelectLevelsetFromListItem_ = new QGraphicsTextItem;
     addItem(pSelectLevelsetFromListItem_);
-    pSelectLevelsetFromListItem_->setPos(40,80);
+    pSelectLevelsetFromListItem_->setPos(295,60);
     pSelectLevelsetFromListItem_->setZValue(1000);
     pSelectLevelsetFromListItem_->hide();
 
-    QString list ("<font color = darkorange size = \"7\">");
+    QString fontstring ("<font color = darkorange size = \"7\">");
+
+    pSelectLevelsetFromListItem_->setHtml(tr("Choose a levelset").prepend(fontstring));
+
+    int yPos = 100;
+
+    levelsetItems_.clear();
+
 
     foreach (Levelset set, availableLevelsets_)
     {
-        list.append(set.getName());
-        list.append("<br>");
+        QGraphicsTextItem * pItem = new QGraphicsTextItem(pSelectLevelsetFromListItem_);
+        QString text (fontstring);
+        if (levelset_.getName() == set.getName())
+            text.append("<b>");
+        text.append(set.getName());
+        pItem->setHtml(text);
+        pItem->setPos(65,yPos);
+        yPos+=80;
+        pItem->setZValue(1000);
+        pItem->setFlag(QGraphicsItem::ItemIsSelectable);
+        pItem->setData(0,QVariant::fromValue(set));
+        levelsetItems_.append(pItem);
+
     }
 
-    pSelectLevelsetFromListItem_->setHtml(list);
-}
+  }
