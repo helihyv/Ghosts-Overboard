@@ -102,7 +102,7 @@ SeaScene::SeaScene(QObject *parent) :
     autopauseTimer.setInterval(15*60*1000);
     connect(&autopauseTimer,SIGNAL(timeout()),this,SLOT(turnPauseOn()));
 
-    pResourceSet_ = new ResourcePolicy::ResourceSet("gaming",this);
+    pResourceSet_ = new ResourcePolicy::ResourceSet("game",this);
     ResourcePolicy::VibraResource * pVibraResource = new ResourcePolicy::VibraResource();
     pVibraResource->setOptional(false); //The only resource of the set, so no sense for it to be optional
     pResourceSet_->addResourceObject(pVibraResource);
