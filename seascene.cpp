@@ -646,7 +646,7 @@ void SeaScene::prepareForMenu(QGraphicsItem * pItem)
     //They are also shown and hidden with it, resulting in the menu being visble when the game is paused
     //Their coordinates are given relative to the parent.
 
-    int itemsPerRow = 3;
+    int itemsPerRow = 4;
 
 
     pItem->setParentItem(pPausetextItem_);
@@ -655,12 +655,10 @@ void SeaScene::prepareForMenu(QGraphicsItem * pItem)
 
     int row = menuItemCount_/(itemsPerRow);
     pItem->setY(150+row*120);
-    pItem->setX(((menuItemCount_%(itemsPerRow))*180+5));
+    pItem->setX(((menuItemCount_%(itemsPerRow))*180-125));
 
     menuItemCount_++;
 
-
-    pItem->setX((menuItemCount_++%itemsPerRow)*180-10);
  }
 
 
@@ -902,11 +900,11 @@ void SeaScene::createSelectLevelsetFromListItems()
 
     pSelectLevelsetFromListItem_ = new QGraphicsTextItem;
     addItem(pSelectLevelsetFromListItem_);
-    pSelectLevelsetFromListItem_->setPos(295,60);
+    pSelectLevelsetFromListItem_->setPos(260,60);
     pSelectLevelsetFromListItem_->setZValue(1000);
     pSelectLevelsetFromListItem_->hide();
 
-    QString fontstring ("<font color = darkorange size = \"7\">");
+    QString fontstring ("<font color = darkorange size = \"5\">");
 
     pSelectLevelsetFromListItem_->setHtml(tr("Choose a levelset").prepend(fontstring));
 
