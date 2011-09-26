@@ -140,6 +140,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
 
     createAboutBoxItems();
 
+    createSelectLevelsetFromListItems();
+
     createVictoryItems();
 
     createLevelCompletedItems();
@@ -547,6 +549,12 @@ void SeaScene::handleScreenTapped()
     {
         qApp->quit();
     }
+    else if (pItem == pChooseLevelsetItem_)
+    {
+        pPausetextItem_->hide();
+        pSelectLevelsetFromListItem_->show();
+    }
+
 }
 
 
@@ -577,6 +585,10 @@ void SeaScene::createMenuItems()
     pRestartLevelItem_ = new QGraphicsTextItem;
     pRestartLevelItem_->setHtml(tr("Restart <br> level").prepend(menufonthtml));
     prepareForMenu(pRestartLevelItem_);
+
+    pChooseLevelsetItem_ = new QGraphicsTextItem;
+    pChooseLevelsetItem_->setHtml(tr("Choose <br> levelset").prepend(menufonthtml));
+    prepareForMenu(pChooseLevelsetItem_);
 
     pSettingsItem_ = new QGraphicsTextItem;
     QString vibraText(tr("Turn vibration <br> effects "));
@@ -801,10 +813,12 @@ void SeaScene::setItemPointersNull()
     pAboutItem_ = NULL;
     pQuitItem_ = NULL ;
     pMinimizeItem_ = NULL;
+    pChooseLevelsetItem_ = NULL;
 
     pAboutBoxItem_ = NULL;
     pVictoryCongratulationsItem_ = NULL;
     pLevelCompletedItem_ = NULL;
+    pVictoryCongratulationsItem_ = NULL;
     pVictoryScoreItem_ = NULL;
 
 
@@ -858,4 +872,22 @@ void SeaScene::createLevelCompletedItems()
     pTapForNextLevelItem->setZValue(1000);
     pTapForNextLevelItem->setHtml("<font size=\"5\" color = darkorange>Tap to start the next level");
 
+
+void SeaScene::createSelectLevelsetFromListItems()
+{
+    pSelectLevelsetFromListItem_ = new QGraphicsTextItem;
+    addItem(pSelectLevelsetFromListItem_);
+    pSelectLevelsetFromListItem_->setPos(40,80);
+    pSelectLevelsetFromListItem_->setZValue(1000);
+    pSelectLevelsetFromListItem_->hide();
+
+    QString list ("<font color = darkorange size = \"7\">");
+
+    foreach (Levelset set, availableLevelsets_)
+    {
+        list.append(set.getName());
+        list.append("<br>");
+    }
+
+    pSelectLevelsetFromListItem_->setHtml(list);
 }
