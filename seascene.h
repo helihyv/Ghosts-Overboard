@@ -47,6 +47,7 @@ signals:
     void pauseOff();
     void vibrationActivated(bool on);
 
+
 public slots:
 
     /*! Places all needed items for a level to (re)start.
@@ -159,6 +160,7 @@ protected:
     int levelScore_;
 
     ResourcePolicy::ResourceSet * pResourceSet_;
+    bool vibrationAllowed_;
 
 };
 

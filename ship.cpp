@@ -38,6 +38,7 @@ Ship::Ship(QList<QPixmap> pixmapList, QGraphicsItem *parent) :
     shipImages_ = pixmapList;
     ghostsAboard_ = 0;
     vibrationActive_ = false;
+    vibrationAllowed_ = false;
 }
 
 bool Ship::handleCollisions()
@@ -98,7 +99,7 @@ void Ship::dropAllGhosts()
 
     //vibrate
 
-    if (vibrationActive_)
+    if (vibrationActive_ && vibrationAllowed_)
     {
 
  //       This is for fremantle
@@ -128,4 +129,14 @@ void Ship::dropAllGhosts()
 void Ship::setVibrationActivate(bool on)
 {
     vibrationActive_ = on;
+}
+
+void Ship::allowVibration()
+{
+    vibrationAllowed_ = true;
+}
+
+void Ship::disallowVibration()
+{
+    vibrationAllowed_ = false;
 }

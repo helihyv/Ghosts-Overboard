@@ -86,6 +86,8 @@ SeaScene::SeaScene(QObject *parent) :
     connect(this,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()),Qt::QueuedConnection);
 
 
+
+
     pVibrateAction_ = new QAction(tr("Vibration effects"),this);
     pVibrateAction_->setCheckable(true);
     connect(pVibrateAction_,SIGNAL(toggled(bool)),this,SLOT(vibrationActivate(bool)));
@@ -102,6 +104,7 @@ SeaScene::SeaScene(QObject *parent) :
     autopauseTimer.setInterval(15*60*1000);
     connect(&autopauseTimer,SIGNAL(timeout()),this,SLOT(turnPauseOn()));
 
+    vibrationAllowed_ = false;
     pResourceSet_ = new ResourcePolicy::ResourceSet("game",this);
     ResourcePolicy::VibraResource * pVibraResource = new ResourcePolicy::VibraResource();
     pVibraResource->setOptional(false); //The only resource of the set, so no sense for it to be optional
@@ -241,6 +244,10 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
     connect(pShip,SIGNAL(pickingGhost(QGraphicsItem*)),this, SLOT(removeGhost(QGraphicsItem*)) );
     connect(pShip,SIGNAL(droppingGhosts(int)),this,SLOT(ghostsDropped(int)));
     connect(this,SIGNAL(vibrationActivated(bool)),pShip,SLOT(setVibrationActivate(bool)));
+    if (vibrationAllowed_)
+        pShip->allowVibration(); //Vibration is disallowed by default so only allowing needs to be done explicitly
+    connect(pResourceSet_,SIGNAL(resourcesGranted(const QList< ResourcePolicy::ResourceType >)),pShip,SLOT(allowVibration()));
+    connect(pResourceSet_,SIGNAL(lostResources()),pShip,SLOT(disallowVibration()));
     pShip->startMoving();
     movingItems_.append(pShip);
     connect(this,SIGNAL(pauseOn()),pShip,SLOT(stopMoving()));
@@ -633,6 +640,7 @@ void SeaScene::restartLevel()
 
     vibrationActivate(pVibrateAction_->isChecked());  //Vibration effects are lost without this
    // qDebug() << pVibrateAction_->isChecked();
+
     autopauseTimer.start();  //reset counting towards autopause
 
 
@@ -818,10 +826,12 @@ void SeaScene::createLevelCompletedItems()
 void SeaScene::resourcesAvailable()
 {
     qDebug() << "Resources available";
+    vibrationAllowed_ = true;
 }
 
 void SeaScene::resourcesLost()
 {
     qDebug() << "Resources lost";
+    vibrationAllowed_ = false;
 }
 

@@ -48,6 +48,10 @@ public slots:
 
     void setVibrationActivate(bool on);
 
+    void allowVibration();
+
+    void disallowVibration();
+
 protected:
 
 protected:
@@ -60,6 +64,8 @@ protected:
     QList<QPixmap> shipImages_;
 
     bool vibrationActive_;
+
+    bool vibrationAllowed_;
 
 
 };
