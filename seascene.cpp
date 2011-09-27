@@ -835,11 +835,12 @@ void SeaScene::createAboutBoxItems()
     pAboutBoxItem_->setZValue(1000);
     pAboutBoxItem_->hide();
 
-    pAboutBoxItem_->setHtml(tr("<font color = darkorange size = \"7\">"
-                          "%1 <br> <font size = \"7\"> Version %2"
+    pAboutBoxItem_->setHtml(tr("<font color = darkorange size = \"7\"><b>"
+                          "%1 Version %2</b>"
                           "<p><font size = \"6\"> Copyright 2011 Heli Hyv&auml;ttinen"
-                          "<p><font size = \"6\"> License: General Public License v2"
-                          "<p><font size = \"5\"> Web: http://ghostsoverboard.garage.maemo.org/<br>"
+                          "<p><font size = \"6\"> License: GNU General Public License v2"
+                          "<p><font size = \"6\">  The source code of this game is available trough it's web pages."
+                          "<p><font size = \"6\"> Web: http://ghostsoverboard.garage.maemo.org/<br>"
                           "Bug Reports: <br> https://bugs.maemo.org/"
                           "enter_bug.cgi?product=Ghosts%20Overboard"
                           ).arg(QApplication::applicationName(),QApplication::applicationVersion()));
