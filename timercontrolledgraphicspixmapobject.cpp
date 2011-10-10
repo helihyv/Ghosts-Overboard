@@ -28,6 +28,7 @@
 TimerControlledGraphicsPixmapObject::TimerControlledGraphicsPixmapObject(QPixmap pixmap, int speed, QGraphicsItem* parent) :
     QObject(), QGraphicsPixmapItem(pixmap, parent)
 {
+    pixelsPerMove_ = 2;
     setSpeed(speed);
     changeDirection();
     connect(&timer_,SIGNAL(timeout()),this,SLOT(move()));
@@ -48,7 +49,7 @@ void TimerControlledGraphicsPixmapObject::setSpeed(int speed)
 {
     if (speed >0)
     {
-        timer_.setInterval(1000/speed); //converts from pixels in second to milliseconds per pixel
+        timer_.setInterval((1000/(speed/pixelsPerMove_))); //converts from pixels in second to milliseconds per pixels moved at once
         stoppedBecauseInvalidTime_ = false;
      }
     else
@@ -71,22 +72,22 @@ void TimerControlledGraphicsPixmapObject::move()
 
     if (direction_ == E || direction_ == SE || direction_ == NE)
     {
-        newx++;
+        newx+= pixelsPerMove_;
     }
 
     if (direction_ == W || direction_ == SW || direction_ == NW)
     {
-        newx--;
+        newx-=pixelsPerMove_;
     }
 
     if (direction_ == S || direction_ == SE || direction_ == SW)
     {
-        newy++;
+        newy+=pixelsPerMove_;
     }
 
     if (direction_ == N || direction_ == NE || direction_ == NW)
     {
-        newy--;
+        newy-=pixelsPerMove_;
     }
 
 

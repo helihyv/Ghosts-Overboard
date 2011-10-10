@@ -65,6 +65,8 @@ public slots:
 
     bool stoppedBecauseInvalidTime_;
 
+    int pixelsPerMove_;
+
 
 };
 
