@@ -49,7 +49,7 @@ void TimerControlledGraphicsPixmapObject::setSpeed(int speed)
 {
     if (speed >0)
     {
-        timer_.setInterval((1000/(speed/pixelsPerMove_))); //converts from pixels in second to milliseconds per pixels moved at once
+        timer_.setInterval(1000/(speed/pixelsPerMove_)); //converts from pixels in second to milliseconds per pixels moved at once
         stoppedBecauseInvalidTime_ = false;
      }
     else
