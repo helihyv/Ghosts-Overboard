@@ -139,6 +139,13 @@ SeaScene::SeaScene(QObject *parent) :
 
     pResourceSet_->acquire();
 
+
+}
+
+SeaScene::~SeaScene()
+{
+    pResourceSet_->release();
+    pResourceSet_->deleteLater();
 }
 
 void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
@@ -269,8 +276,8 @@ void SeaScene::setupMap(int ghosts, int rocks, int octopuses, int octopusSpeed)
     connect(this,SIGNAL(vibrationActivated(bool)),pShip,SLOT(setVibrationActivate(bool)));
     if (vibrationAllowed_)
         pShip->allowVibration(); //Vibration is disallowed by default so only allowing needs to be done explicitly
-    connect(pResourceSet_,SIGNAL(resourcesGranted(const QList< ResourcePolicy::ResourceType >)),pShip,SLOT(allowVibration()));
-    connect(pResourceSet_,SIGNAL(lostResources()),pShip,SLOT(disallowVibration()));
+    connect(this,SIGNAL(vibrationGranted()),pShip,SLOT(allowVibration()));
+    connect(this,SIGNAL(vibrationDenied()),pShip,SLOT(disallowVibration()));
     pShip->startMoving();
     movingItems_.append(pShip);
     connect(this,SIGNAL(pauseOn()),pShip,SLOT(stopMoving()));
@@ -416,6 +423,8 @@ void SeaScene::pause(bool paused)
             scoreCounter_.start();
 
             autopauseTimer.start(); //Start counting towards autopause
+
+            pResourceSet_->acquire(); //Ask to get the vibration resource back
         }
 
         else
@@ -434,6 +443,10 @@ void SeaScene::pause(bool paused)
             levelScore_ += scoreCounter_.elapsed();
 
             autopauseTimer.stop(); //No need to count toward autopause when already paused
+
+            pResourceSet_->release(); //Release the vibration resource
+            vibrationDenied(); //Tell the ship not to vibrate before resource is granted again
+
         }
 }
 
@@ -932,8 +945,9 @@ void SeaScene::createSelectLevelsetFromListItems()
 
     void SeaScene::resourcesAvailable()
     {
-        qDebug() << "Resources available";
+//        qDebug() << "Resources available";
         vibrationAllowed_ = true;
+        emit vibrationGranted();
     }
 
 
@@ -941,4 +955,5 @@ void SeaScene::createSelectLevelsetFromListItems()
     {
         qDebug() << "Resources lost";
         vibrationAllowed_ = false;
+        emit vibrationDenied();
     }

@@ -40,12 +40,16 @@ class SeaScene : public QGraphicsScene
 public:
     explicit SeaScene(QObject *parent = 0);
 
+    virtual ~SeaScene();
+
 signals:
 
     void allGhostsPicked();
     void pauseOn();
     void pauseOff();
     void vibrationActivated(bool on);
+    void vibrationGranted();
+    void vibrationDenied();
 
 
 public slots:
