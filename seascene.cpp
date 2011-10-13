@@ -816,7 +816,7 @@ void SeaScene::createVictoryItems()
     pVictoryCongratulationsItem_ = new QGraphicsTextItem;
     pVictoryCongratulationsItem_->setHtml("<font size=\"7\" color = darkorange> <b> Victory!");
     pVictoryCongratulationsItem_->hide();
-    pVictoryCongratulationsItem_->setPos(315,30);
+    pVictoryCongratulationsItem_->setPos(370,30);
     pVictoryCongratulationsItem_->setZValue(1000);
     addItem(pVictoryCongratulationsItem_);
 
