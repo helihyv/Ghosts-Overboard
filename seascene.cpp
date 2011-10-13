@@ -895,7 +895,7 @@ void SeaScene::createLevelCompletedItems()
 {
     pLevelCompletedItem_ = new QGraphicsTextItem;
     addItem(pLevelCompletedItem_);
-    pLevelCompletedItem_->setPos(240,100);
+    pLevelCompletedItem_->setPos(310,100);
     pLevelCompletedItem_->setZValue(1000);
     pLevelCompletedItem_->hide();
     //The text is set at usetime
