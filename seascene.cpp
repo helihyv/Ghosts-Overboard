@@ -137,8 +137,10 @@ SeaScene::SeaScene(QObject *parent) :
     connect(pResourceSet_,SIGNAL(resourcesDenied()),this,SLOT(resourcesLost()));
     pResourceSet_->setAlwaysReply();
 
-    pResourceSet_->acquire();
-
+    if (pVibrateAction_->isChecked()) //ask for the resource only if its used
+    {
+        pResourceSet_->acquire();
+    }
 
 }
 
@@ -424,8 +426,12 @@ void SeaScene::pause(bool paused)
 
             autopauseTimer.start(); //Start counting towards autopause
 
-            pResourceSet_->acquire(); //Ask to get the vibration resource back
-        }
+
+            if (pVibrateAction_->isChecked())
+            {
+               pResourceSet_->acquire(); //Ask to get the vibration resource back
+            }
+         }
 
         else
         {
