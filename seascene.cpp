@@ -89,11 +89,11 @@ SeaScene::SeaScene(QObject *parent) :
     levelList.append(set2level1);
     Level set2level2(8,20,4,50);
     levelList.append(set2level2);
-    Level set2level3(8,20,5,100);
+    Level set2level3(8,20,5,80);
     levelList.append(set2level3);
-    Level set2level4(8,20,6,150);
+    Level set2level4(8,20,6,120);
     levelList.append(set2level4);
-    Level set2level5(8,25,8,200);
+    Level set2level5(8,25,8,150);
     levelList.append(set2level5);
 
     Levelset set2("Difficult",levelList);
