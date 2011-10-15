@@ -88,7 +88,7 @@ int Levelset::getLevelHighScore(int index)
     group.append("/LevelHighScore");
     settings.beginGroup(group);
 
-    qDebug() << group;
+//    qDebug() << group;
 
     return settings.value(QString(index),900*1000).toInt();
 }
@@ -100,7 +100,7 @@ void Levelset::setLevelHighScore(int index, int highScore)
     group.append("/LevelHighScore");
     settings.beginGroup(group);
 
-    qDebug() << group;
+//    qDebug() << group;
 
     settings.setValue(QString(index),highScore);
 }

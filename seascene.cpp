@@ -720,7 +720,7 @@ void SeaScene::nextLevel()
     totalScore_ += levelScore_;
     int highscore = levelset_.getLevelHighScore(currentLevel_);
 
-    qDebug() << highscore;
+    //qDebug() << highscore;
 
     QString scoretext;
 
