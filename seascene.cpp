@@ -49,6 +49,8 @@ SeaScene::SeaScene(QObject *parent) :
     paused_ = false;
     screenLitKeeper_.keepScreenLit(true);
 
+    QSettings settings;
+
     //set background
 
     QPixmap waves (":/pix/meri.png");
@@ -61,7 +63,7 @@ SeaScene::SeaScene(QObject *parent) :
 
 
 
-//Setup the level list
+//Setup level sets
 
     QList<Level> levelList;
     Level level1(5,10);
@@ -76,14 +78,10 @@ SeaScene::SeaScene(QObject *parent) :
     levelList.append(level5);
 
     Levelset set ("Original",levelList);
-    levelset_ = set;
     availableLevelsets_.append(set);
 
-    currentLevel_ = 0;
 
-    totalScore_ = 0;
-
-   //Create another set of levels and place it in the available levelsets list
+    //Create another set of levels and place it in the available levelsets list
     levelList.clear();
     Level set2level1(8,15,4,50);
     levelList.append(set2level1);
@@ -100,14 +98,37 @@ SeaScene::SeaScene(QObject *parent) :
     availableLevelsets_.append(set2);
 
 
+    //Setup starting levelset
+
+    QString levelname = settings.value("levelset","Original").toString();
+    bool found = false;
+    foreach (Levelset levelset, availableLevelsets_)
+    {
+        if (levelset.getName() == levelname)
+        {
+            levelset_ = levelset;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)  //The last used level is not available
+    {
+        levelset_ = availableLevelsets_.value(0);
+    }
+
+    currentLevel_ = 0;
+
+    totalScore_ = 0;
+
+
 
     connect(this,SIGNAL(allGhostsPicked()),this,SLOT(nextLevel()));
-
 
     pVibrateAction_ = new QAction(tr("Vibration effects"),this);
     pVibrateAction_->setCheckable(true);
     connect(pVibrateAction_,SIGNAL(toggled(bool)),this,SLOT(vibrationActivate(bool)));
-    QSettings settings;
+
     pVibrateAction_->setChecked(settings.value("vibration",false).toBool());
 
 
@@ -568,6 +589,10 @@ void SeaScene::handleScreenTapped()
                 if (variant.canConvert<Levelset>())
                 {
                     levelset_ = variant.value<Levelset>();
+
+                    QSettings settings;
+                    settings.setValue("levelset",levelset_.getName());
+
                     restartGame();
                     pPauseAction_->setChecked(false); //unpause game
                 }
