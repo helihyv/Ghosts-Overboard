@@ -25,6 +25,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QRotationSensor>
+#include <QTimer>
 
 QTM_USE_NAMESPACE
 
@@ -48,7 +49,8 @@ public slots:
     void startMoving();
     void stopMoving();
     void readRotationSensor();
-      virtual void setPos(const QPointF &pos);
+    virtual void setPos(const QPointF &pos);
+    void rotationSensorReady();
 
 
 protected:
@@ -62,6 +64,8 @@ private:
 
     QRotationSensor rotationSensor_;
     QPointF oldOldPos_;
+    QTimer rotationReadingTimer_;
+    bool rotationReadingInitialized_;
 
 
 

@@ -36,15 +36,12 @@ OrientationControlledGraphicsPixmapObject::OrientationControlledGraphicsPixmapOb
     QObject(), QGraphicsPixmapItem (pixmap, parent)
 {
 
-    connect(&rotationSensor_,SIGNAL(readingChanged()),this,SLOT(readRotationSensor()));
+    rotationReadingInitialized_ = false;
+    rotationReadingTimer_.setInterval(100);
+    connect(&rotationSensor_,SIGNAL(readingChanged()),this,SLOT(rotationSensorReady()));
 
-//    qrangelist rangelist = rotationSensor_.availableDataRates();
 
-//    qDebug() << rangelist.length() << "ranges found";
-//    foreach (qrange range, rangelist)
-//    {
-//        qDebug() << "Rotation sensor: " << range.first <<", " << "range.second";
-//    }
+
 }
 
 void OrientationControlledGraphicsPixmapObject::startMoving()
@@ -58,6 +55,8 @@ void OrientationControlledGraphicsPixmapObject::startMoving()
 void OrientationControlledGraphicsPixmapObject::stopMoving()
 {
     rotationSensor_.stop();
+    rotationReadingInitialized_ = false;
+    rotationReadingTimer_.stop();
 //    qDebug () << "trying to stop the sensor";
 }
 
@@ -65,6 +64,17 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
 {
     if (!scene()) //no movement if this item does not belong to a scene
         return;
+
+
+//Test reading sensor information. Since qDebug has ceased to work, uses qCritical instead...
+//        qrangelist rangelist = rotationSensor_.availableDataRates();
+
+//        qCritical() << rangelist.length() << "ranges found";
+//        foreach (qrange range, rangelist)
+//        {
+//            qCritical() << "Rotation sensor: " << range.first <<", " << "range.second";
+//        }
+//        qCritical() << "Current data date is " << rotationSensor_.dataRate();
 
     QRect sceneRectangle = scene()->sceneRect().toRect();
 
@@ -135,4 +145,16 @@ void OrientationControlledGraphicsPixmapObject::setPos(const QPointF &pos)
         QGraphicsPixmapItem::setPos(oldPos);
     }
 
+}
+
+
+void OrientationControlledGraphicsPixmapObject::rotationSensorReady()
+{
+
+    if (!rotationReadingInitialized_)
+    {
+        connect(&rotationReadingTimer_,SIGNAL(timeout()),this,SLOT(readRotationSensor()));
+        rotationReadingInitialized_ = true;
+        rotationReadingTimer_.start();
+    }
 }
