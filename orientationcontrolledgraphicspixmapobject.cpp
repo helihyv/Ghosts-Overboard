@@ -37,7 +37,8 @@ OrientationControlledGraphicsPixmapObject::OrientationControlledGraphicsPixmapOb
 {
 
     rotationReadingInitialized_ = false;
-    rotationReadingTimer_.setInterval(100);
+    rotationReadingTimer_.setInterval(35);
+    connect(&rotationReadingTimer_,SIGNAL(timeout()),this,SLOT(readRotationSensor()));
     connect(&rotationSensor_,SIGNAL(readingChanged()),this,SLOT(rotationSensorReady()));
 
 
@@ -98,8 +99,8 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
 //    int newy = y() + deltay/15;
 
     //this is for Harmattan
-    int newx = x() + deltax/3;
-    int newy = y() + deltay/3;
+    int newx = x() + deltax/12;
+    int newy = y() + deltay/12;
 
 
 //    qDebug() << sceneRectangle.left() << sceneRectangle.right();
@@ -110,12 +111,13 @@ void OrientationControlledGraphicsPixmapObject::readRotationSensor()
     int finalY = qBound(sceneRectangle.top(),newy,sceneRectangle.bottom()-pixmap().height());
 
 
+    setPos(QPointF(finalX,finalY));
 
-    QPropertyAnimation * animation = new QPropertyAnimation(this,"pos",this);
-    animation->setDuration(60); //milliseconds
-    animation->setStartValue(pos());
-    animation->setEndValue( QPointF(finalX,finalY));
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
+//    QPropertyAnimation * animation = new QPropertyAnimation(this,"pos",this);
+//    animation->setDuration(60); //milliseconds
+//    animation->setStartValue(pos());
+//    animation->setEndValue( QPointF(finalX,finalY));
+//    animation->start(QAbstractAnimation::DeleteWhenStopped);
 
     //handle collisions and move back to the original position if false returned
 
@@ -153,7 +155,6 @@ void OrientationControlledGraphicsPixmapObject::rotationSensorReady()
 
     if (!rotationReadingInitialized_)
     {
-        connect(&rotationReadingTimer_,SIGNAL(timeout()),this,SLOT(readRotationSensor()));
         rotationReadingInitialized_ = true;
         rotationReadingTimer_.start();
     }
