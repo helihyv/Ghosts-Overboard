@@ -37,7 +37,7 @@ OrientationControlledGraphicsPixmapObject::OrientationControlledGraphicsPixmapOb
 {
 
     rotationReadingInitialized_ = false;
-    rotationReadingTimer_.setInterval(35);
+    rotationReadingTimer_.setInterval(15);
     connect(&rotationReadingTimer_,SIGNAL(timeout()),this,SLOT(readRotationSensor()));
     connect(&rotationSensor_,SIGNAL(readingChanged()),this,SLOT(rotationSensorReady()));
 
