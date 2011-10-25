@@ -1,4 +1,13 @@
-ghostsoverboard (0.3.0) unstable; urgency=low
+ghostsoverboard (0.4.0) unstable; urgency=low
+
+  * Another set of levels
+  * Highscore for individual levels and levelsets. Only completed levels
+    are counted in the levelset score (not restarted ones). Time spent paused
+    is not included in the high score times.
+
+ -- Heli Hyvättinen <heli.hyvattinen@kymp.net>  Tue, 25 Oct 2011 14:31:00 +0300
+
+ghostsoverboard (0.4.0) unstable; urgency=low
 
   * game view uses full screen
   * menu integrated to the game view
@@ -7,25 +16,25 @@ ghostsoverboard (0.3.0) unstable; urgency=low
   * vibration setting now saved
   * autopause after 15 minutes, counting reset from starting a level and returning from pause
 
- -- Heli Hyvättinen <helihyvattinen@kymp.net>  Tue, 26 July 2011 18:08:00 +0300
+ -- Heli Hyvättinen <heli.hyvattinen@kymp.net>  Tue, 26 July 2011 18:08:00 +0300
 
-ghostsoverboard (0.2.1) unstable; urgency=low
+ghostsoverboard (0.4.0) unstable; urgency=low
 
   * vibration effects no longer disappear when level changes or is restarted
 
- -- Heli Hyvättinen <helihyvattinen@kymp.net>  Wed, 13 July 2011 15:58:00 +0300
+ -- Heli Hyvättinen <heli.hyvattinen@kymp.net>  Wed, 13 July 2011 15:58:00 +0300
 
-ghostsoverboard (0.2.0) unstable; urgency=low
+ghostsoverboard (0.4.0) unstable; urgency=low
 
   * Octopuses (moving obstacles) added
   * supports multiple levels
   * 4 new levels
   * vibration effects (off by default)
 
- -- Heli Hyvättinen <helihyvattinen@kymp.net>  Tue, 12 July 2011 03:17:00 +0300
+ -- Heli Hyvättinen <heli.hyvattinen@kymp.net>  Tue, 12 July 2011 03:17:00 +0300
 
-ghostsoverboard (0.1.0) unstable; urgency=low
+ghostsoverboard (0.4.0) unstable; urgency=low
 
   * Initial Release.
 
- -- Heli Hyvättinen <helihyvattinen@kymp.net>  Sat, 18 June 2011 11:49:00 +0300
+ -- Heli Hyvättinen <heli.hyvattinen@kymp.net>  Sat, 18 June 2011 11:49:00 +0300
