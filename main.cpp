@@ -28,7 +28,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setApplicationName("Ghosts Overboard");
     a.setOrganizationName("Ghosts Overboard");
-    a.setApplicationVersion("0.3.0");
+    a.setApplicationVersion("0.4.0");
     a.setWindowIcon(QIcon(":/pix/laiva_3aave.png"));
     SeaView w;
 #if defined(Q_WS_S60)

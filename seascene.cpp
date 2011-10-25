@@ -883,9 +883,9 @@ void SeaScene::createAboutBoxItems()
                           "%1 Version %2</b>"
                           "<p><font size = \"6\"> Copyright 2011 Heli Hyv&auml;ttinen"
                           "<p><font size = \"6\"> License: GNU General Public License v2"
-                          "<p><font size = \"6\">  The source code of this game is available trough it's web pages."
-                          "<p><font size = \"6\"> Web: http://ghostsoverboard.garage.maemo.org/<br>"
-                          "Bug Reports: <br> https://bugs.maemo.org/"
+                          "<p><font size = \"6\">  The source code of this game is available trough its web pages."
+                          "<p><font size = \"6\"> Web: http://ghostsoverboard.garage.maemo.org/"
+                          "<p><font size = \"6\">Bug Reports: <br> https://bugs.maemo.org/"
                           "enter_bug.cgi?product=Ghosts%20Overboard"
                           ).arg(QApplication::applicationName(),QApplication::applicationVersion()));
 

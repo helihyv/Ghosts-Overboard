@@ -1,3 +1,22 @@
+ghostsoverboard (0.4.0) unstable; urgency=low
+
+  * Another set of levels
+  * Highscore for individual levels and levelsets. Only completed levels
+    are counted in the levelset score (not restarted ones). Time spent paused
+    is not included in the high score times.
+  * Vibration works
+  * Treshold for ship movement is now 12 degrees instead of 3. Ship no longer
+    keeps moving when the device is laying on a table.
+  * No longer vulnerable to other programs changing the accelometer frequency:
+    ship movement is connected to a timer now instead of arrival of new values.
+    Ship speed may have changed a bit because of these changes.
+  * Only single instance running at time
+  * New application manager icon
+  * Harmattan specific packaging issues: added XB-Maemo_Flags and
+    XB-MeeGo-Desktop-Entry-Filename fields to the control file
+
+ -- Heli Hyvättinen <heli.hyvattinen@kymp.net>  Tue, 25 Oct 2011 13:39:00 +0300
+
 ghostsoverboard (0.3.0) unstable; urgency=low
 
   * First Release for 'Meego 1.2 Harmattan'
