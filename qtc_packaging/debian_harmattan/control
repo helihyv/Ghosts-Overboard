@@ -1,5 +1,5 @@
 Source: ghostsoverboard
-Section: user/other
+Section: user/hidden
 Priority: optional
 Maintainer: Heli Hyvättinen <heli.hyvattinen@kymp.net>
 Build-Depends: debhelper (>= 5), libqt4-dev, libqtm-dev

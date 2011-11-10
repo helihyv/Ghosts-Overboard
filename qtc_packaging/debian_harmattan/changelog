@@ -15,9 +15,9 @@ ghostsoverboard (0.4.0) unstable; urgency=low
   * Harmattan specific packaging issues: added XB-Maemo_Flags and
     XB-MeeGo-Desktop-Entry-Filename fields to the control file
 
- -- Heli Hyvättinen <heli.hyvattinen@kymp.net>  Tue, 25 Oct 2011 13:39:00 +0300
+ -- Heli Hyvättinen <heli.hyvattinen@kymp.net>  Tue, 10 Nov 2011 12:26:00 +0200
 
-ghostsoverboard (0.3.0) unstable; urgency=low
+ghostsoverboard (0.4.0) unstable; urgency=low
 
   * First Release for 'Meego 1.2 Harmattan'
 
