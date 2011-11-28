@@ -10,6 +10,7 @@ QT      += dbus
 TARGET = ghostsoverboard
 TEMPLATE = app
 
+VERSION = 0.4.0
 
 SOURCES += main.cpp\
     orientationcontrolledgraphicspixmapobject.cpp \
