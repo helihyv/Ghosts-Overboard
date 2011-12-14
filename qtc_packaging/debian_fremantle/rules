@@ -7,10 +7,9 @@
 # This special exception was added by Craig Small in version 0.37 of dh-make.
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
-
-
+qmake PREFIX=/usr
 
 
 configure: configure-stamp
@@ -82,7 +81,7 @@ binary-arch: build install
 #	dh_perl
 #	dh_makeshlibs
 	dh_installdeb
-	# dh_shlibdeps                      # Uncomment this line for publishing!
+	dh_shlibdeps                      # Uncomment this line for publishing!
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
