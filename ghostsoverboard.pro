@@ -88,23 +88,23 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/changelog \
 
 
-unix:!symbian:!maemo5 {
-    desktopfile.files = $${TARGET}.desktop
-    desktopfile.path = /usr/share/applications
-    INSTALLS += desktopfile
-}
+#unix:!symbian:!maemo5 {
+#    desktopfile.files = $${TARGET}.desktop
+#    desktopfile.path = /usr/share/applications
+#    INSTALLS += desktopfile
+#}
+
+#unix:!symbian:!maemo5 {
+#    icon.files = ghostsoverboard.svg
+#    icon.path = /usr/share/icons/hicolor/scalable/apps
+#    INSTALLS += icon
+#}
+
 
 unix:!symbian:!maemo5 {
-    icon.files = ghostsoverboard.svg
-    icon.path = /usr/share/icons/hicolor/scalable/apps
-    INSTALLS += icon
-}
-
-
-unix:!symbian:!maemo5 {
-    resourcepolicy.files = ghostsoverboard.conf
-    resourcepolicy.path = /usr/share/policy/etc/syspart.conf.d
-    INSTALLS += resourcepolicy
+#    resourcepolicy.files = ghostsoverboard.conf
+#    resourcepolicy.path = /usr/share/policy/etc/syspart.conf.d
+#    INSTALLS += resourcepolicy
 
 
     CONFIG +=  link_pkgconfig
